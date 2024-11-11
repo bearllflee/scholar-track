@@ -1,0 +1,247 @@
+syntax = "v1"
+
+info (
+	title:   "api-api"
+	desc:    "api-api"
+	author:  "bearllflee"
+	email:   "292378727@qq.com"
+	version: "1.0"
+)
+
+// User
+type (
+	// 用户详情
+	QueryUserDetailReq {
+		Id int64 `path:"id"`
+	}
+	QueryUserDetailResp {
+		Id        int64  `json:"id"`
+		CreatedAt int64  `json:"createdAt"`
+		UpdatedAt int64  `json:"updatedAt"`
+		DeletedAt int64  `json:"deletedAt"`
+		Username  string `json:"username"`
+		Email     string `json:"email"`
+		Phone     string `json:"phone"`
+		Avatar    string `json:"avatar"`
+		Role      int64  `json:"role"`
+		Status    int32  `json:"status"`
+		Nickname  string `json:"nickname"`
+		Gender    int32  `json:"gender"`
+		Major     string `json:"major"`
+		Grade     string `json:"grade"`
+		College   string `json:"college"`
+		Realname  string `json:"realname"`
+		Class     string `json:"class"`
+	}
+	// 用户列表
+	QueryUserListReq {
+		Page     int32  `json:"page"`
+		PageSize int32  `json:"pageSize"`
+		Username string `json:"username,optional"`
+		Email    string `json:"email,optional"`
+		Phone    string `json:"phone,optional"`
+		Nickname string `json:"nickname,optional"`
+		Role     int64  `json:"role,optional"`
+		Status   int32  `json:"status,optional"`
+		Major    string `json:"major,optional"`
+		Grade    string `json:"grade,optional"`
+		College  string `json:"college,optional"`
+		Realname string `json:"realname,optional"`
+		Class    string `json:"class,optional"`
+		Gender   int32  `json:"gender,optional"`
+		OrderBy  string `json:"orderBy,optional"`
+	}
+	QueryUserListResp {
+		Total    int64                  `json:"total"`
+		List     []*QueryUserDetailResp `json:"list"`
+		Page     int32                  `json:"page"`
+		PageSize int32                  `json:"pageSize"`
+	}
+	// 登录
+	LoginReq {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	LoginResp {
+		Token string `json:"token"`
+	}
+	// 注册
+	RegisterReq {
+		Username string `json:"username"`
+		Password string `json:"password"`
+		Email    string `json:"email,optional"`
+		Phone    string `json:"phone,optional"`
+		Nickname string `json:"nickname,optional"`
+		Role     int64  `json:"role"`
+		Gender   int32  `json:"gender"`
+		Major    string `json:"major"`
+		Grade    string `json:"grade"`
+		College  string `json:"college"`
+		Realname string `json:"realname"`
+		Class    string `json:"class"`
+	}
+	RegisterResp {
+		User *QueryUserDetailResp `json:"user"`
+	}
+	// 设置用户角色
+	SetUserRoleReq {
+		UserId  int64   `json:"userId"`
+		RoleIds []int64 `json:"roleIds"`
+	}
+	SetUserRoleResp  {}
+	// 查看自身信息
+	QuerySelfInfoReq  {}
+	QuerySelfInfoResp {
+		User QueryUserDetailResp `json:"user"`
+	}
+	// 修改用户信息
+	SetUserInfoReq {
+		Id       int64  `json:"id"`
+		Username string `json:"username"`
+		Email    string `json:"email"`
+		Phone    string `json:"phone"`
+		Avatar   string `json:"avatar"`
+		Role     int64  `json:"role"`
+		Status   int32  `json:"status"`
+		Nickname string `json:"nickname"`
+		Gender   int32  `json:"gender"`
+		Major    string `json:"major"`
+		Grade    string `json:"grade"`
+		College  string `json:"college"`
+		Realname string `json:"realname"`
+		Class    string `json:"class"`
+	}
+	SetUserInfoResp  {}
+	// 修改自身信息
+	SetSelfInfoReq {
+		Username string `json:"username"`
+		Email    string `json:"email"`
+		Phone    string `json:"phone"`
+		Avatar   string `json:"avatar"`
+		Role     int64  `json:"role"`
+		Status   int32  `json:"status"`
+		Nickname string `json:"nickname"`
+		Gender   int32  `json:"gender"`
+		Major    string `json:"major"`
+		Grade    string `json:"grade"`
+		College  string `json:"college"`
+		Realname string `json:"realname"`
+		Class    string `json:"class"`
+	}
+	SetSelfInfoResp  {}
+	// 重置用户密码
+	ResetPasswordReq {
+		UserId int64 `json:"userId"`
+	}
+	ResetPasswordResp  {}
+	// 修改密码
+	ChangePasswordReq {
+		OldPassword string `json:"oldPassword"`
+		NewPassword string `json:"newPassword"`
+	}
+	ChangePasswordResp  {}
+	// 删除用户
+	DeleteUserReq {
+		UserId int64 `json:"userId"`
+	}
+	DeleteUserResp  {}
+)
+
+// 角色
+type (
+	Role {
+		RoleName  string `json:"roleName"`
+		ParentId  int64  `json:"parentId"`
+		CreatedAt int64  `json:"createdAt"`
+		UpdatedAt int64  `json:"updatedAt"`
+		ID        int64  `json:"id"`
+	}
+	// 角色树
+	RoleTree {
+		Role     *Role       `json:"role"`
+		Children []*RoleTree `json:"children"`
+	}
+	RoleTreeReq {
+		RoleName string `json:"roleName"`
+		Page     int32  `json:"page"`
+		PageSize int32  `json:"pageSize"`
+	}
+	RoleTreeResp {
+		Roles    []*RoleTree `json:"roles"`
+		Total    int64       `json:"total"`
+		Page     int32       `json:"page"`
+		PageSize int32       `json:"pageSize"`
+	}
+	// 添加角色
+	AddRoleReq {
+		RoleName string `json:"roleName"`
+		ParentId int64  `json:"parentId"`
+	}
+	AddRoleResp {
+		Role *Role `json:"role"`
+	}
+)
+
+type (
+	AddPolicyReq {
+		Rules [][]string `json:"rules"`
+	}
+)
+
+@server (
+	group: user
+)
+service scholartrack-api {
+	@handler QueryUserDetailHandler
+	get /user/:id (QueryUserDetailReq) returns (QueryUserDetailResp)
+
+	@handler QueryUserListHandler
+	post /user/list (QueryUserListReq) returns (QueryUserListResp)
+
+	@handler LoginHandler
+	post /user/login (LoginReq) returns (LoginResp)
+
+	@handler RegisterHandler
+	post /user/register (RegisterReq) returns (RegisterResp)
+
+	@handler SetUserRoleHandler
+	post /user/setUserRole (SetUserRoleReq) returns (SetUserRoleResp)
+
+	@handler SetUserInfoHandler
+	post /user/setUserInfo (SetSelfInfoReq) returns (SetUserInfoResp)
+
+	@handler SetSelfInfoHandler
+	post /user/setSelfInfo (SetSelfInfoReq) returns (SetSelfInfoResp)
+
+	@handler ResetPasswordHandler
+	post /user/resetPassword (ResetPasswordReq) returns (ResetPasswordResp)
+
+	@handler ChangePasswordHandler
+	post /user/changePassword (ChangePasswordReq) returns (ChangePasswordResp)
+
+	@handler QuerySelfInfoHandler
+	get /user/selfInfo (QuerySelfInfoReq) returns (QuerySelfInfoResp)
+
+	@handler DeleteUserHandler
+	delete /user/:id (DeleteUserReq) returns (DeleteUserResp)
+}
+
+@server (
+	group: role
+)
+service scholartrack-api {
+	@handler RoleTreeHandler
+	post /role/tree (RoleTreeReq) returns (RoleTreeResp)
+
+	@handler AddRoleHandler
+	post /role/add (AddRoleReq) returns (AddRoleResp)
+}
+
+@server (
+	group: casbin
+)
+service scholartrack-api {
+	@handler AddPoliciesHandler
+	post /casbin/addPolicies (AddPolicyReq)
+}
+
