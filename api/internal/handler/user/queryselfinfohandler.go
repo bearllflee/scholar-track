@@ -1,6 +1,7 @@
 package user
 
 import (
+	"github.com/bearllflee/scholar-track/api/internal/utils"
 	"net/http"
 
 	"github.com/bearllflee/scholar-track/api/internal/logic/user"
@@ -16,8 +17,8 @@ func QuerySelfInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
-
 		l := user.NewQuerySelfInfoLogic(r.Context(), svcCtx)
+		req.ID = uint64(utils.GetUserId(r))
 		resp, err := l.QuerySelfInfo(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)

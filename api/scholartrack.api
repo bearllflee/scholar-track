@@ -90,7 +90,9 @@ type (
 	}
 	SetUserRoleResp  {}
 	// 查看自身信息
-	QuerySelfInfoReq  {}
+	QuerySelfInfoReq {
+		ID uint64 `json:"id"`
+	}
 	QuerySelfInfoResp {
 		User QueryUserDetailResp `json:"user"`
 	}
@@ -114,6 +116,7 @@ type (
 	SetUserInfoResp  {}
 	// 修改自身信息
 	SetSelfInfoReq {
+		ID       uint64 `json:"id"`
 		Username string `json:"username"`
 		Email    string `json:"email"`
 		Phone    string `json:"phone"`

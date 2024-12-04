@@ -208,7 +208,9 @@ message SetSelfInfoReq {
 message SetSelfInfoResp {}
 
 // 查看自身信息
-message QuerySelfInfoReq {}
+message QuerySelfInfoReq {
+  uint64 id = 1;
+}
 message QuerySelfInfoResp {
   QueryUserDetailResp user = 1;
 }

@@ -41,6 +41,7 @@ type LoginResp struct {
 }
 
 type QuerySelfInfoReq struct {
+	ID uint64 `json:"id,optional"`
 }
 
 type QuerySelfInfoResp struct {
@@ -149,7 +150,7 @@ type RoleTreeResp struct {
 }
 
 type SetSelfInfoReq struct {
-	ID       int64  `json:"id,optional"`
+	ID       uint64 `json:"id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`

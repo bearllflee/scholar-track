@@ -2,6 +2,9 @@ package userlogic
 
 import (
 	"context"
+	"github.com/bearllflee/scholar-track/pkg/cerror"
+	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
@@ -24,7 +27,35 @@ func NewQueryUserDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Q
 }
 
 func (l *QueryUserDetailLogic) QueryUserDetail(in *system.QueryUserDetailReq) (*system.QueryUserDetailResp, error) {
-	// todo: add your logic here and delete this line
-
-	return &system.QueryUserDetailResp{}, nil
+	var userModel model.User
+	var c int64
+	err := global.DB.Model(&userModel).Where(in.Id).Count(&c).Error
+	if err != nil {
+		return nil, err
+	}
+	if c == 0 {
+		return nil, cerror.ErrUserNotFound
+	}
+	err = global.DB.Where(in.Id).First(&userModel).Error
+	if err != nil {
+		return nil, err
+	}
+	return &system.QueryUserDetailResp{
+		Id:        int64(userModel.ID),
+		CreatedAt: userModel.CreatedAt.Unix(),
+		UpdatedAt: userModel.UpdatedAt.Unix(),
+		Username:  userModel.Username,
+		Email:     userModel.Email,
+		Avatar:    userModel.Avatar,
+		Role:      int64(userModel.Role),
+		Status:    int32(userModel.Status),
+		Nickname:  userModel.Nickname,
+		Phone:     userModel.Phone,
+		Gender:    int32(userModel.Gender),
+		Major:     userModel.Major,
+		College:   userModel.College,
+		Grade:     userModel.Grade,
+		Class:     userModel.Class,
+		Realname:  userModel.Realname,
+	}, nil
 }

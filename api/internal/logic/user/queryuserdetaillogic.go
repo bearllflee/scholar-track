@@ -34,7 +34,6 @@ func (l *QueryUserDetailLogic) QueryUserDetail(req *types.QueryUserDetailReq) (*
 		Id:        resp.Id,
 		CreatedAt: resp.CreatedAt,
 		UpdatedAt: resp.UpdatedAt,
-		DeletedAt: resp.DeletedAt,
 		Username:  resp.Username,
 		Email:     resp.Email,
 		Phone:     resp.Phone,

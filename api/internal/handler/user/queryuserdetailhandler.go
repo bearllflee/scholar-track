@@ -2,13 +2,14 @@ package user
 
 import (
 	"errors"
+	"github.com/bearllflee/scholar-track/pkg/cerror"
 	"github.com/bearllflee/scholar-track/pkg/response"
+	"google.golang.org/grpc/status"
 	"net/http"
 
 	"github.com/bearllflee/scholar-track/api/internal/logic/user"
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
-	"github.com/zeromicro/go-zero/core/stores/sqlc"
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
@@ -23,8 +24,8 @@ func QueryUserDetailHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := user.NewQueryUserDetailLogic(r.Context(), svcCtx)
 		resp, err := l.QueryUserDetail(&req)
 		if err != nil {
-			if errors.Is(err, sqlc.ErrNotFound) {
-				response.ErrWithMessage(r.Context(), w, "用户不存在")
+			if errors.Is(err, cerror.ErrUserNotFound) {
+				response.ErrWithMessage(r.Context(), w, status.Convert(err).Message())
 			} else {
 				response.ErrWithMessage(r.Context(), w, "查询用户失败")
 			}
