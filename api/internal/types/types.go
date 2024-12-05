@@ -150,7 +150,7 @@ type RoleTreeResp struct {
 }
 
 type SetSelfInfoReq struct {
-	ID       uint64 `json:"id"`
+	ID       uint64 `json:"id,optional"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
@@ -170,7 +170,7 @@ type SetSelfInfoResp struct {
 }
 
 type SetUserInfoReq struct {
-	Id       int64  `json:"id"`
+	ID       int64  `json:"id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`

@@ -1,6 +1,11 @@
 package user
 
 import (
+	"errors"
+	"github.com/bearllflee/scholar-track/pkg/cerror"
+	"github.com/bearllflee/scholar-track/pkg/response"
+	"github.com/zeromicro/go-zero/core/logx"
+	"google.golang.org/grpc/status"
 	"net/http"
 
 	"github.com/bearllflee/scholar-track/api/internal/logic/user"
@@ -11,18 +16,24 @@ import (
 
 func SetUserInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.SetSelfInfoReq
+		var req types.SetUserInfoReq
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			logx.Error("参数错误: ", err)
+			response.ErrWithMessage(r.Context(), w, "参数错误")
 			return
 		}
 
 		l := user.NewSetUserInfoLogic(r.Context(), svcCtx)
-		resp, err := l.SetUserInfo(&req)
+		_, err := l.SetUserInfo(&req)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			if errors.Is(err, cerror.ErrUserNotFound) || errors.Is(err, cerror.ErrUserHasExists) || errors.Is(err, cerror.ErrPhoneHasExists) || errors.Is(err, cerror.ErrEmailHasExists) {
+				response.ErrWithMessage(r.Context(), w, status.Convert(err).Message())
+			} else {
+				l.Logger.Error("更新失败: ", err)
+				response.ErrWithMessage(r.Context(), w, err.Error())
+			}
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
+			response.Success(r.Context(), w)
 		}
 	}
 }

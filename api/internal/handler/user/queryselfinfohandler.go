@@ -2,6 +2,8 @@ package user
 
 import (
 	"github.com/bearllflee/scholar-track/api/internal/utils"
+	"github.com/bearllflee/scholar-track/pkg/response"
+	"github.com/zeromicro/go-zero/core/logx"
 	"net/http"
 
 	"github.com/bearllflee/scholar-track/api/internal/logic/user"
@@ -14,16 +16,18 @@ func QuerySelfInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.QuerySelfInfoReq
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			logx.Error("参数错误:", err)
+			response.ErrWithMessage(r.Context(), w, "参数错误")
 			return
 		}
 		l := user.NewQuerySelfInfoLogic(r.Context(), svcCtx)
 		req.ID = uint64(utils.GetUserId(r))
 		resp, err := l.QuerySelfInfo(&req)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			l.Logger.Error("查询失败: ", err)
+			response.ErrWithMessage(r.Context(), w, err.Error())
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
+			response.SuccessWithData(r.Context(), w, resp)
 		}
 	}
 }

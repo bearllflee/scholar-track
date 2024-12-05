@@ -91,14 +91,14 @@ type (
 	SetUserRoleResp  {}
 	// 查看自身信息
 	QuerySelfInfoReq {
-		ID uint64 `json:"id"`
+		ID uint64 `json:"id,optional"`
 	}
 	QuerySelfInfoResp {
 		User QueryUserDetailResp `json:"user"`
 	}
 	// 修改用户信息
 	SetUserInfoReq {
-		Id       int64  `json:"id"`
+		ID       int64  `json:"id"`
 		Username string `json:"username"`
 		Email    string `json:"email"`
 		Phone    string `json:"phone"`
@@ -116,7 +116,7 @@ type (
 	SetUserInfoResp  {}
 	// 修改自身信息
 	SetSelfInfoReq {
-		ID       uint64 `json:"id"`
+		ID       uint64 `json:"id,optional"`
 		Username string `json:"username"`
 		Email    string `json:"email"`
 		Phone    string `json:"phone"`
@@ -211,7 +211,7 @@ service scholartrack-api {
 	post /user/setUserRole (SetUserRoleReq) returns (SetUserRoleResp)
 
 	@handler SetUserInfoHandler
-	post /user/setUserInfo (SetSelfInfoReq) returns (SetUserInfoResp)
+	post /user/setUserInfo (SetUserInfoReq) returns (SetUserInfoResp)
 
 	@handler SetSelfInfoHandler
 	post /user/setSelfInfo (SetSelfInfoReq) returns (SetSelfInfoResp)

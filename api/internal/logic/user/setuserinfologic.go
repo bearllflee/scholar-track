@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"github.com/bearllflee/scholar-track/rpc/system/client/user"
 
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
@@ -23,8 +24,24 @@ func NewSetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SetUs
 	}
 }
 
-func (l *SetUserInfoLogic) SetUserInfo(req *types.SetSelfInfoReq) (resp *types.SetUserInfoResp, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+func (l *SetUserInfoLogic) SetUserInfo(req *types.SetUserInfoReq) (resp *types.SetUserInfoResp, err error) {
+	_, err = l.svcCtx.User.SetUserInfo(l.ctx, &user.SetUserInfoReq{
+		Id:       req.ID,
+		Username: req.Username,
+		Email:    req.Email,
+		Phone:    req.Phone,
+		Nickname: req.Nickname,
+		Gender:   req.Gender,
+		Major:    req.Major,
+		Grade:    req.Grade,
+		College:  req.College,
+		Realname: req.Realname,
+		Class:    req.Class,
+		Avatar:   req.Avatar,
+		Role:     req.Role,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &types.SetUserInfoResp{}, nil
 }

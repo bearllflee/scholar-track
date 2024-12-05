@@ -2,7 +2,8 @@ package userlogic
 
 import (
 	"context"
-
+	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
 
@@ -24,7 +25,32 @@ func NewSetSelfInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SetSe
 }
 
 func (l *SetSelfInfoLogic) SetSelfInfo(in *system.SetSelfInfoReq) (*system.SetSelfInfoResp, error) {
-	// todo: add your logic here and delete this line
-
+	modelUser := model.User{
+		StModel: global.StModel{
+			ID: uint(in.Id),
+		},
+		Username: in.Username,
+		Email:    in.Email,
+		Avatar:   in.Avatar,
+		Role:     uint(in.Role),
+		Nickname: in.Nickname,
+		Phone:    in.Phone,
+		Gender:   int8(in.Gender),
+		Major:    in.Major,
+		College:  in.College,
+		Grade:    in.Grade,
+		Class:    in.Class,
+		Realname: in.Realname,
+	}
+	err := IfUniqueHasExists(&modelUser)
+	if err != nil {
+		return nil, err
+	}
+	err = global.DB.Model(&model.User{}).Select(
+		"username", "email", "avatar", "role", "nickname", "phone", "gender", "major", "college", "grade", "class", "realname",
+	).Where("id = ?", modelUser.ID).Updates(&modelUser).Error
+	if err != nil {
+		return nil, err
+	}
 	return &system.SetSelfInfoResp{}, nil
 }
