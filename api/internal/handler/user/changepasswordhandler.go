@@ -1,6 +1,12 @@
 package user
 
 import (
+	"errors"
+	"github.com/bearllflee/scholar-track/api/internal/utils"
+	"github.com/bearllflee/scholar-track/pkg/cerror"
+	"github.com/bearllflee/scholar-track/pkg/response"
+	"github.com/zeromicro/go-zero/core/logx"
+	"google.golang.org/grpc/status"
 	"net/http"
 
 	"github.com/bearllflee/scholar-track/api/internal/logic/user"
@@ -13,16 +19,22 @@ func ChangePasswordHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.ChangePasswordReq
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			logx.Error("参数错误: ", err)
+			response.ErrWithMessage(r.Context(), w, "参数错误")
 			return
 		}
-
+		req.UserId = uint64(utils.GetUserId(r))
 		l := user.NewChangePasswordLogic(r.Context(), svcCtx)
-		resp, err := l.ChangePassword(&req)
+
+		_, err := l.ChangePassword(&req)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			if errors.Is(err, cerror.ErrUserNotFound) || errors.Is(err, cerror.ErrPasswordWrong) {
+				response.ErrWithMessage(r.Context(), w, status.Convert(err).Message())
+			} else {
+				response.ErrWithMessage(r.Context(), w, err.Error())
+			}
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
+			response.Success(r.Context(), w)
 		}
 	}
 }

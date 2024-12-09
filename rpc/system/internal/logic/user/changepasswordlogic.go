@@ -2,7 +2,8 @@ package userlogic
 
 import (
 	"context"
-
+	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
 
@@ -24,7 +25,10 @@ func NewChangePasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ch
 }
 
 func (l *ChangePasswordLogic) ChangePassword(in *system.ChangePasswordReq) (*system.ChangePasswordResp, error) {
-	// todo: add your logic here and delete this line
-
+	var userModel model.User
+	err := global.DB.Model(&userModel).Where("id = ?", in.UserId).Update("password", in.NewPassword).Error
+	if err != nil {
+		return nil, err
+	}
 	return &system.ChangePasswordResp{}, nil
 }

@@ -17,6 +17,7 @@ type AddRoleResp struct {
 }
 
 type ChangePasswordReq struct {
+	UserId      uint64 `json:"userId,optional"`
 	OldPassword string `json:"oldPassword"`
 	NewPassword string `json:"newPassword"`
 }
@@ -70,6 +71,7 @@ type QueryUserDetailResp struct {
 	College   string `json:"college"`
 	Realname  string `json:"realname"`
 	Class     string `json:"class"`
+	Password  string `json:"password"`
 }
 
 type QueryUserListReq struct {

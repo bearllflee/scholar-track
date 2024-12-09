@@ -32,6 +32,7 @@ type (
 		College   string `json:"college"`
 		Realname  string `json:"realname"`
 		Class     string `json:"class"`
+		Password  string `json:"password"`
 	}
 	// 用户列表
 	QueryUserListReq {
@@ -139,6 +140,7 @@ type (
 	ResetPasswordResp  {}
 	// 修改密码
 	ChangePasswordReq {
+		UserId      uint64 `json:"userId,optional"`
 		OldPassword string `json:"oldPassword"`
 		NewPassword string `json:"newPassword"`
 	}

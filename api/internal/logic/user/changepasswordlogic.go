@@ -2,6 +2,9 @@ package user
 
 import (
 	"context"
+	"github.com/bearllflee/scholar-track/api/internal/utils"
+	"github.com/bearllflee/scholar-track/pkg/cerror"
+	"github.com/bearllflee/scholar-track/rpc/system/client/user"
 
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
@@ -24,7 +27,18 @@ func NewChangePasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ch
 }
 
 func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp *types.ChangePasswordResp, err error) {
-	// todo: add your logic here and delete this line
-
+	userDetail, err := l.svcCtx.User.QueryUserDetail(l.ctx, &user.QueryUserDetailReq{
+		Id: int64(req.UserId),
+	})
+	if err != nil {
+		return
+	}
+	if !utils.BcryptCheck(req.OldPassword, userDetail.Password) {
+		return nil, cerror.ErrPasswordWrong
+	}
+	_, err = l.svcCtx.User.ChangePassword(l.ctx, &user.ChangePasswordReq{
+		UserId:      req.UserId,
+		NewPassword: utils.BcryptHash(req.NewPassword),
+	})
 	return
 }

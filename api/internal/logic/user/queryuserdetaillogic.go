@@ -47,5 +47,6 @@ func (l *QueryUserDetailLogic) QueryUserDetail(req *types.QueryUserDetailReq) (*
 		College:   resp.College,
 		Realname:  resp.Realname,
 		Class:     resp.Class,
+		Password:  resp.Password,
 	}, nil
 }

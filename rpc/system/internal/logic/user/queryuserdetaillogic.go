@@ -57,5 +57,6 @@ func (l *QueryUserDetailLogic) QueryUserDetail(in *system.QueryUserDetailReq) (*
 		Grade:     userModel.Grade,
 		Class:     userModel.Class,
 		Realname:  userModel.Realname,
+		Password:  userModel.Password,
 	}, nil
 }

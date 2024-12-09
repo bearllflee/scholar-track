@@ -111,6 +111,7 @@ message QueryUserDetailResp {
   string grade = 15;           // 年级
   string class = 16;           // 班级
   string realname = 17;         // 姓名
+  string password = 18;
 }
 
 // 查看用户列表
@@ -230,7 +231,7 @@ message ResetPasswordResp {}
 
 // 修改密码
 message ChangePasswordReq {
-  string old_password = 1;
+  uint64 user_id = 1;
   string new_password = 2;
 }
 message ChangePasswordResp {}
