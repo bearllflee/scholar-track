@@ -147,7 +147,7 @@ type (
 	ChangePasswordResp  {}
 	// 删除用户
 	DeleteUserReq {
-		UserId int64 `json:"userId"`
+		UserId int64 `path:"id"`
 	}
 	DeleteUserResp  {}
 )

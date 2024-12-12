@@ -26,7 +26,7 @@ type ChangePasswordResp struct {
 }
 
 type DeleteUserReq struct {
-	UserId int64 `json:"userId"`
+	UserId int64 `path:"id"`
 }
 
 type DeleteUserResp struct {

@@ -3,6 +3,8 @@ package userlogic
 import (
 	"context"
 
+	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
 
@@ -24,7 +26,9 @@ func NewDeleteUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteUserLogic) DeleteUser(in *system.DeleteUserReq) (*system.DeleteUserResp, error) {
-	// todo: add your logic here and delete this line
-
+	err := global.DB.Delete(&model.User{}, in.UserId).Error
+	if err != nil {
+		return nil, err
+	}
 	return &system.DeleteUserResp{}, nil
 }
