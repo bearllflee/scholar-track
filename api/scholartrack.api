@@ -135,7 +135,7 @@ type (
 	SetSelfInfoResp  {}
 	// 重置用户密码
 	ResetPasswordReq {
-		UserId int64 `json:"userId"`
+		UserId uint64 `json:"userId"`
 	}
 	ResetPasswordResp  {}
 	// 修改密码

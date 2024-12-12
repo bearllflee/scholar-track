@@ -2,6 +2,8 @@ package user
 
 import (
 	"context"
+	"github.com/bearllflee/scholar-track/api/internal/utils"
+	"github.com/bearllflee/scholar-track/rpc/system/client/user"
 
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
@@ -24,7 +26,16 @@ func NewResetPasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Res
 }
 
 func (l *ResetPasswordLogic) ResetPassword(req *types.ResetPasswordReq) (resp *types.ResetPasswordResp, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	_, err = l.svcCtx.User.QueryUserDetail(l.ctx, &user.QueryUserDetailReq{Id: int64(req.UserId)})
+	if err != nil {
+		return nil, err
+	}
+	_, err = l.svcCtx.User.ResetPassword(l.ctx, &user.ResetPasswordReq{
+		UserId:   req.UserId,
+		Password: utils.BcryptHash("bearllflee"),
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &types.ResetPasswordResp{}, nil
 }

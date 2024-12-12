@@ -119,7 +119,7 @@ type RegisterResp struct {
 }
 
 type ResetPasswordReq struct {
-	UserId int64 `json:"userId"`
+	UserId uint64 `json:"userId"`
 }
 
 type ResetPasswordResp struct {

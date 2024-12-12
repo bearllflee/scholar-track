@@ -225,7 +225,8 @@ message SetUserRoleResp {}
 
 // 重置用户密码
 message ResetPasswordReq {
-  int64 user_id = 1;
+  uint64 user_id = 1;
+  string password = 2;
 }
 message ResetPasswordResp {}
 

@@ -2,6 +2,8 @@ package userlogic
 
 import (
 	"context"
+	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
@@ -24,7 +26,9 @@ func NewResetPasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Res
 }
 
 func (l *ResetPasswordLogic) ResetPassword(in *system.ResetPasswordReq) (*system.ResetPasswordResp, error) {
-	// todo: add your logic here and delete this line
-
+	err := global.DB.Model(&model.User{}).Where("id = ?", in.UserId).Update("password", in.Password).Error
+	if err != nil {
+		return nil, err
+	}
 	return &system.ResetPasswordResp{}, nil
 }
