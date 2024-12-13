@@ -9,7 +9,7 @@ type AddPolicyReq struct {
 
 type AddRoleReq struct {
 	RoleName string `json:"roleName"`
-	ParentId int64  `json:"parentId"`
+	ParentId uint64 `json:"parentId"`
 }
 
 type AddRoleResp struct {
@@ -26,7 +26,7 @@ type ChangePasswordResp struct {
 }
 
 type DeleteUserReq struct {
-	UserId int64 `path:"id"`
+	UserId uint64 `path:"id"`
 }
 
 type DeleteUserResp struct {
@@ -42,7 +42,7 @@ type LoginResp struct {
 }
 
 type QuerySelfInfoReq struct {
-	ID uint64 `json:"id,optional"`
+	Id uint64 `json:"id,optional"`
 }
 
 type QuerySelfInfoResp struct {
@@ -50,19 +50,19 @@ type QuerySelfInfoResp struct {
 }
 
 type QueryUserDetailReq struct {
-	Id int64 `path:"id"`
+	Id uint64 `path:"id"`
 }
 
 type QueryUserDetailResp struct {
-	Id        int64  `json:"id"`
+	Id        uint64 `json:"id"`
 	CreatedAt int64  `json:"createdAt"`
 	UpdatedAt int64  `json:"updatedAt"`
-	DeletedAt int64  `json:"deletedAt"`
+	DeletedAt int64  `json:"-"`
 	Username  string `json:"username"`
 	Email     string `json:"email"`
 	Phone     string `json:"phone"`
 	Avatar    string `json:"avatar"`
-	Role      int64  `json:"role"`
+	Role      uint64 `json:"role"`
 	Status    int32  `json:"status"`
 	Nickname  string `json:"nickname"`
 	Gender    int32  `json:"gender"`
@@ -71,17 +71,17 @@ type QueryUserDetailResp struct {
 	College   string `json:"college"`
 	Realname  string `json:"realname"`
 	Class     string `json:"class"`
-	Password  string `json:"password"`
+	Password  string `json:"-"`
 }
 
 type QueryUserListReq struct {
-	Page     int32  `json:"page"`
-	PageSize int32  `json:"pageSize"`
+	Page     uint64 `json:"page"`
+	PageSize uint64 `json:"pageSize"`
 	Username string `json:"username,optional"`
 	Email    string `json:"email,optional"`
 	Phone    string `json:"phone,optional"`
 	Nickname string `json:"nickname,optional"`
-	Role     int64  `json:"role,optional"`
+	Role     uint64 `json:"role,optional"`
 	Status   int32  `json:"status,optional"`
 	Major    string `json:"major,optional"`
 	Grade    string `json:"grade,optional"`
@@ -93,10 +93,10 @@ type QueryUserListReq struct {
 }
 
 type QueryUserListResp struct {
-	Total    int64                  `json:"total"`
+	Total    uint64                 `json:"total"`
 	List     []*QueryUserDetailResp `json:"list"`
-	Page     int32                  `json:"page"`
-	PageSize int32                  `json:"pageSize"`
+	Page     uint64                 `json:"page"`
+	PageSize uint64                 `json:"pageSize"`
 }
 
 type RegisterReq struct {
@@ -105,7 +105,7 @@ type RegisterReq struct {
 	Email    string `json:"email,optional"`
 	Phone    string `json:"phone,optional"`
 	Nickname string `json:"nickname,optional"`
-	Role     int64  `json:"role"`
+	Role     uint64 `json:"role"`
 	Gender   int32  `json:"gender"`
 	Major    string `json:"major"`
 	Grade    string `json:"grade"`
@@ -127,10 +127,10 @@ type ResetPasswordResp struct {
 
 type Role struct {
 	RoleName  string `json:"roleName"`
-	ParentId  int64  `json:"parentId"`
+	ParentId  uint64 `json:"parentId"`
 	CreatedAt int64  `json:"createdAt"`
 	UpdatedAt int64  `json:"updatedAt"`
-	ID        int64  `json:"id"`
+	Id        uint64 `json:"id"`
 }
 
 type RoleTree struct {
@@ -152,12 +152,12 @@ type RoleTreeResp struct {
 }
 
 type SetSelfInfoReq struct {
-	ID       uint64 `json:"id,optional"`
+	Id       uint64 `json:"id,optional"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
 	Avatar   string `json:"avatar"`
-	Role     int64  `json:"role"`
+	Role     uint64 `json:"role"`
 	Status   int32  `json:"status"`
 	Nickname string `json:"nickname"`
 	Gender   int32  `json:"gender"`
@@ -172,12 +172,12 @@ type SetSelfInfoResp struct {
 }
 
 type SetUserInfoReq struct {
-	ID       int64  `json:"id"`
+	Id       uint64 `json:"id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
 	Avatar   string `json:"avatar"`
-	Role     int64  `json:"role"`
+	Role     uint64 `json:"role"`
 	Status   int32  `json:"status"`
 	Nickname string `json:"nickname"`
 	Gender   int32  `json:"gender"`
@@ -192,8 +192,8 @@ type SetUserInfoResp struct {
 }
 
 type SetUserRoleReq struct {
-	UserId  int64   `json:"userId"`
-	RoleIds []int64 `json:"roleIds"`
+	UserId  uint64   `json:"userId"`
+	RoleIds []uint64 `json:"roleIds"`
 }
 
 type SetUserRoleResp struct {

@@ -23,4 +23,5 @@ var (
 
 var (
 	ErrRoleHasExists = status.Error(301, "角色已存在")
+	ErrRoleNotExists = status.Error(302, "角色不存在")
 )

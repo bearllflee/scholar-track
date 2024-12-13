@@ -26,7 +26,7 @@ func NewResetPasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Res
 }
 
 func (l *ResetPasswordLogic) ResetPassword(req *types.ResetPasswordReq) (resp *types.ResetPasswordResp, err error) {
-	_, err = l.svcCtx.User.QueryUserDetail(l.ctx, &user.QueryUserDetailReq{Id: int64(req.UserId)})
+	_, err = l.svcCtx.User.QueryUserDetail(l.ctx, &user.QueryUserDetailReq{Id: req.UserId})
 	if err != nil {
 		return nil, err
 	}

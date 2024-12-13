@@ -25,7 +25,7 @@ func NewQuerySelfInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Que
 }
 
 func (l *QuerySelfInfoLogic) QuerySelfInfo(req *types.QuerySelfInfoReq) (resp *types.QuerySelfInfoResp, err error) {
-	info, err := l.svcCtx.User.QuerySelfInfo(l.ctx, &user.QuerySelfInfoReq{Id: req.ID})
+	info, err := l.svcCtx.User.QuerySelfInfo(l.ctx, &user.QuerySelfInfoReq{Id: req.Id})
 	if err != nil {
 		return nil, err
 	}

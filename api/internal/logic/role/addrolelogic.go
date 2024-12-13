@@ -25,15 +25,10 @@ func NewAddRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddRoleLo
 }
 
 func (l *AddRoleLogic) AddRole(req *types.AddRoleReq) (*types.AddRoleResp, error) {
-	// 1. 检查角色是否存在
-	// exist, err := l.svcCtx.Role.FindOne(l.ctx, req.ParentId)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// 2. 添加角色
+	// 1. 添加角色
 	resp, err := l.svcCtx.Role.AddRole(l.ctx, &role.AddRoleReq{
 		RoleName: req.RoleName,
-		ParentId: uint64(req.ParentId),
+		ParentId: req.ParentId,	
 	})
 	if err != nil {
 		return nil, err
@@ -41,8 +36,8 @@ func (l *AddRoleLogic) AddRole(req *types.AddRoleReq) (*types.AddRoleResp, error
 	return &types.AddRoleResp{
 		Role: &types.Role{
 			RoleName: resp.Role.RoleName,
-			ParentId: int64(resp.Role.ParentId),
-			ID:       int64(resp.Role.Id),
+			ParentId: resp.Role.ParentId,
+			Id:       resp.Role.Id,
 		},
 	}, nil
 }

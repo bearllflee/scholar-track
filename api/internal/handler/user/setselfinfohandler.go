@@ -23,7 +23,7 @@ func SetSelfInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			response.ErrWithMessage(r.Context(), w, "参数错误")
 			return
 		}
-		req.ID = uint64(utils.GetUserId(r))
+		req.Id = utils.GetUserId(r)
 		l := user.NewSetSelfInfoLogic(r.Context(), svcCtx)
 		_, err := l.SetSelfInfo(&req)
 		if err != nil {

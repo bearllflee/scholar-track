@@ -25,8 +25,8 @@ func NewQueryUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Que
 
 func (l *QueryUserListLogic) QueryUserList(req *types.QueryUserListReq) (*types.QueryUserListResp, error) {
 	resp, err := l.svcCtx.User.QueryUserList(l.ctx, &user.QueryUserListReq{
-		Page:     int64(req.Page),
-		PageSize: int64(req.PageSize),
+		Page:     req.Page,
+		PageSize: req.PageSize,
 		Role:     req.Role,
 		Status:   req.Status,
 		Realname: req.Realname,

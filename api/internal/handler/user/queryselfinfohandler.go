@@ -21,7 +21,7 @@ func QuerySelfInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 		l := user.NewQuerySelfInfoLogic(r.Context(), svcCtx)
-		req.ID = uint64(utils.GetUserId(r))
+		req.Id = utils.GetUserId(r)
 		resp, err := l.QuerySelfInfo(&req)
 		if err != nil {
 			l.Logger.Error("查询失败: ", err)

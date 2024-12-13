@@ -33,17 +33,17 @@ func (l *QuerySelfInfoLogic) QuerySelfInfo(in *system.QuerySelfInfoReq) (*system
 	}
 	return &system.QuerySelfInfoResp{
 		User: &system.QueryUserDetailResp{
-			Id:        int64(userModel.ID),
+			Id:        userModel.Id,
 			CreatedAt: userModel.CreatedAt.Unix(),
 			UpdatedAt: userModel.UpdatedAt.Unix(),
 			Username:  userModel.Username,
 			Email:     userModel.Email,
 			Avatar:    userModel.Avatar,
-			Role:      int64(userModel.Role),
-			Status:    int32(userModel.Status),
+			Role:      userModel.Role,
+			Status:    userModel.Status,
 			Nickname:  userModel.Nickname,
 			Phone:     userModel.Phone,
-			Gender:    int32(userModel.Gender),
+			Gender:    userModel.Gender,
 			Major:     userModel.Major,
 			College:   userModel.College,
 			Grade:     userModel.Grade,

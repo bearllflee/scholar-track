@@ -12,18 +12,18 @@ info (
 type (
 	// 用户详情
 	QueryUserDetailReq {
-		Id int64 `path:"id"`
+		Id uint64 `path:"id"`
 	}
 	QueryUserDetailResp {
-		Id        int64  `json:"id"`
+		Id        uint64 `json:"id"`
 		CreatedAt int64  `json:"createdAt"`
 		UpdatedAt int64  `json:"updatedAt"`
-		DeletedAt int64  `json:"deletedAt"`
+		DeletedAt int64  `json:"-"`
 		Username  string `json:"username"`
 		Email     string `json:"email"`
 		Phone     string `json:"phone"`
 		Avatar    string `json:"avatar"`
-		Role      int64  `json:"role"`
+		Role      uint64 `json:"role"`
 		Status    int32  `json:"status"`
 		Nickname  string `json:"nickname"`
 		Gender    int32  `json:"gender"`
@@ -32,17 +32,17 @@ type (
 		College   string `json:"college"`
 		Realname  string `json:"realname"`
 		Class     string `json:"class"`
-		Password  string `json:"password"`
+		Password  string `json:"-"`
 	}
 	// 用户列表
 	QueryUserListReq {
-		Page     int32  `json:"page"`
-		PageSize int32  `json:"pageSize"`
+		Page     uint64 `json:"page"`
+		PageSize uint64 `json:"pageSize"`
 		Username string `json:"username,optional"`
 		Email    string `json:"email,optional"`
 		Phone    string `json:"phone,optional"`
 		Nickname string `json:"nickname,optional"`
-		Role     int64  `json:"role,optional"`
+		Role     uint64 `json:"role,optional"`
 		Status   int32  `json:"status,optional"`
 		Major    string `json:"major,optional"`
 		Grade    string `json:"grade,optional"`
@@ -53,10 +53,10 @@ type (
 		OrderBy  string `json:"orderBy,optional"`
 	}
 	QueryUserListResp {
-		Total    int64                  `json:"total"`
+		Total    uint64                 `json:"total"`
 		List     []*QueryUserDetailResp `json:"list"`
-		Page     int32                  `json:"page"`
-		PageSize int32                  `json:"pageSize"`
+		Page     uint64                 `json:"page"`
+		PageSize uint64                 `json:"pageSize"`
 	}
 	// 登录
 	LoginReq {
@@ -73,7 +73,7 @@ type (
 		Email    string `json:"email,optional"`
 		Phone    string `json:"phone,optional"`
 		Nickname string `json:"nickname,optional"`
-		Role     int64  `json:"role"`
+		Role     uint64 `json:"role"`
 		Gender   int32  `json:"gender"`
 		Major    string `json:"major"`
 		Grade    string `json:"grade"`
@@ -86,25 +86,25 @@ type (
 	}
 	// 设置用户角色
 	SetUserRoleReq {
-		UserId  int64   `json:"userId"`
-		RoleIds []int64 `json:"roleIds"`
+		UserId  uint64   `json:"userId"`
+		RoleIds []uint64 `json:"roleIds"`
 	}
 	SetUserRoleResp  {}
 	// 查看自身信息
 	QuerySelfInfoReq {
-		ID uint64 `json:"id,optional"`
+		Id uint64 `json:"id,optional"`
 	}
 	QuerySelfInfoResp {
 		User QueryUserDetailResp `json:"user"`
 	}
 	// 修改用户信息
 	SetUserInfoReq {
-		ID       int64  `json:"id"`
+		Id       uint64 `json:"id"`
 		Username string `json:"username"`
 		Email    string `json:"email"`
 		Phone    string `json:"phone"`
 		Avatar   string `json:"avatar"`
-		Role     int64  `json:"role"`
+		Role     uint64 `json:"role"`
 		Status   int32  `json:"status"`
 		Nickname string `json:"nickname"`
 		Gender   int32  `json:"gender"`
@@ -117,12 +117,12 @@ type (
 	SetUserInfoResp  {}
 	// 修改自身信息
 	SetSelfInfoReq {
-		ID       uint64 `json:"id,optional"`
+		Id       uint64 `json:"id,optional"`
 		Username string `json:"username"`
 		Email    string `json:"email"`
 		Phone    string `json:"phone"`
 		Avatar   string `json:"avatar"`
-		Role     int64  `json:"role"`
+		Role     uint64 `json:"role"`
 		Status   int32  `json:"status"`
 		Nickname string `json:"nickname"`
 		Gender   int32  `json:"gender"`
@@ -147,7 +147,7 @@ type (
 	ChangePasswordResp  {}
 	// 删除用户
 	DeleteUserReq {
-		UserId int64 `path:"id"`
+		UserId uint64 `path:"id"`
 	}
 	DeleteUserResp  {}
 )
@@ -156,10 +156,10 @@ type (
 type (
 	Role {
 		RoleName  string `json:"roleName"`
-		ParentId  int64  `json:"parentId"`
+		ParentId  uint64 `json:"parentId"`
 		CreatedAt int64  `json:"createdAt"`
 		UpdatedAt int64  `json:"updatedAt"`
-		ID        int64  `json:"id"`
+		Id        uint64 `json:"id"`
 	}
 	// 角色树
 	RoleTree {
@@ -180,7 +180,7 @@ type (
 	// 添加角色
 	AddRoleReq {
 		RoleName string `json:"roleName"`
-		ParentId int64  `json:"parentId"`
+		ParentId uint64 `json:"parentId"`
 	}
 	AddRoleResp {
 		Role *Role `json:"role"`

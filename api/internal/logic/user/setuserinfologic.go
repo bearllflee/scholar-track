@@ -26,7 +26,7 @@ func NewSetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SetUs
 
 func (l *SetUserInfoLogic) SetUserInfo(req *types.SetUserInfoReq) (resp *types.SetUserInfoResp, err error) {
 	_, err = l.svcCtx.User.SetUserInfo(l.ctx, &user.SetUserInfoReq{
-		Id:       req.ID,
+		Id:       req.Id,
 		Username: req.Username,
 		Email:    req.Email,
 		Phone:    req.Phone,

@@ -30,10 +30,10 @@ func (l *RegisterLogic) Register(in *system.RegisterReq) (*system.RegisterResp, 
 	userModel := &model.User{
 		Username: in.Username,
 		Email:    in.Email,
-		Role:     uint(in.Role),
+		Role:     in.Role,
 		Nickname: in.Nickname,
 		Phone:    in.Phone,
-		Gender:   int8(in.Gender),
+		Gender:   in.Gender,
 		Major:    in.Major,
 		College:  in.College,
 		Grade:    in.Grade,
@@ -51,15 +51,15 @@ func (l *RegisterLogic) Register(in *system.RegisterReq) (*system.RegisterResp, 
 	}
 	return &system.RegisterResp{
 		User: &user.QueryUserDetailResp{
-			Id:        int64(userModel.ID),
+			Id:        userModel.Id,
 			CreatedAt: userModel.CreatedAt.Unix(),
 			UpdatedAt: userModel.UpdatedAt.Unix(),
 			Username:  userModel.Username,
 			Email:     userModel.Email,
-			Role:      int64(userModel.Role),
+			Role:      userModel.Role,
 			Nickname:  userModel.Nickname,
 			Phone:     userModel.Phone,
-			Gender:    int32(userModel.Gender),
+			Gender:    userModel.Gender,
 			Major:     userModel.Major,
 			College:   userModel.College,
 			Grade:     userModel.Grade,
@@ -72,8 +72,8 @@ func (l *RegisterLogic) Register(in *system.RegisterReq) (*system.RegisterResp, 
 func IfUniqueHasExists(user *model.User) error {
 	var c int64
 	var err error
-	if user.ID != 0 {
-		err = global.DB.Model(user).Where("username = ? and id != ?", user.Username, user.ID).Count(&c).Error
+	if user.Id != 0 {
+		err = global.DB.Model(user).Where("username = ? and id != ?", user.Username, user.Id).Count(&c).Error
 	} else {
 		err = global.DB.Model(user).Where("username = ?", user.Username).Count(&c).Error
 	}
@@ -83,8 +83,8 @@ func IfUniqueHasExists(user *model.User) error {
 	if c > 0 {
 		return cerror.ErrUserHasExists
 	}
-	if user.ID != 0 {
-		err = global.DB.Model(user).Where("email = ? and id != ?", user.Email, user.ID).Count(&c).Error
+	if user.Id != 0 {
+		err = global.DB.Model(user).Where("email = ? and id != ?", user.Email, user.Id).Count(&c).Error
 	} else {
 		err = global.DB.Model(user).Where("email = ?", user.Email).Count(&c).Error
 	}
@@ -94,8 +94,8 @@ func IfUniqueHasExists(user *model.User) error {
 	if c > 0 {
 		return cerror.ErrEmailHasExists
 	}
-	if user.ID != 0 {
-		err = global.DB.Model(user).Where("phone = ? and id != ?", user.Phone, user.ID).Count(&c).Error
+	if user.Id != 0 {
+		err = global.DB.Model(user).Where("phone = ? and id != ?", user.Phone, user.Id).Count(&c).Error
 	} else {
 		err = global.DB.Model(user).Where("phone = ?", user.Phone).Count(&c).Error
 	}

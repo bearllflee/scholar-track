@@ -25,7 +25,7 @@ func NewSetSelfInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SetSe
 
 func (l *SetSelfInfoLogic) SetSelfInfo(req *types.SetSelfInfoReq) (resp *types.SetSelfInfoResp, err error) {
 	_, err = l.svcCtx.User.SetSelfInfo(l.ctx, &user.SetSelfInfoReq{
-		Id:       int64(req.ID),
+		Id:       req.Id,
 		Username: req.Username,
 		Email:    req.Email,
 		Phone:    req.Phone,

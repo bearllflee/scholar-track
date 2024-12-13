@@ -54,7 +54,7 @@ func GetClaims(r *http.Request) (*types.CustomClaims, error) {
 	return claims, err
 }
 
-func GetUserId(r *http.Request) int64 {
+func GetUserId(r *http.Request) uint64 {
 	if claims := r.Context().Value("claims"); claims == nil {
 		if cl, err := GetClaims(r); err == nil {
 			return cl.BaseClaims.ID

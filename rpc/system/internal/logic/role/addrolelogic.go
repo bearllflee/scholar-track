@@ -37,7 +37,7 @@ func (l *AddRoleLogic) AddRole(in *system.AddRoleReq) (*system.AddRoleResp, erro
 	}
 	roleModel := &model.Role{
 		RoleName: in.RoleName,
-		ParentID: uint(in.ParentId),
+		ParentId: in.ParentId,
 	}
 	err = global.DB.Create(roleModel).Error
 	if err != nil {
@@ -46,9 +46,9 @@ func (l *AddRoleLogic) AddRole(in *system.AddRoleReq) (*system.AddRoleResp, erro
 
 	return &system.AddRoleResp{
 		Role: &system.RoleResp{
-			Id:       uint64(roleModel.ID),
+			Id:       roleModel.Id,
 			RoleName: roleModel.RoleName,
-			ParentId: uint64(roleModel.ParentID),
+			ParentId: roleModel.ParentId,
 		},
 	}, nil
 }

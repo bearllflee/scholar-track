@@ -37,14 +37,14 @@ func (l *SetUserInfoLogic) SetUserInfo(in *system.SetUserInfoReq) (*system.SetUs
 		return nil, cerror.ErrUserNotFound
 	}
 	modelUser = model.User{
-		StModel:  global.StModel{ID: uint(in.Id)},
+		StModel:  global.StModel{Id: in.Id},
 		Username: in.Username,
 		Email:    in.Email,
 		Avatar:   in.Avatar,
-		Role:     uint(in.Role),
+		Role:     in.Role,
 		Nickname: in.Nickname,
 		Phone:    in.Phone,
-		Gender:   int8(in.Gender),
+		Gender:   in.Gender,
 		Major:    in.Major,
 		College:  in.College,
 		Grade:    in.Grade,
@@ -57,7 +57,7 @@ func (l *SetUserInfoLogic) SetUserInfo(in *system.SetUserInfoReq) (*system.SetUs
 	}
 	err = global.DB.Model(&model.User{}).Select(
 		"username", "email", "avatar", "role", "nickname", "phone", "gender", "major", "college", "grade", "class", "realname",
-	).Where("id = ?", modelUser.ID).Updates(&modelUser).Error
+	).Where("id = ?", modelUser.Id).Updates(&modelUser).Error
 	if err != nil {
 		return nil, err
 	}

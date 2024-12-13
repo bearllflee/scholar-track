@@ -28,7 +28,7 @@ func NewChangePasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ch
 
 func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp *types.ChangePasswordResp, err error) {
 	userDetail, err := l.svcCtx.User.QueryUserDetail(l.ctx, &user.QueryUserDetailReq{
-		Id: int64(req.UserId),
+		Id: req.UserId,
 	})
 	if err != nil {
 		return

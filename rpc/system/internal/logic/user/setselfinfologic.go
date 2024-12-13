@@ -27,15 +27,15 @@ func NewSetSelfInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SetSe
 func (l *SetSelfInfoLogic) SetSelfInfo(in *system.SetSelfInfoReq) (*system.SetSelfInfoResp, error) {
 	modelUser := model.User{
 		StModel: global.StModel{
-			ID: uint(in.Id),
+			Id: in.Id,
 		},
 		Username: in.Username,
 		Email:    in.Email,
 		Avatar:   in.Avatar,
-		Role:     uint(in.Role),
+		Role:     in.Role,
 		Nickname: in.Nickname,
 		Phone:    in.Phone,
-		Gender:   int8(in.Gender),
+		Gender:   in.Gender,
 		Major:    in.Major,
 		College:  in.College,
 		Grade:    in.Grade,
@@ -48,7 +48,7 @@ func (l *SetSelfInfoLogic) SetSelfInfo(in *system.SetSelfInfoReq) (*system.SetSe
 	}
 	err = global.DB.Model(&model.User{}).Select(
 		"username", "email", "avatar", "role", "nickname", "phone", "gender", "major", "college", "grade", "class", "realname",
-	).Where("id = ?", modelUser.ID).Updates(&modelUser).Error
+	).Where("id = ?", modelUser.Id).Updates(&modelUser).Error
 	if err != nil {
 		return nil, err
 	}

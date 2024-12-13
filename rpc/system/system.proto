@@ -91,17 +91,17 @@ service Role {
 
 // 查看用户信息
 message QueryUserDetailReq {
-  int64 id = 1;
+  uint64 id = 1;
 }
 message QueryUserDetailResp {
-  int64 id = 1;               // 用户ID
+  uint64 id = 1;               // 用户ID
   int64 created_at = 2;        // 创建时间
   int64 updated_at = 3;        // 更新时间
   int64 deleted_at = 4;        // 删除时间
   string username = 5;         // 用户名
   string email = 6;            // 电子邮件
   string avatar = 7;           // 头像URL
-  int64  role = 8;             // 角色ID
+  uint64  role = 8;             // 角色ID
   int32 status = 9;           // 用户状态
   string nickname = 10;        // 昵称
   string phone = 11;           // 电话号码
@@ -116,10 +116,10 @@ message QueryUserDetailResp {
 
 // 查看用户列表
 message QueryUserListReq {
-  int64 page = 1;
-  int64 page_size = 2;
+  uint64 page = 1;
+  uint64 page_size = 2;
   // 可能会按照姓名、学号、班级、学院、专业、年级、性别、角色、状态进行搜索
-  int64 role = 3;
+  uint64 role = 3;
   int32 gender = 4;
   int32 status = 5;
   string order_by = 6;
@@ -135,9 +135,9 @@ message QueryUserListReq {
 }
 message QueryUserListResp {
   repeated QueryUserDetailResp users = 1;
-  int64 total = 2;
-  int64 page = 3;
-  int64 page_size = 4;
+  uint64 total = 2;
+  uint64 page = 3;
+  uint64 page_size = 4;
 }
 
 // 登录
@@ -145,10 +145,10 @@ message FindUserByUsernameReq {
   string username = 1;        // 用户名
 }
 message FindUserByUsernameResp {
-  int64  id = 1;               // 用户ID
+  uint64  id = 1;               // 用户ID
   string username = 2;         // 用户名
   string password = 3;         // 密码
-  int64 role = 4;          // 角色ID
+  uint64 role = 4;          // 角色ID
 }
 
 
@@ -159,7 +159,7 @@ message RegisterReq {
   string email = 3;
   string phone = 4;
   string nickname = 5;
-  int64 role = 6;
+  uint64 role = 6;
   int32 gender = 7;
   string major = 8;
   string grade = 9;
@@ -173,12 +173,12 @@ message RegisterResp {
 
 // 设置用户信息
 message SetUserInfoReq {
-  int64 id = 1;
+  uint64 id = 1;
   string username = 2;
   string email = 3;
   string phone = 4;
   string nickname = 5;
-  int64 role = 6;
+  uint64 role = 6;
   int32 gender = 7;
   string major = 8;
   string grade = 9;
@@ -203,8 +203,8 @@ message SetSelfInfoReq {
   string realname = 9;
   string class = 10;
   string avatar = 11;
-  int64 role = 12;
-  int64 id = 13;
+  uint64 role = 12;
+  uint64 id = 13;
 }
 message SetSelfInfoResp {}
 
@@ -218,8 +218,8 @@ message QuerySelfInfoResp {
 
 // 设置用户角色
 message SetUserRoleReq {
-  int64 user_id = 1;
-  repeated int64 role_ids = 2;
+  uint64 user_id = 1;
+  repeated uint64 role_ids = 2;
 }
 message SetUserRoleResp {}
 
@@ -239,7 +239,7 @@ message ChangePasswordResp {}
 
 // 删除用户
 message DeleteUserReq {
-  int64 user_id = 1;
+  uint64 user_id = 1;
 }
 message DeleteUserResp {}
 

@@ -23,7 +23,7 @@ func ChangePasswordHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			response.ErrWithMessage(r.Context(), w, "参数错误")
 			return
 		}
-		req.UserId = uint64(utils.GetUserId(r))
+		req.UserId = utils.GetUserId(r)
 		l := user.NewChangePasswordLogic(r.Context(), svcCtx)
 
 		_, err := l.ChangePassword(&req)
