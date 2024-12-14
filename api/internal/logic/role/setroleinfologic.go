@@ -27,7 +27,6 @@ func (l *SetRoleInfoLogic) SetRoleInfo(req *types.SetRoleInfoReq) (resp *types.S
 	_, err = l.svcCtx.Role.UpdateRole(l.ctx, &role.UpdateRoleReq{
 		Id:       req.RoleId,
 		RoleName: req.RoleName,
-		ParentId: req.ParentId,
 	})
 	if err != nil {
 		return nil, err

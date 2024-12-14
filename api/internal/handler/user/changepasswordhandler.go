@@ -8,7 +8,6 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/status"
 	"net/http"
-
 	"github.com/bearllflee/scholar-track/api/internal/logic/user"
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
@@ -24,6 +23,7 @@ func ChangePasswordHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 		req.UserId = utils.GetUserId(r)
+
 		l := user.NewChangePasswordLogic(r.Context(), svcCtx)
 
 		_, err := l.ChangePassword(&req)

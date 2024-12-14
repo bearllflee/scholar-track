@@ -194,7 +194,6 @@ type (
 	SetRoleInfoReq {
 		RoleId   uint64 `json:"roleId"`
 		RoleName string `json:"roleName"`
-		ParentId uint64 `json:"parentId"`
 	}
 	SetRoleInfoResp  {}
 )

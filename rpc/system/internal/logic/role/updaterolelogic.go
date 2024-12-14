@@ -9,6 +9,7 @@ import (
 	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
+	"gorm.io/gorm"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -41,20 +42,18 @@ func (l *UpdateRoleLogic) UpdateRole(in *system.UpdateRoleReq) (*system.UpdateRo
 	if c > 0 {
 		return nil, cerror.ErrRoleHasExists
 	}
-	// 看看父角色是否存在
-	if in.ParentId != 0 {
-		global.DB.Model(&roleModel).Where("id = ?", in.ParentId).Count(&c)
-		if c == 0 {
-			return nil, cerror.ErrParentRoleNotExists
-		}
-	}
 	roleModel.RoleName = in.RoleName
-	roleModel.ParentId = in.ParentId
 	roleModel.Id = in.Id
 	roleModel.UpdatedAt = time.Now()
 	roleModel.CreatedAt = time.Now()
 	// 更新角色信息
-	err := global.DB.Save(&roleModel).Error
+	err := global.DB.Transaction(func(tx *gorm.DB) error {
+		err := tx.Model(&roleModel).Updates(roleModel).Error
+		if err != nil {
+			return err
+		}
+		return nil
+	})
 	if err != nil {
 		return nil, err
 	}

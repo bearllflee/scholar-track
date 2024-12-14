@@ -160,7 +160,6 @@ type RoleTreeResp struct {
 type SetRoleInfoReq struct {
 	RoleId   uint64 `json:"roleId"`
 	RoleName string `json:"roleName"`
-	ParentId uint64 `json:"parentId"`
 }
 
 type SetRoleInfoResp struct {

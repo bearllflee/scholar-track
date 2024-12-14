@@ -2,9 +2,13 @@ package rolelogic
 
 import (
 	"context"
+	"strconv"
+
 	"github.com/bearllflee/scholar-track/pkg/cerror"
 	"github.com/bearllflee/scholar-track/pkg/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
+	gormadapter "github.com/casbin/gorm-adapter/v3"
+	"gorm.io/gorm"
 
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
@@ -47,16 +51,31 @@ func (l *AddRoleLogic) AddRole(in *system.AddRoleReq) (*system.AddRoleResp, erro
 		RoleName: in.RoleName,
 		ParentId: in.ParentId,
 	}
-	err = global.DB.Create(&roleModel).Error
+	err = global.DB.Transaction(func(tx *gorm.DB) error {
+		err = tx.Create(&roleModel).Error
+		if err != nil {
+			return err
+		}
+		// 添加角色权限继承关系
+		if in.ParentId != 0 {
+			tx.Model(&gormadapter.CasbinRule{}).Create(&gormadapter.CasbinRule{
+				Ptype: "g",
+				V0:    strconv.Itoa(int(in.ParentId)),
+				V1:    strconv.Itoa(int(roleModel.Id)),
+			})
+		}
+
+		return nil
+	})
 	if err != nil {
 		return nil, err
 	}
 
 	return &system.AddRoleResp{
 		Role: &system.RoleResp{
-			Id:       roleModel.Id,
-			RoleName: roleModel.RoleName,
-			ParentId: roleModel.ParentId,
+			Id:        roleModel.Id,
+			RoleName:  roleModel.RoleName,
+			ParentId:  roleModel.ParentId,
 			CreatedAt: roleModel.CreatedAt.Unix(),
 			UpdatedAt: roleModel.UpdatedAt.Unix(),
 		},
