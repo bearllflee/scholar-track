@@ -196,6 +196,12 @@ type (
 		RoleName string `json:"roleName"`
 	}
 	SetRoleInfoResp  {}
+	// 设置角色权限
+	SetRolePoliciesReq {
+		RoleId uint64 `json:"roleId"`
+		Rules  [][]string `json:"rules"`
+	}
+	SetRolePoliciesResp  {}
 )
 
 type (
