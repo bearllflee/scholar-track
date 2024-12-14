@@ -28,9 +28,19 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				Method:  http.MethodDelete,
+				Path:    "/role/:id",
+				Handler: role.DeleteRoleHandler(serverCtx),
+			},
+			{
 				Method:  http.MethodPost,
 				Path:    "/role/add",
 				Handler: role.AddRoleHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/role/setRoleInfo",
+				Handler: role.SetRoleInfoHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,

@@ -38,7 +38,7 @@ func (l *SetUserInfoLogic) SetUserInfo(req *types.SetUserInfoReq) (resp *types.S
 		Realname: req.Realname,
 		Class:    req.Class,
 		Avatar:   req.Avatar,
-		Role:     req.Role,
+		RoleId:   req.RoleId,
 	})
 	if err != nil {
 		return nil, err

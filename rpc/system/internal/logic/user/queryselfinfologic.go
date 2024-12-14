@@ -39,7 +39,7 @@ func (l *QuerySelfInfoLogic) QuerySelfInfo(in *system.QuerySelfInfoReq) (*system
 			Username:  userModel.Username,
 			Email:     userModel.Email,
 			Avatar:    userModel.Avatar,
-			Role:      userModel.Role,
+			RoleId:    userModel.RoleId,
 			Status:    userModel.Status,
 			Nickname:  userModel.Nickname,
 			Phone:     userModel.Phone,

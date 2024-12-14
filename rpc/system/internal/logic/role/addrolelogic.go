@@ -28,18 +28,26 @@ func NewAddRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddRoleLo
 
 func (l *AddRoleLogic) AddRole(in *system.AddRoleReq) (*system.AddRoleResp, error) {
 	var c int64
-	err := global.DB.Where("role_name = ?", in.RoleName).First(&model.Role{}).Count(&c).Error
+	var roleModel model.Role
+	err := global.DB.Model(&roleModel).Where("role_name = ?", in.RoleName).Count(&c).Error
 	if err != nil {
 		return nil, err
 	}
 	if c > 0 {
 		return nil, cerror.ErrRoleHasExists
 	}
-	roleModel := &model.Role{
+	// 看看父角色是否存在
+	if in.ParentId != 0 {
+		global.DB.Model(&roleModel).Where("id = ?", in.ParentId).Count(&c)
+		if c == 0 {
+			return nil, cerror.ErrParentRoleNotExists
+		}
+	}
+	roleModel = model.Role{
 		RoleName: in.RoleName,
 		ParentId: in.ParentId,
 	}
-	err = global.DB.Create(roleModel).Error
+	err = global.DB.Create(&roleModel).Error
 	if err != nil {
 		return nil, err
 	}
@@ -49,6 +57,8 @@ func (l *AddRoleLogic) AddRole(in *system.AddRoleReq) (*system.AddRoleResp, erro
 			Id:       roleModel.Id,
 			RoleName: roleModel.RoleName,
 			ParentId: roleModel.ParentId,
+			CreatedAt: roleModel.CreatedAt.Unix(),
+			UpdatedAt: roleModel.UpdatedAt.Unix(),
 		},
 	}, nil
 }

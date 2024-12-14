@@ -41,7 +41,7 @@ func (l *SetUserInfoLogic) SetUserInfo(in *system.SetUserInfoReq) (*system.SetUs
 		Username: in.Username,
 		Email:    in.Email,
 		Avatar:   in.Avatar,
-		Role:     in.Role,
+		RoleId:   in.RoleId,
 		Nickname: in.Nickname,
 		Phone:    in.Phone,
 		Gender:   in.Gender,

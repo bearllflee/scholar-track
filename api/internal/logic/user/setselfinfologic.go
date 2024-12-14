@@ -37,7 +37,7 @@ func (l *SetSelfInfoLogic) SetSelfInfo(req *types.SetSelfInfoReq) (resp *types.S
 		Realname: req.Realname,
 		Class:    req.Class,
 		Avatar:   req.Avatar,
-		Role:     req.Role,
+		RoleId:   req.RoleId,
 	})
 	if err != nil {
 		return nil, err

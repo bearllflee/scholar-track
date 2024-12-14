@@ -40,7 +40,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (*types.LoginResp, error) {
 	jwt := utils.NewJwt([]byte(l.svcCtx.Config.JwtConf.SecretKey), l.svcCtx.Config.JwtConf.Expire, l.svcCtx.Config.JwtConf.Buffer, l.svcCtx.Config.JwtConf.Issuer, l.svcCtx.Config.JwtConf.Audience)
 	claims := jwt.CreateClaims(types.BaseClaims{
 		ID:          resp.Id,
-		AuthorityId: resp.Role,
+		AuthorityId: resp.RoleId,
 		Username:    resp.Username,
 	})
 	token, err := jwt.GenerateToken(&claims)

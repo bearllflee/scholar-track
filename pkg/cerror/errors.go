@@ -22,6 +22,7 @@ var (
 )
 
 var (
-	ErrRoleHasExists = status.Error(301, "角色已存在")
-	ErrRoleNotExists = status.Error(302, "角色不存在")
+	ErrRoleHasExists       = status.Error(301, "角色名称已存在")
+	ErrRoleNotExists       = status.Error(302, "角色不存在")
+	ErrParentRoleNotExists = status.Error(303, "父角色不存在")
 )

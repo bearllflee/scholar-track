@@ -47,7 +47,7 @@ func (l *QueryUserDetailLogic) QueryUserDetail(in *system.QueryUserDetailReq) (*
 		Username:  userModel.Username,
 		Email:     userModel.Email,
 		Avatar:    userModel.Avatar,
-		Role:      userModel.Role,
+		RoleId:    userModel.RoleId,
 		Status:    userModel.Status,
 		Nickname:  userModel.Nickname,
 		Phone:     userModel.Phone,

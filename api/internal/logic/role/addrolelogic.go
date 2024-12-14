@@ -2,6 +2,7 @@ package role
 
 import (
 	"context"
+
 	"github.com/bearllflee/scholar-track/rpc/system/client/role"
 
 	"github.com/bearllflee/scholar-track/api/internal/svc"
@@ -28,16 +29,16 @@ func (l *AddRoleLogic) AddRole(req *types.AddRoleReq) (*types.AddRoleResp, error
 	// 1. 添加角色
 	resp, err := l.svcCtx.Role.AddRole(l.ctx, &role.AddRoleReq{
 		RoleName: req.RoleName,
-		ParentId: req.ParentId,	
+		ParentId: req.ParentId,
 	})
 	if err != nil {
 		return nil, err
 	}
 	return &types.AddRoleResp{
-		Role: &types.Role{
-			RoleName: resp.Role.RoleName,
-			ParentId: resp.Role.ParentId,
-			Id:       resp.Role.Id,
-		},
+		RoleName:  resp.Role.RoleName,
+		ParentId:  resp.Role.ParentId,
+		CreatedAt: resp.Role.CreatedAt,
+		UpdatedAt: resp.Role.UpdatedAt,
+		Id:        resp.Role.Id,
 	}, nil
 }

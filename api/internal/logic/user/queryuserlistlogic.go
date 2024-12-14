@@ -27,7 +27,7 @@ func (l *QueryUserListLogic) QueryUserList(req *types.QueryUserListReq) (*types.
 	resp, err := l.svcCtx.User.QueryUserList(l.ctx, &user.QueryUserListReq{
 		Page:     req.Page,
 		PageSize: req.PageSize,
-		Role:     req.Role,
+		RoleId:   req.RoleId,
 		Status:   req.Status,
 		Realname: req.Realname,
 		Major:    req.Major,
@@ -61,7 +61,7 @@ func (l *QueryUserListLogic) QueryUserList(req *types.QueryUserListReq) (*types.
 			Nickname:  user.Nickname,
 			Email:     user.Email,
 			Phone:     user.Phone,
-			Role:      user.Role,
+			RoleId:    user.RoleId,
 			Status:    user.Status,
 			Realname:  user.Realname,
 			Major:     user.Major,

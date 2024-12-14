@@ -61,24 +61,26 @@ message UpdateRoleReq {
 }
 
 message UpdateRoleResp {
-  RoleResp role = 1;
+  uint64 id = 1;
+  string role_name = 2;
+  uint64 parent_id = 3;
 }
 // 角色树 分页查看角色树
 message RoleTreeReq {
   string role_name = 1;
-  uint64 page = 2;
-  uint64 page_size = 3;
+  int64 page = 2;
+  int64 page_size = 3;
 }
 message RoleTreeResp {
   RoleResp role = 1;
-  repeated RoleTreeResp children = 3;
+  repeated RoleTreeResp children = 2;
 }
 
 message RoleTreeListResp {
   repeated RoleTreeResp roles = 1;
-  uint64 total = 2;
-  uint64 page = 3;
-  uint64 page_size = 4;
+  int64 total = 2;
+  int64 page = 3;
+  int64 page_size = 4;
 }
 
 // 角色服务
@@ -101,7 +103,7 @@ message QueryUserDetailResp {
   string username = 5;         // 用户名
   string email = 6;            // 电子邮件
   string avatar = 7;           // 头像URL
-  uint64  role = 8;             // 角色ID
+  uint64  role_id = 8;             // 角色ID
   int32 status = 9;           // 用户状态
   string nickname = 10;        // 昵称
   string phone = 11;           // 电话号码
@@ -116,10 +118,10 @@ message QueryUserDetailResp {
 
 // 查看用户列表
 message QueryUserListReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
+  int64 page = 1;
+  int64 page_size = 2;
   // 可能会按照姓名、学号、班级、学院、专业、年级、性别、角色、状态进行搜索
-  uint64 role = 3;
+  uint64 role_id = 3;
   int32 gender = 4;
   int32 status = 5;
   string order_by = 6;
@@ -135,9 +137,9 @@ message QueryUserListReq {
 }
 message QueryUserListResp {
   repeated QueryUserDetailResp users = 1;
-  uint64 total = 2;
-  uint64 page = 3;
-  uint64 page_size = 4;
+  int64 total = 2;
+  int64 page = 3;
+  int64 page_size = 4;
 }
 
 // 登录
@@ -148,7 +150,7 @@ message FindUserByUsernameResp {
   uint64  id = 1;               // 用户ID
   string username = 2;         // 用户名
   string password = 3;         // 密码
-  uint64 role = 4;          // 角色ID
+  uint64 role_id = 4;          // 角色ID
 }
 
 
@@ -159,7 +161,7 @@ message RegisterReq {
   string email = 3;
   string phone = 4;
   string nickname = 5;
-  uint64 role = 6;
+  uint64 role_id = 6;
   int32 gender = 7;
   string major = 8;
   string grade = 9;
@@ -178,7 +180,7 @@ message SetUserInfoReq {
   string email = 3;
   string phone = 4;
   string nickname = 5;
-  uint64 role = 6;
+  uint64 role_id = 6;
   int32 gender = 7;
   string major = 8;
   string grade = 9;
@@ -203,7 +205,7 @@ message SetSelfInfoReq {
   string realname = 9;
   string class = 10;
   string avatar = 11;
-  uint64 role = 12;
+  uint64 role_id = 12;
   uint64 id = 13;
 }
 message SetSelfInfoResp {}

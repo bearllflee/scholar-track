@@ -44,6 +44,6 @@ func (l *FindUserByUsernameLogic) FindUserByUsername(in *system.FindUserByUserna
 		Id:       user.Id,
 		Username: user.Username,
 		Password: user.Password,
-		Role:     user.Role,
+		RoleId:   user.RoleId,
 	}, nil
 }

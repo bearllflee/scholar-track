@@ -32,7 +32,7 @@ func (l *SetSelfInfoLogic) SetSelfInfo(in *system.SetSelfInfoReq) (*system.SetSe
 		Username: in.Username,
 		Email:    in.Email,
 		Avatar:   in.Avatar,
-		Role:     in.Role,
+		RoleId:   in.RoleId,
 		Nickname: in.Nickname,
 		Phone:    in.Phone,
 		Gender:   in.Gender,

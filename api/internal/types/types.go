@@ -13,7 +13,11 @@ type AddRoleReq struct {
 }
 
 type AddRoleResp struct {
-	Role *Role `json:"role"`
+	RoleName  string `json:"roleName"`
+	ParentId  uint64 `json:"parentId"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	Id        uint64 `json:"id"`
 }
 
 type ChangePasswordReq struct {
@@ -23,6 +27,13 @@ type ChangePasswordReq struct {
 }
 
 type ChangePasswordResp struct {
+}
+
+type DeleteRoleReq struct {
+	RoleId uint64 `path:"id"`
+}
+
+type DeleteRoleResp struct {
 }
 
 type DeleteUserReq struct {
@@ -62,7 +73,7 @@ type QueryUserDetailResp struct {
 	Email     string `json:"email"`
 	Phone     string `json:"phone"`
 	Avatar    string `json:"avatar"`
-	Role      uint64 `json:"role"`
+	RoleId    uint64 `json:"roleId"`
 	Status    int32  `json:"status"`
 	Nickname  string `json:"nickname"`
 	Gender    int32  `json:"gender"`
@@ -75,13 +86,13 @@ type QueryUserDetailResp struct {
 }
 
 type QueryUserListReq struct {
-	Page     uint64 `json:"page"`
-	PageSize uint64 `json:"pageSize"`
+	Page     int64  `json:"page"`
+	PageSize int64  `json:"pageSize"`
 	Username string `json:"username,optional"`
 	Email    string `json:"email,optional"`
 	Phone    string `json:"phone,optional"`
 	Nickname string `json:"nickname,optional"`
-	Role     uint64 `json:"role,optional"`
+	RoleId   uint64 `json:"roleId,optional"`
 	Status   int32  `json:"status,optional"`
 	Major    string `json:"major,optional"`
 	Grade    string `json:"grade,optional"`
@@ -93,10 +104,10 @@ type QueryUserListReq struct {
 }
 
 type QueryUserListResp struct {
-	Total    uint64                 `json:"total"`
+	Total    int64                  `json:"total"`
 	List     []*QueryUserDetailResp `json:"list"`
-	Page     uint64                 `json:"page"`
-	PageSize uint64                 `json:"pageSize"`
+	Page     int64                  `json:"page"`
+	PageSize int64                  `json:"pageSize"`
 }
 
 type RegisterReq struct {
@@ -105,7 +116,7 @@ type RegisterReq struct {
 	Email    string `json:"email,optional"`
 	Phone    string `json:"phone,optional"`
 	Nickname string `json:"nickname,optional"`
-	Role     uint64 `json:"role"`
+	RoleId   uint64 `json:"roleId"`
 	Gender   int32  `json:"gender"`
 	Major    string `json:"major"`
 	Grade    string `json:"grade"`
@@ -125,30 +136,34 @@ type ResetPasswordReq struct {
 type ResetPasswordResp struct {
 }
 
-type Role struct {
-	RoleName  string `json:"roleName"`
-	ParentId  uint64 `json:"parentId"`
-	CreatedAt int64  `json:"createdAt"`
-	UpdatedAt int64  `json:"updatedAt"`
-	Id        uint64 `json:"id"`
-}
-
 type RoleTree struct {
-	Role     *Role       `json:"role"`
-	Children []*RoleTree `json:"children"`
+	RoleName  string      `json:"roleName"`
+	ParentId  uint64      `json:"parentId"`
+	CreatedAt int64       `json:"createdAt"`
+	UpdatedAt int64       `json:"updatedAt"`
+	Id        uint64      `json:"id"`
+	Children  []*RoleTree `json:"children"`
 }
 
 type RoleTreeReq struct {
-	RoleName string `json:"roleName"`
-	Page     int32  `json:"page"`
-	PageSize int32  `json:"pageSize"`
+	Page     int64 `json:"page"`
+	PageSize int64 `json:"pageSize"`
 }
 
 type RoleTreeResp struct {
 	Roles    []*RoleTree `json:"roles"`
 	Total    int64       `json:"total"`
-	Page     int32       `json:"page"`
-	PageSize int32       `json:"pageSize"`
+	Page     int64       `json:"page"`
+	PageSize int64       `json:"pageSize"`
+}
+
+type SetRoleInfoReq struct {
+	RoleId   uint64 `json:"roleId"`
+	RoleName string `json:"roleName"`
+	ParentId uint64 `json:"parentId"`
+}
+
+type SetRoleInfoResp struct {
 }
 
 type SetSelfInfoReq struct {
@@ -157,7 +172,7 @@ type SetSelfInfoReq struct {
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
 	Avatar   string `json:"avatar"`
-	Role     uint64 `json:"role"`
+	RoleId   uint64 `json:"roleId"`
 	Status   int32  `json:"status"`
 	Nickname string `json:"nickname"`
 	Gender   int32  `json:"gender"`
@@ -177,7 +192,7 @@ type SetUserInfoReq struct {
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
 	Avatar   string `json:"avatar"`
-	Role     uint64 `json:"role"`
+	RoleId   uint64 `json:"roleId"`
 	Status   int32  `json:"status"`
 	Nickname string `json:"nickname"`
 	Gender   int32  `json:"gender"`

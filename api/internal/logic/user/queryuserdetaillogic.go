@@ -38,7 +38,7 @@ func (l *QueryUserDetailLogic) QueryUserDetail(req *types.QueryUserDetailReq) (*
 		Email:     resp.Email,
 		Phone:     resp.Phone,
 		Avatar:    resp.Avatar,
-		Role:      resp.Role,
+		RoleId:    resp.RoleId,
 		Status:    resp.Status,
 		Nickname:  resp.Nickname,
 		Gender:    resp.Gender,

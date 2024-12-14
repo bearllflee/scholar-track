@@ -7,7 +7,7 @@ import (
 type Role struct {
 	global.StModel
 	RoleName string `gorm:"type:varchar(255);not null;unique" json:"roleName"`
-	ParentId uint64   `gorm:"not null;default:0" json:"parentId"`
+	ParentId uint64 `gorm:"not null;default:0" json:"parentId"`
 }
 
 func (Role) TableName() string {

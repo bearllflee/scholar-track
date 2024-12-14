@@ -37,7 +37,7 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterRe
 		College:  req.College,
 		Class:    req.Class,
 		Gender:   req.Gender,
-		Role:     req.Role,
+		RoleId:   req.RoleId,
 		Password: utils.BcryptHash(req.Password),
 	})
 	if err != nil {
@@ -56,7 +56,7 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterRe
 			College:   registerResp.User.College,
 			Class:     registerResp.User.Class,
 			Gender:    registerResp.User.Gender,
-			Role:      registerResp.User.Role,
+			RoleId:    registerResp.User.RoleId,
 			Status:    registerResp.User.Status,
 			CreatedAt: registerResp.User.CreatedAt,
 			UpdatedAt: registerResp.User.UpdatedAt,

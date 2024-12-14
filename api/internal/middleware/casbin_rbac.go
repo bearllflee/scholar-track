@@ -36,7 +36,7 @@ func (m *CasbinMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// 获取当前请求路径
 		path := r.URL.Path
 		// 判断是否具有权限
-		ok, err := m.CasbinRpc.Enforce(r, strconv.FormatUint(role, 10), path, method)
+		ok, err := m.CasbinRpc.Enforce(r, strconv.Itoa(int(role)), path, method)
 		if err != nil {
 			response.ErrWithMessage(r.Context(), w, "权限验证失败")
 			return

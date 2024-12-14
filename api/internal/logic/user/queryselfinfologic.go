@@ -38,7 +38,7 @@ func (l *QuerySelfInfoLogic) QuerySelfInfo(req *types.QuerySelfInfoReq) (resp *t
 			Email:     info.User.Email,
 			Phone:     info.User.Phone,
 			Avatar:    info.User.Avatar,
-			Role:      info.User.Role,
+			RoleId:    info.User.RoleId,
 			Status:    info.User.Status,
 			Nickname:  info.User.Nickname,
 			Gender:    info.User.Gender,
