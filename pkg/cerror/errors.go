@@ -27,3 +27,8 @@ var (
 	ErrParentRoleNotExists = status.Error(303, "父角色不存在")
 	ErrInvalidRole   	   = status.Error(304, "添加的角色中有无效数据")
 )
+
+var (
+	ErrHasSameApi = status.Error(401, "添加的权限中有相同的api")
+	ErrCasbinUpdateFailed = status.Error(402, "casbin更新失败")
+)

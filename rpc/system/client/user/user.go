@@ -28,6 +28,7 @@ type (
 	EnforceResp            = system.EnforceResp
 	FindUserByUsernameReq  = system.FindUserByUsernameReq
 	FindUserByUsernameResp = system.FindUserByUsernameResp
+	PolicyInfo             = system.PolicyInfo
 	QuerySelfInfoReq       = system.QuerySelfInfoReq
 	QuerySelfInfoResp      = system.QuerySelfInfoResp
 	QueryUserDetailReq     = system.QueryUserDetailReq
@@ -43,6 +44,8 @@ type (
 	RoleTreeReq            = system.RoleTreeReq
 	RoleTreeResp           = system.RoleTreeResp
 	Rule                   = system.Rule
+	SetRolePoliciesReq     = system.SetRolePoliciesReq
+	SetRolePoliciesResp    = system.SetRolePoliciesResp
 	SetSelfInfoReq         = system.SetSelfInfoReq
 	SetSelfInfoResp        = system.SetSelfInfoResp
 	SetUserInfoReq         = system.SetUserInfoReq

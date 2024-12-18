@@ -197,9 +197,13 @@ type (
 	}
 	SetRoleInfoResp  {}
 	// 设置角色权限
+	PolicyInfo {
+		Method string `json:"method"`
+		Path   string `json:"path"`
+	}
 	SetRolePoliciesReq {
-		RoleId uint64 `json:"roleId"`
-		Rules  [][]string `json:"rules"`
+		RoleId uint64       `json:"roleId"`
+		Rules  []PolicyInfo `json:"rules"`
 	}
 	SetRolePoliciesResp  {}
 )
@@ -263,6 +267,9 @@ service scholartrack-api {
 
 	@handler SetRoleInfoHandler
 	post /role/setRoleInfo (SetRoleInfoReq) returns (SetRoleInfoResp)
+
+	@handler SetRolePoliciesHandler
+	post /role/setRolePolicies (SetRolePoliciesReq) returns (SetRolePoliciesResp)
 }
 
 @server (

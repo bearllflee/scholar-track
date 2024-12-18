@@ -42,3 +42,8 @@ func (s *RoleServer) RoleTree(ctx context.Context, in *system.RoleTreeReq) (*sys
 	l := rolelogic.NewRoleTreeLogic(ctx, s.svcCtx)
 	return l.RoleTree(in)
 }
+
+func (s *RoleServer) SetRolePolicies(ctx context.Context, in *system.SetRolePoliciesReq) (*system.SetRolePoliciesResp, error) {
+	l := rolelogic.NewSetRolePoliciesLogic(ctx, s.svcCtx)
+	return l.SetRolePolicies(in)
+}

@@ -28,6 +28,7 @@ type (
 	EnforceResp            = system.EnforceResp
 	FindUserByUsernameReq  = system.FindUserByUsernameReq
 	FindUserByUsernameResp = system.FindUserByUsernameResp
+	PolicyInfo             = system.PolicyInfo
 	QuerySelfInfoReq       = system.QuerySelfInfoReq
 	QuerySelfInfoResp      = system.QuerySelfInfoResp
 	QueryUserDetailReq     = system.QueryUserDetailReq
@@ -43,6 +44,8 @@ type (
 	RoleTreeReq            = system.RoleTreeReq
 	RoleTreeResp           = system.RoleTreeResp
 	Rule                   = system.Rule
+	SetRolePoliciesReq     = system.SetRolePoliciesReq
+	SetRolePoliciesResp    = system.SetRolePoliciesResp
 	SetSelfInfoReq         = system.SetSelfInfoReq
 	SetSelfInfoResp        = system.SetSelfInfoResp
 	SetUserInfoReq         = system.SetUserInfoReq
@@ -57,6 +60,7 @@ type (
 		DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error)
 		UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error)
 		RoleTree(ctx context.Context, in *RoleTreeReq, opts ...grpc.CallOption) (*RoleTreeListResp, error)
+		SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*SetRolePoliciesResp, error)
 	}
 
 	defaultRole struct {
@@ -88,4 +92,9 @@ func (m *defaultRole) UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ..
 func (m *defaultRole) RoleTree(ctx context.Context, in *RoleTreeReq, opts ...grpc.CallOption) (*RoleTreeListResp, error) {
 	client := system.NewRoleClient(m.cli.Conn())
 	return client.RoleTree(ctx, in, opts...)
+}
+
+func (m *defaultRole) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*SetRolePoliciesResp, error) {
+	client := system.NewRoleClient(m.cli.Conn())
+	return client.SetRolePolicies(ctx, in, opts...)
 }

@@ -159,10 +159,11 @@ var Casbin_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	Role_AddRole_FullMethodName    = "/system.Role/AddRole"
-	Role_DeleteRole_FullMethodName = "/system.Role/DeleteRole"
-	Role_UpdateRole_FullMethodName = "/system.Role/UpdateRole"
-	Role_RoleTree_FullMethodName   = "/system.Role/RoleTree"
+	Role_AddRole_FullMethodName         = "/system.Role/AddRole"
+	Role_DeleteRole_FullMethodName      = "/system.Role/DeleteRole"
+	Role_UpdateRole_FullMethodName      = "/system.Role/UpdateRole"
+	Role_RoleTree_FullMethodName        = "/system.Role/RoleTree"
+	Role_SetRolePolicies_FullMethodName = "/system.Role/SetRolePolicies"
 )
 
 // RoleClient is the client API for Role service.
@@ -175,6 +176,7 @@ type RoleClient interface {
 	DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error)
 	UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error)
 	RoleTree(ctx context.Context, in *RoleTreeReq, opts ...grpc.CallOption) (*RoleTreeListResp, error)
+	SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*SetRolePoliciesResp, error)
 }
 
 type roleClient struct {
@@ -225,6 +227,16 @@ func (c *roleClient) RoleTree(ctx context.Context, in *RoleTreeReq, opts ...grpc
 	return out, nil
 }
 
+func (c *roleClient) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*SetRolePoliciesResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetRolePoliciesResp)
+	err := c.cc.Invoke(ctx, Role_SetRolePolicies_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RoleServer is the server API for Role service.
 // All implementations must embed UnimplementedRoleServer
 // for forward compatibility.
@@ -235,6 +247,7 @@ type RoleServer interface {
 	DeleteRole(context.Context, *DeleteRoleReq) (*DeleteRoleResp, error)
 	UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error)
 	RoleTree(context.Context, *RoleTreeReq) (*RoleTreeListResp, error)
+	SetRolePolicies(context.Context, *SetRolePoliciesReq) (*SetRolePoliciesResp, error)
 	mustEmbedUnimplementedRoleServer()
 }
 
@@ -256,6 +269,9 @@ func (UnimplementedRoleServer) UpdateRole(context.Context, *UpdateRoleReq) (*Upd
 }
 func (UnimplementedRoleServer) RoleTree(context.Context, *RoleTreeReq) (*RoleTreeListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RoleTree not implemented")
+}
+func (UnimplementedRoleServer) SetRolePolicies(context.Context, *SetRolePoliciesReq) (*SetRolePoliciesResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetRolePolicies not implemented")
 }
 func (UnimplementedRoleServer) mustEmbedUnimplementedRoleServer() {}
 func (UnimplementedRoleServer) testEmbeddedByValue()              {}
@@ -350,6 +366,24 @@ func _Role_RoleTree_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Role_SetRolePolicies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetRolePoliciesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RoleServer).SetRolePolicies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Role_SetRolePolicies_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RoleServer).SetRolePolicies(ctx, req.(*SetRolePoliciesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Role_ServiceDesc is the grpc.ServiceDesc for Role service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -372,6 +406,10 @@ var Role_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RoleTree",
 			Handler:    _Role_RoleTree_Handler,
+		},
+		{
+			MethodName: "SetRolePolicies",
+			Handler:    _Role_SetRolePolicies_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

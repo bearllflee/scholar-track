@@ -52,6 +52,11 @@ type LoginResp struct {
 	Token string `json:"token"`
 }
 
+type PolicyInfo struct {
+	Method string `json:"method"`
+	Path   string `json:"path"`
+}
+
 type QuerySelfInfoReq struct {
 	Id uint64 `json:"id,optional"`
 }
@@ -163,6 +168,14 @@ type SetRoleInfoReq struct {
 }
 
 type SetRoleInfoResp struct {
+}
+
+type SetRolePoliciesReq struct {
+	RoleId uint64       `json:"roleId"`
+	Rules  []PolicyInfo `json:"rules"`
+}
+
+type SetRolePoliciesResp struct {
 }
 
 type SetSelfInfoReq struct {

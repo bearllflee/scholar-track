@@ -82,12 +82,24 @@ message RoleTreeListResp {
   int64 page_size = 4;
 }
 
+message PolicyInfo {
+  string method = 1;
+  string path = 2;
+}
+// 更新角色权限
+message SetRolePoliciesReq {
+  uint64 role_id = 1;
+  repeated PolicyInfo rules = 2;
+}
+message SetRolePoliciesResp {}
+
 // 角色服务
 service Role {
   rpc AddRole(AddRoleReq) returns(AddRoleResp);
   rpc DeleteRole(DeleteRoleReq) returns(DeleteRoleResp);
   rpc UpdateRole(UpdateRoleReq) returns(UpdateRoleResp);
   rpc RoleTree(RoleTreeReq) returns(RoleTreeListResp);
+  rpc SetRolePolicies(SetRolePoliciesReq) returns(SetRolePoliciesResp);
 }
 
 // 查看用户信息
