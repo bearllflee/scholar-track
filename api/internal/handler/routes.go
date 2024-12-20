@@ -38,6 +38,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: role.AddRoleHandler(serverCtx),
 			},
 			{
+				Method:  http.MethodGet,
+				Path:    "/role/queryRolePolicies/:roleId",
+				Handler: role.QueryRolePoliciesHandler(serverCtx),
+			},
+			{
 				Method:  http.MethodPost,
 				Path:    "/role/setRoleInfo",
 				Handler: role.SetRoleInfoHandler(serverCtx),

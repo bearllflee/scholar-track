@@ -57,6 +57,14 @@ type PolicyInfo struct {
 	Path   string `json:"path"`
 }
 
+type QueryRolePoliciesReq struct {
+	RoleId uint64 `path:"roleId"`
+}
+
+type QueryRolePoliciesResp struct {
+	Rules []*PolicyInfo `json:"rules"`
+}
+
 type QuerySelfInfoReq struct {
 	Id uint64 `json:"id,optional"`
 }

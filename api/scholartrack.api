@@ -206,6 +206,13 @@ type (
 		Rules  []PolicyInfo `json:"rules"`
 	}
 	SetRolePoliciesResp  {}
+	// 获取角色权限
+	QueryRolePoliciesReq {
+		RoleId uint64 `path:"roleId"`
+	}
+	QueryRolePoliciesResp {
+		Rules []*PolicyInfo `json:"rules"`
+	}
 )
 
 type (
@@ -270,6 +277,9 @@ service scholartrack-api {
 
 	@handler SetRolePoliciesHandler
 	post /role/setRolePolicies (SetRolePoliciesReq) returns (SetRolePoliciesResp)
+
+	@handler QueryRolePoliciesHandler
+	get /role/queryRolePolicies/:roleId (QueryRolePoliciesReq) returns (QueryRolePoliciesResp)
 }
 
 @server (

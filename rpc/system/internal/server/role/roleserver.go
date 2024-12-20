@@ -47,3 +47,8 @@ func (s *RoleServer) SetRolePolicies(ctx context.Context, in *system.SetRolePoli
 	l := rolelogic.NewSetRolePoliciesLogic(ctx, s.svcCtx)
 	return l.SetRolePolicies(in)
 }
+
+func (s *RoleServer) QueryRolePolicies(ctx context.Context, in *system.QueryRolePoliciesReq) (*system.QueryRolePoliciesResp, error) {
+	l := rolelogic.NewQueryRolePoliciesLogic(ctx, s.svcCtx)
+	return l.QueryRolePolicies(in)
+}

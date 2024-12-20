@@ -29,6 +29,8 @@ type (
 	FindUserByUsernameReq  = system.FindUserByUsernameReq
 	FindUserByUsernameResp = system.FindUserByUsernameResp
 	PolicyInfo             = system.PolicyInfo
+	QueryRolePoliciesReq   = system.QueryRolePoliciesReq
+	QueryRolePoliciesResp  = system.QueryRolePoliciesResp
 	QuerySelfInfoReq       = system.QuerySelfInfoReq
 	QuerySelfInfoResp      = system.QuerySelfInfoResp
 	QueryUserDetailReq     = system.QueryUserDetailReq
