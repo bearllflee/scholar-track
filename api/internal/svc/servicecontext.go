@@ -1,14 +1,16 @@
 package svc
 
 import (
+	"net/http"
+
 	"github.com/bearllflee/scholar-track/api/internal/config"
 	"github.com/bearllflee/scholar-track/api/internal/middleware"
+	"github.com/bearllflee/scholar-track/rpc/system/client/apiservice"
 	"github.com/bearllflee/scholar-track/rpc/system/client/casbin"
 	"github.com/bearllflee/scholar-track/rpc/system/client/role"
 	"github.com/bearllflee/scholar-track/rpc/system/client/user"
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/zrpc"
-	"net/http"
 )
 
 type ServiceContext struct {
@@ -16,6 +18,7 @@ type ServiceContext struct {
 	User          user.User
 	Role          role.Role
 	Casbin        casbin.Casbin
+	Api           apiservice.ApiService
 	CasbinRbac    rest.Middleware
 	JwtMiddleWare rest.Middleware
 }
@@ -37,7 +40,8 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config: c,
 		User:   user.NewUser(zrpc.MustNewClient(c.System)),
 		Role:   role.NewRole(zrpc.MustNewClient(c.System)),
-		Casbin: casbin.NewCasbin(zrpc.MustNewClient(c.System)),
+		Casbin:        casbin.NewCasbin(zrpc.MustNewClient(c.System)),
+		Api:           apiservice.NewApiService(zrpc.MustNewClient(c.System)),
 	}
 	svcCtx.CasbinRbac = middleware.NewCasbinMiddleware(svcCtx).Handle
 	svcCtx.JwtMiddleWare = middleware.NewJwtMiddleware(c).Handle

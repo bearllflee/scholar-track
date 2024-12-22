@@ -5,30 +5,35 @@ import (
 )
 
 var (
-	ErrUserHasExists  = status.Error(101, "用户名已存在")
-	ErrUserNotFound   = status.Error(102, "用户不存在")
-	ErrEmailHasExists = status.Error(103, "邮箱已存在")
-	ErrPhoneHasExists = status.Error(104, "手机号已存在")
-	ErrPasswordWrong  = status.Error(105, "密码错误")
-	ErrUserDisabled   = status.Error(106, "用户被禁用")
+	ErrUserHasExists  = status.Error(601, "用户名已存在")
+	ErrUserNotFound   = status.Error(602, "用户不存在")
+	ErrEmailHasExists = status.Error(603, "邮箱已存在")
+	ErrPhoneHasExists = status.Error(604, "手机号已存在")
+	ErrPasswordWrong  = status.Error(605, "密码错误")
+	ErrUserDisabled   = status.Error(606, "用户被禁用")
 )
 
 var (
-	ErrNotLogin         = status.Error(201, "用户未登录")
-	ErrPermissionDenied = status.Error(202, "权限不足")
-	ErrTokenInvalid     = status.Error(203, "token无效")
-	ErrTokenExpired     = status.Error(204, "token过期")
-	ErrTokenNotMatch    = status.Error(205, "token不匹配")
+	ErrNotLogin         = status.Error(701, "用户未登录")
+	ErrPermissionDenied = status.Error(702, "权限不足")
+	ErrTokenInvalid     = status.Error(703, "token无效")
+	ErrTokenExpired     = status.Error(704, "token过期")
+	ErrTokenNotMatch    = status.Error(705, "token不匹配")
 )
 
 var (
-	ErrRoleHasExists       = status.Error(301, "角色名称已存在")
-	ErrRoleNotExists       = status.Error(302, "角色不存在")
-	ErrParentRoleNotExists = status.Error(303, "父角色不存在")
-	ErrInvalidRole   	   = status.Error(304, "添加的角色中有无效数据")
+	ErrRoleHasExists       = status.Error(801, "角色名称已存在")
+	ErrRoleNotExists       = status.Error(802, "角色不存在")
+	ErrParentRoleNotExists = status.Error(803, "父角色不存在")
+	ErrInvalidRole   	   = status.Error(804, "添加的角色中有无效数据")
 )
 
 var (
-	ErrHasSameApi = status.Error(401, "添加的权限中有相同的api")
-	ErrCasbinUpdateFailed = status.Error(402, "casbin更新失败")
+	ErrHasSameApi = status.Error(901, "添加的权限中有相同的api")
+	ErrCasbinUpdateFailed = status.Error(902, "casbin更新失败")
+)
+
+var (
+	ErrApiAlreadyExists = status.Error(1001, "api已存在")
+	ErrApiNotFound = status.Error(1002, "api不存在")
 )

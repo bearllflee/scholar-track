@@ -2,7 +2,7 @@
 // goctl 1.7.3
 // Source: system.proto
 
-package role
+package apiservice
 
 import (
 	"context"
@@ -68,52 +68,47 @@ type (
 	UpdateRoleReq          = system.UpdateRoleReq
 	UpdateRoleResp         = system.UpdateRoleResp
 
-	Role interface {
-		AddRole(ctx context.Context, in *AddRoleReq, opts ...grpc.CallOption) (*AddRoleResp, error)
-		DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error)
-		UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error)
-		RoleTree(ctx context.Context, in *RoleTreeReq, opts ...grpc.CallOption) (*RoleTreeListResp, error)
-		SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*SetRolePoliciesResp, error)
-		QueryRolePolicies(ctx context.Context, in *QueryRolePoliciesReq, opts ...grpc.CallOption) (*QueryRolePoliciesResp, error)
+	ApiService interface {
+		CreateApi(ctx context.Context, in *CreateApiReq, opts ...grpc.CallOption) (*CreateApiResp, error)
+		QueryAllApi(ctx context.Context, in *QueryAllApiReq, opts ...grpc.CallOption) (*QueryAllApiResp, error)
+		DeleteApi(ctx context.Context, in *DeleteApiReq, opts ...grpc.CallOption) (*DeleteApiResp, error)
+		UpdateApi(ctx context.Context, in *UpdateApiReq, opts ...grpc.CallOption) (*UpdateApiResp, error)
+		QueryApiDetail(ctx context.Context, in *QueryApiDetailReq, opts ...grpc.CallOption) (*QueryApiDetailResp, error)
 	}
 
-	defaultRole struct {
+	defaultApiService struct {
 		cli zrpc.Client
 	}
 )
 
-func NewRole(cli zrpc.Client) Role {
-	return &defaultRole{
+
+func NewApiService(cli zrpc.Client) ApiService {
+	return &defaultApiService{
 		cli: cli,
 	}
 }
 
-func (m *defaultRole) AddRole(ctx context.Context, in *AddRoleReq, opts ...grpc.CallOption) (*AddRoleResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.AddRole(ctx, in, opts...)
+func (m *defaultApiService) CreateApi(ctx context.Context, in *CreateApiReq, opts ...grpc.CallOption) (*CreateApiResp, error) {
+	client := system.NewApiServiceClient(m.cli.Conn())
+	return client.CreateApi(ctx, in, opts...)
 }
 
-func (m *defaultRole) DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.DeleteRole(ctx, in, opts...)
+func (m *defaultApiService) QueryAllApi(ctx context.Context, in *QueryAllApiReq, opts ...grpc.CallOption) (*QueryAllApiResp, error) {
+	client := system.NewApiServiceClient(m.cli.Conn())
+	return client.QueryAllApi(ctx, in, opts...)
 }
 
-func (m *defaultRole) UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.UpdateRole(ctx, in, opts...)
+func (m *defaultApiService) DeleteApi(ctx context.Context, in *DeleteApiReq, opts ...grpc.CallOption) (*DeleteApiResp, error) {
+	client := system.NewApiServiceClient(m.cli.Conn())
+	return client.DeleteApi(ctx, in, opts...)
 }
 
-func (m *defaultRole) RoleTree(ctx context.Context, in *RoleTreeReq, opts ...grpc.CallOption) (*RoleTreeListResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.RoleTree(ctx, in, opts...)
+func (m *defaultApiService) UpdateApi(ctx context.Context, in *UpdateApiReq, opts ...grpc.CallOption) (*UpdateApiResp, error) {
+	client := system.NewApiServiceClient(m.cli.Conn())
+	return client.UpdateApi(ctx, in, opts...)
 }
 
-func (m *defaultRole) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*SetRolePoliciesResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.SetRolePolicies(ctx, in, opts...)
-}
-
-func (m *defaultRole) QueryRolePolicies(ctx context.Context, in *QueryRolePoliciesReq, opts ...grpc.CallOption) (*QueryRolePoliciesResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.QueryRolePolicies(ctx, in, opts...)
+func (m *defaultApiService) QueryApiDetail(ctx context.Context, in *QueryApiDetailReq, opts ...grpc.CallOption) (*QueryApiDetailResp, error) {
+	client := system.NewApiServiceClient(m.cli.Conn())
+	return client.QueryApiDetail(ctx, in, opts...)
 }

@@ -6,6 +6,7 @@ package handler
 import (
 	"net/http"
 
+	api "github.com/bearllflee/scholar-track/api/internal/handler/api"
 	casbin "github.com/bearllflee/scholar-track/api/internal/handler/casbin"
 	role "github.com/bearllflee/scholar-track/api/internal/handler/role"
 	user "github.com/bearllflee/scholar-track/api/internal/handler/user"
@@ -15,6 +16,36 @@ import (
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api",
+				Handler: api.CreateApiHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/api",
+				Handler: api.QueryAllApiHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/api",
+				Handler: api.UpdateApiHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/api/:id",
+				Handler: api.DeleteApiHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/:id",
+				Handler: api.QueryApiDetailHandler(serverCtx),
+			},
+		},
+	)
+
 	server.AddRoutes(
 		[]rest.Route{
 			{

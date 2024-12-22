@@ -935,3 +935,257 @@ var User_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "system.proto",
 }
+
+const (
+	ApiService_CreateApi_FullMethodName      = "/system.ApiService/CreateApi"
+	ApiService_QueryAllApi_FullMethodName    = "/system.ApiService/QueryAllApi"
+	ApiService_DeleteApi_FullMethodName      = "/system.ApiService/DeleteApi"
+	ApiService_UpdateApi_FullMethodName      = "/system.ApiService/UpdateApi"
+	ApiService_QueryApiDetail_FullMethodName = "/system.ApiService/QueryApiDetail"
+)
+
+// ApiServiceClient is the client API for ApiService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type ApiServiceClient interface {
+	CreateApi(ctx context.Context, in *CreateApiReq, opts ...grpc.CallOption) (*CreateApiResp, error)
+	QueryAllApi(ctx context.Context, in *QueryAllApiReq, opts ...grpc.CallOption) (*QueryAllApiResp, error)
+	DeleteApi(ctx context.Context, in *DeleteApiReq, opts ...grpc.CallOption) (*DeleteApiResp, error)
+	UpdateApi(ctx context.Context, in *UpdateApiReq, opts ...grpc.CallOption) (*UpdateApiResp, error)
+	QueryApiDetail(ctx context.Context, in *QueryApiDetailReq, opts ...grpc.CallOption) (*QueryApiDetailResp, error)
+}
+
+type apiServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewApiServiceClient(cc grpc.ClientConnInterface) ApiServiceClient {
+	return &apiServiceClient{cc}
+}
+
+func (c *apiServiceClient) CreateApi(ctx context.Context, in *CreateApiReq, opts ...grpc.CallOption) (*CreateApiResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateApiResp)
+	err := c.cc.Invoke(ctx, ApiService_CreateApi_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *apiServiceClient) QueryAllApi(ctx context.Context, in *QueryAllApiReq, opts ...grpc.CallOption) (*QueryAllApiResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryAllApiResp)
+	err := c.cc.Invoke(ctx, ApiService_QueryAllApi_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *apiServiceClient) DeleteApi(ctx context.Context, in *DeleteApiReq, opts ...grpc.CallOption) (*DeleteApiResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteApiResp)
+	err := c.cc.Invoke(ctx, ApiService_DeleteApi_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *apiServiceClient) UpdateApi(ctx context.Context, in *UpdateApiReq, opts ...grpc.CallOption) (*UpdateApiResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateApiResp)
+	err := c.cc.Invoke(ctx, ApiService_UpdateApi_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *apiServiceClient) QueryApiDetail(ctx context.Context, in *QueryApiDetailReq, opts ...grpc.CallOption) (*QueryApiDetailResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryApiDetailResp)
+	err := c.cc.Invoke(ctx, ApiService_QueryApiDetail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ApiServiceServer is the server API for ApiService service.
+// All implementations must embed UnimplementedApiServiceServer
+// for forward compatibility.
+type ApiServiceServer interface {
+	CreateApi(context.Context, *CreateApiReq) (*CreateApiResp, error)
+	QueryAllApi(context.Context, *QueryAllApiReq) (*QueryAllApiResp, error)
+	DeleteApi(context.Context, *DeleteApiReq) (*DeleteApiResp, error)
+	UpdateApi(context.Context, *UpdateApiReq) (*UpdateApiResp, error)
+	QueryApiDetail(context.Context, *QueryApiDetailReq) (*QueryApiDetailResp, error)
+	mustEmbedUnimplementedApiServiceServer()
+}
+
+// UnimplementedApiServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedApiServiceServer struct{}
+
+func (UnimplementedApiServiceServer) CreateApi(context.Context, *CreateApiReq) (*CreateApiResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateApi not implemented")
+}
+func (UnimplementedApiServiceServer) QueryAllApi(context.Context, *QueryAllApiReq) (*QueryAllApiResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryAllApi not implemented")
+}
+func (UnimplementedApiServiceServer) DeleteApi(context.Context, *DeleteApiReq) (*DeleteApiResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteApi not implemented")
+}
+func (UnimplementedApiServiceServer) UpdateApi(context.Context, *UpdateApiReq) (*UpdateApiResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateApi not implemented")
+}
+func (UnimplementedApiServiceServer) QueryApiDetail(context.Context, *QueryApiDetailReq) (*QueryApiDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryApiDetail not implemented")
+}
+func (UnimplementedApiServiceServer) mustEmbedUnimplementedApiServiceServer() {}
+func (UnimplementedApiServiceServer) testEmbeddedByValue()                    {}
+
+// UnsafeApiServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ApiServiceServer will
+// result in compilation errors.
+type UnsafeApiServiceServer interface {
+	mustEmbedUnimplementedApiServiceServer()
+}
+
+func RegisterApiServiceServer(s grpc.ServiceRegistrar, srv ApiServiceServer) {
+	// If the following call pancis, it indicates UnimplementedApiServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&ApiService_ServiceDesc, srv)
+}
+
+func _ApiService_CreateApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateApiReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServiceServer).CreateApi(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ApiService_CreateApi_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServiceServer).CreateApi(ctx, req.(*CreateApiReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ApiService_QueryAllApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllApiReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServiceServer).QueryAllApi(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ApiService_QueryAllApi_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServiceServer).QueryAllApi(ctx, req.(*QueryAllApiReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ApiService_DeleteApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteApiReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServiceServer).DeleteApi(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ApiService_DeleteApi_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServiceServer).DeleteApi(ctx, req.(*DeleteApiReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ApiService_UpdateApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateApiReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServiceServer).UpdateApi(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ApiService_UpdateApi_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServiceServer).UpdateApi(ctx, req.(*UpdateApiReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ApiService_QueryApiDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryApiDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServiceServer).QueryApiDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ApiService_QueryApiDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServiceServer).QueryApiDetail(ctx, req.(*QueryApiDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// ApiService_ServiceDesc is the grpc.ServiceDesc for ApiService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var ApiService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "system.ApiService",
+	HandlerType: (*ApiServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateApi",
+			Handler:    _ApiService_CreateApi_Handler,
+		},
+		{
+			MethodName: "QueryAllApi",
+			Handler:    _ApiService_QueryAllApi_Handler,
+		},
+		{
+			MethodName: "DeleteApi",
+			Handler:    _ApiService_DeleteApi_Handler,
+		},
+		{
+			MethodName: "UpdateApi",
+			Handler:    _ApiService_UpdateApi_Handler,
+		},
+		{
+			MethodName: "QueryApiDetail",
+			Handler:    _ApiService_QueryApiDetail_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "system.proto",
+}

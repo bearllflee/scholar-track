@@ -8,6 +8,7 @@ import (
 	casbinServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/casbin"
 	roleServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/role"
 	userServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/user"
+	apiServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/apiservice"
 
 	"github.com/bearllflee/scholar-track/rpc/system/internal/config"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
@@ -35,6 +36,7 @@ func main() {
 		system.RegisterCasbinServer(grpcServer, casbinServer.NewCasbinServer(ctx))
 		system.RegisterUserServer(grpcServer, userServer.NewUserServer(ctx))
 		system.RegisterRoleServer(grpcServer, roleServer.NewRoleServer(ctx))
+		system.RegisterApiServiceServer(grpcServer, apiServer.NewApiServiceServer(ctx))
 
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)

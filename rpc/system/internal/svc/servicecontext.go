@@ -8,11 +8,13 @@ import (
 type ServiceContext struct {
 	Config        config.Config
 	CasbinService *service.CasbinService
+	ApiService    *service.ApiService
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:        c,
 		CasbinService: &service.CasbinService{},
+		ApiService:    &service.ApiService{},
 	}
 }

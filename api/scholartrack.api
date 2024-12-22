@@ -1,8 +1,8 @@
 syntax = "v1"
 
 info (
-	title:   "api-api"
-	desc:    "api-api"
+	title:   "scholartrack-api"
+	desc:    "scholartrack-api"
 	author:  "bearllflee"
 	email:   "292378727@qq.com"
 	version: "1.0"
@@ -288,5 +288,105 @@ service scholartrack-api {
 service scholartrack-api {
 	@handler AddPoliciesHandler
 	post /casbin/addPolicies (AddPolicyReq)
+}
+
+type Api {
+	Id          uint64 `json:"id"`
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
+// 添加api
+type CreateApiReq {
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+}
+
+type CreateApiResp {
+	Id          uint64 `json:"id"`
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
+// 查询全部API
+type QueryAllApiReq {}
+
+type QueryAllApiResp {
+	Apis []Api `json:"apis"`
+}
+
+// 删除api
+type DeleteApiReq {
+	Id uint64 `path:"id"`
+}
+
+type DeleteApiResp {}
+
+// 更新api
+type UpdateApiReq {
+	Id          uint64 `json:"id"`
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+}
+
+type UpdateApiResp {
+	Id          uint64 `json:"id"`
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
+// 查询api详情
+type QueryApiDetailReq {
+	Id uint64 `path:"id"`
+}
+
+type QueryApiDetailResp {
+	Id          uint64 `json:"id"`
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
+@server (
+	group: api
+)
+service scholartrack-api {
+	@handler CreateApiHandler
+	post /api (CreateApiReq) returns (CreateApiResp)
+
+	@handler QueryAllApiHandler
+	get /api (QueryAllApiReq) returns (QueryAllApiResp)
+
+	@handler DeleteApiHandler
+	delete /api/:id (DeleteApiReq) returns (DeleteApiResp)
+
+	@handler UpdateApiHandler
+	put /api (UpdateApiReq) returns (UpdateApiResp)
+
+	@handler QueryApiDetailHandler
+	get /api/:id (QueryApiDetailReq) returns (QueryApiDetailResp)
 }
 

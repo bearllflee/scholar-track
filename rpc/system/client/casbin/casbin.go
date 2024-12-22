@@ -18,8 +18,13 @@ type (
 	AddPolicyResp          = system.AddPolicyResp
 	AddRoleReq             = system.AddRoleReq
 	AddRoleResp            = system.AddRoleResp
+	Api                    = system.Api
 	ChangePasswordReq      = system.ChangePasswordReq
 	ChangePasswordResp     = system.ChangePasswordResp
+	CreateApiReq           = system.CreateApiReq
+	CreateApiResp          = system.CreateApiResp
+	DeleteApiReq           = system.DeleteApiReq
+	DeleteApiResp          = system.DeleteApiResp
 	DeleteRoleReq          = system.DeleteRoleReq
 	DeleteRoleResp         = system.DeleteRoleResp
 	DeleteUserReq          = system.DeleteUserReq
@@ -29,6 +34,10 @@ type (
 	FindUserByUsernameReq  = system.FindUserByUsernameReq
 	FindUserByUsernameResp = system.FindUserByUsernameResp
 	PolicyInfo             = system.PolicyInfo
+	QueryAllApiReq         = system.QueryAllApiReq
+	QueryAllApiResp        = system.QueryAllApiResp
+	QueryApiDetailReq      = system.QueryApiDetailReq
+	QueryApiDetailResp     = system.QueryApiDetailResp
 	QueryRolePoliciesReq   = system.QueryRolePoliciesReq
 	QueryRolePoliciesResp  = system.QueryRolePoliciesResp
 	QuerySelfInfoReq       = system.QuerySelfInfoReq
@@ -54,6 +63,8 @@ type (
 	SetUserInfoResp        = system.SetUserInfoResp
 	SetUserRoleReq         = system.SetUserRoleReq
 	SetUserRoleResp        = system.SetUserRoleResp
+	UpdateApiReq           = system.UpdateApiReq
+	UpdateApiResp          = system.UpdateApiResp
 	UpdateRoleReq          = system.UpdateRoleReq
 	UpdateRoleResp         = system.UpdateRoleResp
 

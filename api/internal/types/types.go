@@ -20,6 +20,17 @@ type AddRoleResp struct {
 	Id        uint64 `json:"id"`
 }
 
+type Api struct {
+	Id          uint64 `json:"id"`
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
 type ChangePasswordReq struct {
 	UserId      uint64 `json:"userId,optional"`
 	OldPassword string `json:"oldPassword"`
@@ -27,6 +38,31 @@ type ChangePasswordReq struct {
 }
 
 type ChangePasswordResp struct {
+}
+
+type CreateApiReq struct {
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+}
+
+type CreateApiResp struct {
+	Id          uint64 `json:"id"`
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
+type DeleteApiReq struct {
+	Id uint64 `path:"id"`
+}
+
+type DeleteApiResp struct {
 }
 
 type DeleteRoleReq struct {
@@ -55,6 +91,28 @@ type LoginResp struct {
 type PolicyInfo struct {
 	Method string `json:"method"`
 	Path   string `json:"path"`
+}
+
+type QueryAllApiReq struct {
+}
+
+type QueryAllApiResp struct {
+	Apis []Api `json:"apis"`
+}
+
+type QueryApiDetailReq struct {
+	Id uint64 `path:"id"`
+}
+
+type QueryApiDetailResp struct {
+	Id          uint64 `json:"id"`
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
 }
 
 type QueryRolePoliciesReq struct {
@@ -232,4 +290,23 @@ type SetUserRoleReq struct {
 }
 
 type SetUserRoleResp struct {
+}
+
+type UpdateApiReq struct {
+	Id          uint64 `json:"id"`
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+}
+
+type UpdateApiResp struct {
+	Id          uint64 `json:"id"`
+	Path        string `json:"path"`
+	Method      string `json:"method"`
+	ApiGroup    string `json:"apiGroup"`
+	Description string `json:"description"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
 }

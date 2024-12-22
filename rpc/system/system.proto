@@ -280,3 +280,89 @@ service User {
   rpc ChangePassword(ChangePasswordReq) returns(ChangePasswordResp);
   rpc DeleteUser(DeleteUserReq) returns(DeleteUserResp);
 }
+
+
+message Api {
+  uint64 id = 1;
+  string path = 2;
+  string method = 3;
+  string api_group = 4;
+  string description = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  int64 deleted_at = 8;
+}
+
+message CreateApiReq {
+  string path = 1;
+  string method = 2;
+  string api_group = 3;
+  string description = 4;
+}
+
+message CreateApiResp {
+  uint64 id = 1;
+  string path = 2;
+  string method = 3;
+  string api_group = 4;
+  string description = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  int64 deleted_at = 8;
+}
+
+message QueryAllApiReq {
+}
+
+message QueryAllApiResp {
+  repeated Api apis = 1;
+} 
+
+message DeleteApiReq {
+  uint64 id = 1;
+}
+
+message DeleteApiResp {
+}   
+
+message UpdateApiReq {
+  uint64 id = 1;
+  string path = 2;
+  string method = 3;
+  string api_group = 4;
+  string description = 5;
+}  
+
+message UpdateApiResp {
+  uint64 id = 1;
+  string path = 2;
+  string method = 3;
+  string api_group = 4;
+  string description = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  int64 deleted_at = 8;
+}
+
+message QueryApiDetailReq {
+  uint64 id = 1;
+}
+
+message QueryApiDetailResp {
+  uint64 id = 1;
+  string path = 2;
+  string method = 3;
+  string api_group = 4;
+  string description = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  int64 deleted_at = 8;
+}
+
+service ApiService {
+  rpc CreateApi(CreateApiReq) returns (CreateApiResp);
+  rpc QueryAllApi(QueryAllApiReq) returns (QueryAllApiResp);
+  rpc DeleteApi(DeleteApiReq) returns (DeleteApiResp);
+  rpc UpdateApi(UpdateApiReq) returns (UpdateApiResp);
+  rpc QueryApiDetail(QueryApiDetailReq) returns (QueryApiDetailResp);
+}

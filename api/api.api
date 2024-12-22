@@ -1,0 +1,10 @@
+syntax = "v1"
+
+info (
+	title:   "api-api"
+	desc:    "api-api"
+	author:  "bearllflee"
+	email:   "292378727@qq.com"
+	version: "1.0"
+)
+

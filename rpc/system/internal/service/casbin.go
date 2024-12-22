@@ -16,6 +16,13 @@ import (
 type CasbinService struct {
 }
 
+func (casbinService *CasbinService) UpdateApi(oldPath string, oldMethod string, newPath string, newMethod string) error {
+	return global.DB.Model(&gormadapter.CasbinRule{}).Where("v1 = ? AND v2 = ?", oldPath,	 oldMethod).Updates(&gormadapter.CasbinRule{
+		V1: newPath,
+		V2: newMethod,
+	}).Error
+}
+
 func (casbinService *CasbinService) ClearCasbin(v int, p ...string) bool {
 	e := casbinService.Casbin()
 	success, _ := e.RemoveFilteredPolicy(v, p...)
@@ -42,7 +49,6 @@ func (casbinService *CasbinService) UpdateCasbin(roleId uint64, policyInfos []*r
 	}
 	return nil
 }
-
 
 var (
 	syncedCachedEnforcer *casbin.SyncedCachedEnforcer
