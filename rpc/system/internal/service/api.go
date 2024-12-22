@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 
+	"github.com/bearllflee/scholar-track/pkg/cerror"
 	"github.com/bearllflee/scholar-track/pkg/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 	"gorm.io/gorm"
@@ -58,4 +59,16 @@ func (s *ApiService) CheckApiExist(apiId uint64, path string, method string) (bo
 	}
 
 	return api.Id != apiId, nil
+}
+
+func (s *ApiService) QueryApiByPathAndMethod(path string, method string) (*model.Api, error) {
+	var api model.Api
+	err := global.DB.Model(&model.Api{}).Where("path = ? AND method = ?", path, method).First(&api).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, cerror.ErrApiNotFound
+		}
+		return nil, err
+	}
+	return &api, nil
 }

@@ -9,6 +9,7 @@ type ServiceContext struct {
 	Config        config.Config
 	CasbinService *service.CasbinService
 	ApiService    *service.ApiService
+	RoleService   *service.RoleService
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -16,5 +17,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:        c,
 		CasbinService: &service.CasbinService{},
 		ApiService:    &service.ApiService{},
+		RoleService:   &service.RoleService{},
 	}
 }
