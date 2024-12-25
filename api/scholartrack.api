@@ -390,3 +390,252 @@ service scholartrack-api {
 	get /api/:id (QueryApiDetailReq) returns (QueryApiDetailResp)
 }
 
+// 成就分类
+type Category {
+	Id          uint64     `json:"id"`
+	Name        string     `json:"name"`
+	Type        string     `json:"type"`
+	Description string     `json:"description"`
+	Status      int32      `json:"status"`
+	Properties  []Property `json:"properties"`
+	CreatedAt   int64      `json:"createdAt"`
+	UpdatedAt   int64      `json:"updatedAt"`
+	DeletedAt   int64      `json:"-"`
+}
+
+// 查询成就分类
+type QueryCategoryReq {
+	Page     int64  `json:"page"`
+	PageSize int64  `json:"pageSize"`
+	Name     string `json:"name,optional"`
+	Type     string `json:"type,optional"`
+	Status   int32  `json:"status,optional"`
+	OrderBy  string `json:"orderBy,optional"`
+}
+
+type QueryCategoryResp {
+	Total      int64      `json:"total"`
+	Categories []Category `json:"categories"`
+	Page       int64      `json:"page"`
+	PageSize   int64      `json:"pageSize"`
+}
+
+// 添加成就分类
+type AddCategoryReq {
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Status      int32  `json:"status"`
+}
+
+type AddCategoryResp {
+	Id          uint64 `json:"id"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Status      int32  `json:"status"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
+// 更新成就分类
+type UpdateCategoryReq {
+	Id          uint64 `json:"id"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Status      int32  `json:"status"`
+}
+
+type UpdateCategoryResp {
+	Id          uint64 `json:"id"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Status      int32  `json:"status"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
+// 删除成就分类
+type DeleteCategoryReq {
+	Id uint64 `path:"id"`
+}
+
+type DeleteCategoryResp {}
+
+// 查看成就详情
+type QueryCategoryDetailReq {
+	Id uint64 `path:"id"`
+}
+
+type QueryCategoryDetailResp {
+	Id          uint64     `json:"id"`
+	Name        string     `json:"name"`
+	Type        string     `json:"type"`
+	Description string     `json:"description"`
+	Status      int32      `json:"status"`
+	Properties  []Property `json:"properties"`
+	CreatedAt   int64      `json:"createdAt"`
+	UpdatedAt   int64      `json:"updatedAt"`
+	DeletedAt   int64      `json:"-"`
+}
+
+@server (
+	group: achievement/category
+)
+service scholartrack-api {
+	@handler QueryCategoryHandler
+	get /category (QueryCategoryReq) returns (QueryCategoryResp)
+
+	@handler AddCategoryHandler
+	post /category (AddCategoryReq) returns (AddCategoryResp)
+
+	@handler UpdateCategoryHandler
+	put /category (UpdateCategoryReq) returns (UpdateCategoryResp)
+
+	@handler DeleteCategoryHandler
+	delete /category/:id (DeleteCategoryReq) returns (DeleteCategoryResp)
+
+	@handler QueryCategoryDetailHandler
+	get /category/:id (QueryCategoryDetailReq) returns (QueryCategoryDetailResp)
+}
+
+// 成就属性
+type Property {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+	CreatedAt    int64  `json:"createdAt"`
+	UpdatedAt    int64  `json:"updatedAt"`
+	DeletedAt    int64  `json:"-"`
+}
+
+// 查询成就属性
+type QueryPropertyReq {
+	Page       int64  `json:"page"`
+	PageSize   int64  `json:"pageSize"`
+	CategoryId uint64 `json:"categoryId"`
+	Name       string `json:"name,optional"`
+	Type       string `json:"type,optional"`
+	Status     int32  `json:"status,optional"`
+	OrderBy    string `json:"orderBy,optional"`
+}
+
+type QueryPropertyResp {
+	Total      int64      `json:"total"`
+	Properties []Property `json:"properties"`
+	Page       int64      `json:"page"`
+	PageSize   int64      `json:"pageSize"`
+}
+
+// 添加成就属性
+type AddPropertyReq {
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+}
+
+type AddPropertyResp {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+	CreatedAt    int64  `json:"createdAt"`
+	UpdatedAt    int64  `json:"updatedAt"`
+	DeletedAt    int64  `json:"-"`
+}
+
+// 更新成就属性
+type UpdatePropertyReq {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+}
+
+type UpdatePropertyResp {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+	CreatedAt    int64  `json:"createdAt"`
+	UpdatedAt    int64  `json:"updatedAt"`
+	DeletedAt    int64  `json:"-"`
+}
+
+// 删除成就属性
+type DeletePropertyReq {
+	Id uint64 `path:"id"`
+}
+
+type DeletePropertyResp {}
+
+// 查看成就属性详情
+type QueryPropertyDetailReq {
+	Id uint64 `path:"id"`
+}
+
+type QueryPropertyDetailResp {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+	CreatedAt    int64  `json:"createdAt"`
+	UpdatedAt    int64  `json:"updatedAt"`
+	DeletedAt    int64  `json:"-"`
+}
+
+@server (
+	group: achievement/property
+)
+service scholartrack-api {
+	@handler QueryPropertyHandler
+	get /property (QueryPropertyReq) returns (QueryPropertyResp)
+
+	@handler AddPropertyHandler
+	post /property (AddPropertyReq) returns (AddPropertyResp)
+
+	@handler UpdatePropertyHandler
+	put /property (UpdatePropertyReq) returns (UpdatePropertyResp)
+
+	@handler DeletePropertyHandler
+	delete /property/:id (DeletePropertyReq) returns (DeletePropertyResp)
+
+	@handler QueryPropertyDetailHandler
+	get /property/:id (QueryPropertyDetailReq) returns (QueryPropertyDetailResp)
+}
+

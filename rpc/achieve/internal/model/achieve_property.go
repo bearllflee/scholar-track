@@ -12,7 +12,6 @@ type Property struct {
 	IsRequired  bool    `json:"isRequired" form:"is_required" gorm:"column:is_required;comment:是否必填"`
 	ValidateRule string `json:"validateRule" form:"validateRule" gorm:"column:validate_rule;comment:验证规则"`
 	CategoryId  uint64  `json:"categoryId" form:"category_id" gorm:"column:category_id;comment:所属类别"`
-
 }
 
 func (Property) TableName() string {

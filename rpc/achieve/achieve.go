@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"github.com/bearllflee/scholar-track/rpc/achieve/achieve"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/config"
-	"github.com/bearllflee/scholar-track/rpc/achieve/internal/server"
+	categoryservice "github.com/bearllflee/scholar-track/rpc/achieve/internal/server/categoryservice"
+	propertyservice "github.com/bearllflee/scholar-track/rpc/achieve/internal/server/propertyservice"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
@@ -25,8 +26,8 @@ func main() {
 	ctx := svc.NewServiceContext(c)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		achieve.RegisterAchieveServer(grpcServer, server.NewAchieveServer(ctx))
-
+		achieve.RegisterCategoryServiceServer(grpcServer, categoryservice.NewCategoryServiceServer(ctx))
+		achieve.RegisterPropertyServiceServer(grpcServer, propertyservice.NewPropertyServiceServer(ctx))
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)
 		}

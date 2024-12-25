@@ -6,6 +6,8 @@ package handler
 import (
 	"net/http"
 
+	achievementcategory "github.com/bearllflee/scholar-track/api/internal/handler/achievement/category"
+	achievementproperty "github.com/bearllflee/scholar-track/api/internal/handler/achievement/property"
 	api "github.com/bearllflee/scholar-track/api/internal/handler/api"
 	casbin "github.com/bearllflee/scholar-track/api/internal/handler/casbin"
 	role "github.com/bearllflee/scholar-track/api/internal/handler/role"
@@ -16,6 +18,66 @@ import (
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/category",
+				Handler: achievementcategory.QueryCategoryHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/category",
+				Handler: achievementcategory.AddCategoryHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/category",
+				Handler: achievementcategory.UpdateCategoryHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/category/:id",
+				Handler: achievementcategory.DeleteCategoryHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/category/:id",
+				Handler: achievementcategory.QueryCategoryDetailHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/property",
+				Handler: achievementproperty.QueryPropertyHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/property",
+				Handler: achievementproperty.AddPropertyHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/property",
+				Handler: achievementproperty.UpdatePropertyHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/property/:id",
+				Handler: achievementproperty.DeletePropertyHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/property/:id",
+				Handler: achievementproperty.QueryPropertyDetailHandler(serverCtx),
+			},
+		},
+	)
+
 	server.AddRoutes(
 		[]rest.Route{
 			{

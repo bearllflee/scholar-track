@@ -19,101 +19,507 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Achieve_Ping_FullMethodName = "/achieve.Achieve/Ping"
+	CategoryService_CreateCategory_FullMethodName      = "/achieve.CategoryService/CreateCategory"
+	CategoryService_QueryCategoryDetail_FullMethodName = "/achieve.CategoryService/QueryCategoryDetail"
+	CategoryService_QueryCategoryList_FullMethodName   = "/achieve.CategoryService/QueryCategoryList"
+	CategoryService_DeleteCategory_FullMethodName      = "/achieve.CategoryService/DeleteCategory"
+	CategoryService_UpdateCategory_FullMethodName      = "/achieve.CategoryService/UpdateCategory"
 )
 
-// AchieveClient is the client API for Achieve service.
+// CategoryServiceClient is the client API for CategoryService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type AchieveClient interface {
-	Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+type CategoryServiceClient interface {
+	CreateCategory(ctx context.Context, in *CreateCategoryReq, opts ...grpc.CallOption) (*CreateCategoryResp, error)
+	QueryCategoryDetail(ctx context.Context, in *QueryCategoryDetailReq, opts ...grpc.CallOption) (*QueryCategoryResp, error)
+	QueryCategoryList(ctx context.Context, in *QueryCategoryListReq, opts ...grpc.CallOption) (*QueryCategoryListResp, error)
+	DeleteCategory(ctx context.Context, in *DeleteCategoryReq, opts ...grpc.CallOption) (*DeleteCategoryResp, error)
+	UpdateCategory(ctx context.Context, in *UpdateCategoryReq, opts ...grpc.CallOption) (*UpdateCategoryResp, error)
 }
 
-type achieveClient struct {
+type categoryServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewAchieveClient(cc grpc.ClientConnInterface) AchieveClient {
-	return &achieveClient{cc}
+func NewCategoryServiceClient(cc grpc.ClientConnInterface) CategoryServiceClient {
+	return &categoryServiceClient{cc}
 }
 
-func (c *achieveClient) Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (c *categoryServiceClient) CreateCategory(ctx context.Context, in *CreateCategoryReq, opts ...grpc.CallOption) (*CreateCategoryResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Response)
-	err := c.cc.Invoke(ctx, Achieve_Ping_FullMethodName, in, out, cOpts...)
+	out := new(CreateCategoryResp)
+	err := c.cc.Invoke(ctx, CategoryService_CreateCategory_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// AchieveServer is the server API for Achieve service.
-// All implementations must embed UnimplementedAchieveServer
-// for forward compatibility.
-type AchieveServer interface {
-	Ping(context.Context, *Request) (*Response, error)
-	mustEmbedUnimplementedAchieveServer()
+func (c *categoryServiceClient) QueryCategoryDetail(ctx context.Context, in *QueryCategoryDetailReq, opts ...grpc.CallOption) (*QueryCategoryResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryCategoryResp)
+	err := c.cc.Invoke(ctx, CategoryService_QueryCategoryDetail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
-// UnimplementedAchieveServer must be embedded to have
+func (c *categoryServiceClient) QueryCategoryList(ctx context.Context, in *QueryCategoryListReq, opts ...grpc.CallOption) (*QueryCategoryListResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryCategoryListResp)
+	err := c.cc.Invoke(ctx, CategoryService_QueryCategoryList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *categoryServiceClient) DeleteCategory(ctx context.Context, in *DeleteCategoryReq, opts ...grpc.CallOption) (*DeleteCategoryResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteCategoryResp)
+	err := c.cc.Invoke(ctx, CategoryService_DeleteCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *categoryServiceClient) UpdateCategory(ctx context.Context, in *UpdateCategoryReq, opts ...grpc.CallOption) (*UpdateCategoryResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateCategoryResp)
+	err := c.cc.Invoke(ctx, CategoryService_UpdateCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CategoryServiceServer is the server API for CategoryService service.
+// All implementations must embed UnimplementedCategoryServiceServer
+// for forward compatibility.
+type CategoryServiceServer interface {
+	CreateCategory(context.Context, *CreateCategoryReq) (*CreateCategoryResp, error)
+	QueryCategoryDetail(context.Context, *QueryCategoryDetailReq) (*QueryCategoryResp, error)
+	QueryCategoryList(context.Context, *QueryCategoryListReq) (*QueryCategoryListResp, error)
+	DeleteCategory(context.Context, *DeleteCategoryReq) (*DeleteCategoryResp, error)
+	UpdateCategory(context.Context, *UpdateCategoryReq) (*UpdateCategoryResp, error)
+	mustEmbedUnimplementedCategoryServiceServer()
+}
+
+// UnimplementedCategoryServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedAchieveServer struct{}
+type UnimplementedCategoryServiceServer struct{}
 
-func (UnimplementedAchieveServer) Ping(context.Context, *Request) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
+func (UnimplementedCategoryServiceServer) CreateCategory(context.Context, *CreateCategoryReq) (*CreateCategoryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
 }
-func (UnimplementedAchieveServer) mustEmbedUnimplementedAchieveServer() {}
-func (UnimplementedAchieveServer) testEmbeddedByValue()                 {}
+func (UnimplementedCategoryServiceServer) QueryCategoryDetail(context.Context, *QueryCategoryDetailReq) (*QueryCategoryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryCategoryDetail not implemented")
+}
+func (UnimplementedCategoryServiceServer) QueryCategoryList(context.Context, *QueryCategoryListReq) (*QueryCategoryListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryCategoryList not implemented")
+}
+func (UnimplementedCategoryServiceServer) DeleteCategory(context.Context, *DeleteCategoryReq) (*DeleteCategoryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCategory not implemented")
+}
+func (UnimplementedCategoryServiceServer) UpdateCategory(context.Context, *UpdateCategoryReq) (*UpdateCategoryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCategory not implemented")
+}
+func (UnimplementedCategoryServiceServer) mustEmbedUnimplementedCategoryServiceServer() {}
+func (UnimplementedCategoryServiceServer) testEmbeddedByValue()                         {}
 
-// UnsafeAchieveServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to AchieveServer will
+// UnsafeCategoryServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CategoryServiceServer will
 // result in compilation errors.
-type UnsafeAchieveServer interface {
-	mustEmbedUnimplementedAchieveServer()
+type UnsafeCategoryServiceServer interface {
+	mustEmbedUnimplementedCategoryServiceServer()
 }
 
-func RegisterAchieveServer(s grpc.ServiceRegistrar, srv AchieveServer) {
-	// If the following call pancis, it indicates UnimplementedAchieveServer was
+func RegisterCategoryServiceServer(s grpc.ServiceRegistrar, srv CategoryServiceServer) {
+	// If the following call pancis, it indicates UnimplementedCategoryServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&Achieve_ServiceDesc, srv)
+	s.RegisterService(&CategoryService_ServiceDesc, srv)
 }
 
-func _Achieve_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
+func _CategoryService_CreateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCategoryReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AchieveServer).Ping(ctx, in)
+		return srv.(CategoryServiceServer).CreateCategory(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Achieve_Ping_FullMethodName,
+		FullMethod: CategoryService_CreateCategory_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AchieveServer).Ping(ctx, req.(*Request))
+		return srv.(CategoryServiceServer).CreateCategory(ctx, req.(*CreateCategoryReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Achieve_ServiceDesc is the grpc.ServiceDesc for Achieve service.
+func _CategoryService_QueryCategoryDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCategoryDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CategoryServiceServer).QueryCategoryDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CategoryService_QueryCategoryDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CategoryServiceServer).QueryCategoryDetail(ctx, req.(*QueryCategoryDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CategoryService_QueryCategoryList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCategoryListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CategoryServiceServer).QueryCategoryList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CategoryService_QueryCategoryList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CategoryServiceServer).QueryCategoryList(ctx, req.(*QueryCategoryListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CategoryService_DeleteCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCategoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CategoryServiceServer).DeleteCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CategoryService_DeleteCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CategoryServiceServer).DeleteCategory(ctx, req.(*DeleteCategoryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CategoryService_UpdateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCategoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CategoryServiceServer).UpdateCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CategoryService_UpdateCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CategoryServiceServer).UpdateCategory(ctx, req.(*UpdateCategoryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// CategoryService_ServiceDesc is the grpc.ServiceDesc for CategoryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Achieve_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "achieve.Achieve",
-	HandlerType: (*AchieveServer)(nil),
+var CategoryService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "achieve.CategoryService",
+	HandlerType: (*CategoryServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Ping",
-			Handler:    _Achieve_Ping_Handler,
+			MethodName: "CreateCategory",
+			Handler:    _CategoryService_CreateCategory_Handler,
+		},
+		{
+			MethodName: "QueryCategoryDetail",
+			Handler:    _CategoryService_QueryCategoryDetail_Handler,
+		},
+		{
+			MethodName: "QueryCategoryList",
+			Handler:    _CategoryService_QueryCategoryList_Handler,
+		},
+		{
+			MethodName: "DeleteCategory",
+			Handler:    _CategoryService_DeleteCategory_Handler,
+		},
+		{
+			MethodName: "UpdateCategory",
+			Handler:    _CategoryService_UpdateCategory_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "achieve.proto",
+}
+
+const (
+	PropertyService_CreateProperty_FullMethodName      = "/achieve.PropertyService/CreateProperty"
+	PropertyService_QueryPropertyDetail_FullMethodName = "/achieve.PropertyService/QueryPropertyDetail"
+	PropertyService_QueryPropertyList_FullMethodName   = "/achieve.PropertyService/QueryPropertyList"
+	PropertyService_DeleteProperty_FullMethodName      = "/achieve.PropertyService/DeleteProperty"
+	PropertyService_UpdateProperty_FullMethodName      = "/achieve.PropertyService/UpdateProperty"
+)
+
+// PropertyServiceClient is the client API for PropertyService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type PropertyServiceClient interface {
+	CreateProperty(ctx context.Context, in *CreatePropertyReq, opts ...grpc.CallOption) (*CreatePropertyResp, error)
+	QueryPropertyDetail(ctx context.Context, in *QueryPropertyDetailReq, opts ...grpc.CallOption) (*QueryPropertyDetailResp, error)
+	QueryPropertyList(ctx context.Context, in *QueryPropertyListReq, opts ...grpc.CallOption) (*QueryPropertyListResp, error)
+	DeleteProperty(ctx context.Context, in *DeletePropertyReq, opts ...grpc.CallOption) (*DeletePropertyResp, error)
+	UpdateProperty(ctx context.Context, in *UpdatePropertyReq, opts ...grpc.CallOption) (*UpdatePropertyResp, error)
+}
+
+type propertyServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewPropertyServiceClient(cc grpc.ClientConnInterface) PropertyServiceClient {
+	return &propertyServiceClient{cc}
+}
+
+func (c *propertyServiceClient) CreateProperty(ctx context.Context, in *CreatePropertyReq, opts ...grpc.CallOption) (*CreatePropertyResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatePropertyResp)
+	err := c.cc.Invoke(ctx, PropertyService_CreateProperty_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *propertyServiceClient) QueryPropertyDetail(ctx context.Context, in *QueryPropertyDetailReq, opts ...grpc.CallOption) (*QueryPropertyDetailResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryPropertyDetailResp)
+	err := c.cc.Invoke(ctx, PropertyService_QueryPropertyDetail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *propertyServiceClient) QueryPropertyList(ctx context.Context, in *QueryPropertyListReq, opts ...grpc.CallOption) (*QueryPropertyListResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryPropertyListResp)
+	err := c.cc.Invoke(ctx, PropertyService_QueryPropertyList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *propertyServiceClient) DeleteProperty(ctx context.Context, in *DeletePropertyReq, opts ...grpc.CallOption) (*DeletePropertyResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeletePropertyResp)
+	err := c.cc.Invoke(ctx, PropertyService_DeleteProperty_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *propertyServiceClient) UpdateProperty(ctx context.Context, in *UpdatePropertyReq, opts ...grpc.CallOption) (*UpdatePropertyResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdatePropertyResp)
+	err := c.cc.Invoke(ctx, PropertyService_UpdateProperty_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// PropertyServiceServer is the server API for PropertyService service.
+// All implementations must embed UnimplementedPropertyServiceServer
+// for forward compatibility.
+type PropertyServiceServer interface {
+	CreateProperty(context.Context, *CreatePropertyReq) (*CreatePropertyResp, error)
+	QueryPropertyDetail(context.Context, *QueryPropertyDetailReq) (*QueryPropertyDetailResp, error)
+	QueryPropertyList(context.Context, *QueryPropertyListReq) (*QueryPropertyListResp, error)
+	DeleteProperty(context.Context, *DeletePropertyReq) (*DeletePropertyResp, error)
+	UpdateProperty(context.Context, *UpdatePropertyReq) (*UpdatePropertyResp, error)
+	mustEmbedUnimplementedPropertyServiceServer()
+}
+
+// UnimplementedPropertyServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedPropertyServiceServer struct{}
+
+func (UnimplementedPropertyServiceServer) CreateProperty(context.Context, *CreatePropertyReq) (*CreatePropertyResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateProperty not implemented")
+}
+func (UnimplementedPropertyServiceServer) QueryPropertyDetail(context.Context, *QueryPropertyDetailReq) (*QueryPropertyDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryPropertyDetail not implemented")
+}
+func (UnimplementedPropertyServiceServer) QueryPropertyList(context.Context, *QueryPropertyListReq) (*QueryPropertyListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryPropertyList not implemented")
+}
+func (UnimplementedPropertyServiceServer) DeleteProperty(context.Context, *DeletePropertyReq) (*DeletePropertyResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteProperty not implemented")
+}
+func (UnimplementedPropertyServiceServer) UpdateProperty(context.Context, *UpdatePropertyReq) (*UpdatePropertyResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateProperty not implemented")
+}
+func (UnimplementedPropertyServiceServer) mustEmbedUnimplementedPropertyServiceServer() {}
+func (UnimplementedPropertyServiceServer) testEmbeddedByValue()                         {}
+
+// UnsafePropertyServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PropertyServiceServer will
+// result in compilation errors.
+type UnsafePropertyServiceServer interface {
+	mustEmbedUnimplementedPropertyServiceServer()
+}
+
+func RegisterPropertyServiceServer(s grpc.ServiceRegistrar, srv PropertyServiceServer) {
+	// If the following call pancis, it indicates UnimplementedPropertyServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&PropertyService_ServiceDesc, srv)
+}
+
+func _PropertyService_CreateProperty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePropertyReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PropertyServiceServer).CreateProperty(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PropertyService_CreateProperty_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PropertyServiceServer).CreateProperty(ctx, req.(*CreatePropertyReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PropertyService_QueryPropertyDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryPropertyDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PropertyServiceServer).QueryPropertyDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PropertyService_QueryPropertyDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PropertyServiceServer).QueryPropertyDetail(ctx, req.(*QueryPropertyDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PropertyService_QueryPropertyList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryPropertyListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PropertyServiceServer).QueryPropertyList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PropertyService_QueryPropertyList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PropertyServiceServer).QueryPropertyList(ctx, req.(*QueryPropertyListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PropertyService_DeleteProperty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeletePropertyReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PropertyServiceServer).DeleteProperty(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PropertyService_DeleteProperty_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PropertyServiceServer).DeleteProperty(ctx, req.(*DeletePropertyReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PropertyService_UpdateProperty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePropertyReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PropertyServiceServer).UpdateProperty(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PropertyService_UpdateProperty_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PropertyServiceServer).UpdateProperty(ctx, req.(*UpdatePropertyReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// PropertyService_ServiceDesc is the grpc.ServiceDesc for PropertyService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var PropertyService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "achieve.PropertyService",
+	HandlerType: (*PropertyServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateProperty",
+			Handler:    _PropertyService_CreateProperty_Handler,
+		},
+		{
+			MethodName: "QueryPropertyDetail",
+			Handler:    _PropertyService_QueryPropertyDetail_Handler,
+		},
+		{
+			MethodName: "QueryPropertyList",
+			Handler:    _PropertyService_QueryPropertyList_Handler,
+		},
+		{
+			MethodName: "DeleteProperty",
+			Handler:    _PropertyService_DeleteProperty_Handler,
+		},
+		{
+			MethodName: "UpdateProperty",
+			Handler:    _PropertyService_UpdateProperty_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

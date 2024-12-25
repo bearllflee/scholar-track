@@ -3,8 +3,52 @@
 
 package types
 
+type AddCategoryReq struct {
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Status      int32  `json:"status"`
+}
+
+type AddCategoryResp struct {
+	Id          uint64 `json:"id"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Status      int32  `json:"status"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
 type AddPolicyReq struct {
 	Rules [][]string `json:"rules"`
+}
+
+type AddPropertyReq struct {
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+}
+
+type AddPropertyResp struct {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+	CreatedAt    int64  `json:"createdAt"`
+	UpdatedAt    int64  `json:"updatedAt"`
+	DeletedAt    int64  `json:"-"`
 }
 
 type AddRoleReq struct {
@@ -29,6 +73,18 @@ type Api struct {
 	CreatedAt   int64  `json:"createdAt"`
 	UpdatedAt   int64  `json:"updatedAt"`
 	DeletedAt   int64  `json:"-"`
+}
+
+type Category struct {
+	Id          uint64     `json:"id"`
+	Name        string     `json:"name"`
+	Type        string     `json:"type"`
+	Description string     `json:"description"`
+	Status      int32      `json:"status"`
+	Properties  []Property `json:"properties"`
+	CreatedAt   int64      `json:"createdAt"`
+	UpdatedAt   int64      `json:"updatedAt"`
+	DeletedAt   int64      `json:"-"`
 }
 
 type ChangePasswordReq struct {
@@ -65,6 +121,20 @@ type DeleteApiReq struct {
 type DeleteApiResp struct {
 }
 
+type DeleteCategoryReq struct {
+	Id uint64 `path:"id"`
+}
+
+type DeleteCategoryResp struct {
+}
+
+type DeletePropertyReq struct {
+	Id uint64 `path:"id"`
+}
+
+type DeletePropertyResp struct {
+}
+
 type DeleteRoleReq struct {
 	RoleId uint64 `path:"id"`
 }
@@ -93,6 +163,21 @@ type PolicyInfo struct {
 	Path   string `json:"path"`
 }
 
+type Property struct {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+	CreatedAt    int64  `json:"createdAt"`
+	UpdatedAt    int64  `json:"updatedAt"`
+	DeletedAt    int64  `json:"-"`
+}
+
 type QueryAllApiReq struct {
 }
 
@@ -113,6 +198,74 @@ type QueryApiDetailResp struct {
 	CreatedAt   int64  `json:"createdAt"`
 	UpdatedAt   int64  `json:"updatedAt"`
 	DeletedAt   int64  `json:"-"`
+}
+
+type QueryCategoryDetailReq struct {
+	Id uint64 `path:"id"`
+}
+
+type QueryCategoryDetailResp struct {
+	Id          uint64     `json:"id"`
+	Name        string     `json:"name"`
+	Type        string     `json:"type"`
+	Description string     `json:"description"`
+	Status      int32      `json:"status"`
+	Properties  []Property `json:"properties"`
+	CreatedAt   int64      `json:"createdAt"`
+	UpdatedAt   int64      `json:"updatedAt"`
+	DeletedAt   int64      `json:"-"`
+}
+
+type QueryCategoryReq struct {
+	Page     int64  `json:"page"`
+	PageSize int64  `json:"pageSize"`
+	Name     string `json:"name,optional"`
+	Type     string `json:"type,optional"`
+	Status   int32  `json:"status,optional"`
+	OrderBy  string `json:"orderBy,optional"`
+}
+
+type QueryCategoryResp struct {
+	Total      int64      `json:"total"`
+	Categories []Category `json:"categories"`
+	Page       int64      `json:"page"`
+	PageSize   int64      `json:"pageSize"`
+}
+
+type QueryPropertyDetailReq struct {
+	Id uint64 `path:"id"`
+}
+
+type QueryPropertyDetailResp struct {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+	CreatedAt    int64  `json:"createdAt"`
+	UpdatedAt    int64  `json:"updatedAt"`
+	DeletedAt    int64  `json:"-"`
+}
+
+type QueryPropertyReq struct {
+	Page       int64  `json:"page"`
+	PageSize   int64  `json:"pageSize"`
+	CategoryId uint64 `json:"categoryId"`
+	Name       string `json:"name,optional"`
+	Type       string `json:"type,optional"`
+	Status     int32  `json:"status,optional"`
+	OrderBy    string `json:"orderBy,optional"`
+}
+
+type QueryPropertyResp struct {
+	Total      int64      `json:"total"`
+	Properties []Property `json:"properties"`
+	Page       int64      `json:"page"`
+	PageSize   int64      `json:"pageSize"`
 }
 
 type QueryRolePoliciesReq struct {
@@ -309,4 +462,50 @@ type UpdateApiResp struct {
 	CreatedAt   int64  `json:"createdAt"`
 	UpdatedAt   int64  `json:"updatedAt"`
 	DeletedAt   int64  `json:"-"`
+}
+
+type UpdateCategoryReq struct {
+	Id          uint64 `json:"id"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Status      int32  `json:"status"`
+}
+
+type UpdateCategoryResp struct {
+	Id          uint64 `json:"id"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Status      int32  `json:"status"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
+type UpdatePropertyReq struct {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+}
+
+type UpdatePropertyResp struct {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Status       int32  `json:"status"`
+	Type         string `json:"type"`
+	IsSearch     bool   `json:"isSearch"`
+	IsRequired   bool   `json:"isRequired"`
+	ValidateRule string `json:"validateRule"`
+	CategoryId   uint64 `json:"categoryId"`
+	CreatedAt    int64  `json:"createdAt"`
+	UpdatedAt    int64  `json:"updatedAt"`
+	DeletedAt    int64  `json:"-"`
 }

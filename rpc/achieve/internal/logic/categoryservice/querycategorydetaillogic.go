@@ -1,4 +1,4 @@
-package logic
+package categoryservicelogic
 
 import (
 	"context"
@@ -9,22 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type PingLogic struct {
+type QueryCategoryDetailLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewPingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PingLogic {
-	return &PingLogic{
+func NewQueryCategoryDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *QueryCategoryDetailLogic {
+	return &QueryCategoryDetailLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *PingLogic) Ping(in *achieve.Request) (*achieve.Response, error) {
+func (l *QueryCategoryDetailLogic) QueryCategoryDetail(in *achieve.QueryCategoryDetailReq) (*achieve.QueryCategoryResp, error) {
 	// todo: add your logic here and delete this line
 
-	return &achieve.Response{}, nil
+	return &achieve.QueryCategoryResp{}, nil
 }

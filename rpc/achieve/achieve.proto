@@ -3,14 +3,213 @@ syntax = "proto3";
 package achieve;
 option go_package="./achieve";
 
-message Request {
-  string ping = 1;
+message Category {
+  uint64 id = 1;
+  string name = 2;
+  string type = 3;
+  string description = 4;
+  int32 status = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  int64 deleted_at = 8;
 }
 
-message Response {
-  string pong = 1;
+// 创建成就分类
+message CreateCategoryReq {
+  string name = 1;
+  string type = 2;
+  string description = 3;
+  int32 status = 4;
 }
 
-service Achieve {
-  rpc Ping(Request) returns(Response);
+message CreateCategoryResp {
+  uint64 id = 1;
+  string name = 2;
+  string type = 3;
+  string description = 4;
+  int32 status = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  int64 deleted_at = 8;
+}
+
+// 查询成就分类
+message QueryCategoryDetailReq {
+  uint64 id = 1;
+}
+
+message QueryCategoryResp {
+  uint64 id = 1;
+  string name = 2;
+  string type = 3;
+  string description = 4;
+  int32 status = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  int64 deleted_at = 8;
+}
+// 查询成就分类列表
+message QueryCategoryListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string name = 3;
+  string type = 4;
+  int32 status = 5;
+  string order_by = 6;
+}
+
+message QueryCategoryListResp {
+  uint64 total = 1;
+  uint64 page = 2;
+  uint64 page_size = 3;
+  repeated Category categories = 4;
+}
+// 删除成就分类
+message DeleteCategoryReq {
+  uint64 id = 1;
+}
+
+message DeleteCategoryResp {}
+// 更新成就分类
+message UpdateCategoryReq {
+  uint64 id = 1;
+  string name = 2;
+  string type = 3;
+  string description = 4;
+  int32 status = 5;
+}
+
+message UpdateCategoryResp {
+  uint64 id = 1;
+  string name = 2;
+  string type = 3;
+  string description = 4;
+  int32 status = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  int64 deleted_at = 8;
+}
+
+
+message Property {
+  uint64 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 status = 4;
+  string type = 5;
+  bool is_search = 6;
+  bool is_required = 7;
+  string validate_rule = 8;
+  uint64 category_id = 9;
+}
+// 创建成就属性
+message CreatePropertyReq {
+  string name = 1;
+  string description = 2;
+  int32 status = 3;
+  string type = 4;
+  bool is_search = 5;
+  bool is_required = 6;
+  string validate_rule = 7;
+  uint64 category_id = 8;
+}
+
+message CreatePropertyResp {
+  uint64 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 status = 4;
+  string type = 5;
+  bool is_search = 6;
+  bool is_required = 7;
+  string validate_rule = 8;
+  uint64 category_id = 9;
+}
+
+// 查询成就属性
+message QueryPropertyDetailReq {
+  uint64 id = 1;
+}
+
+message QueryPropertyDetailResp {
+  uint64 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 status = 4;
+  string type = 5;
+  bool is_search = 6;
+  bool is_required = 7;
+  string validate_rule = 8;
+  uint64 category_id = 9;
+  int64 created_at = 10;
+  int64 updated_at = 11;
+  int64 deleted_at = 12;
+}
+
+// 查询成就属性列表
+message QueryPropertyListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string name = 3;
+  string type = 4;
+  int32 status = 5;
+  string order_by = 6;
+}
+
+message QueryPropertyListResp {
+  uint64 total = 1;
+  uint64 page = 2;
+  uint64 page_size = 3;
+  repeated Property properties = 4;
+}
+
+// 删除成就属性
+message DeletePropertyReq {
+  uint64 id = 1;
+}
+
+message DeletePropertyResp {}
+
+// 更新成就属性
+message UpdatePropertyReq {
+  uint64 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 status = 4;
+  string type = 5;
+  bool is_search = 6;
+  bool is_required = 7;
+  string validate_rule = 8;
+  uint64 category_id = 9;
+}
+
+message UpdatePropertyResp {
+  uint64 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 status = 4;
+  string type = 5;
+  bool is_search = 6;
+  bool is_required = 7;
+  string validate_rule = 8;
+  uint64 category_id = 9;
+  int64 created_at = 10;
+  int64 updated_at = 11;
+  int64 deleted_at = 12;
+}
+
+service CategoryService {
+  rpc CreateCategory(CreateCategoryReq) returns(CreateCategoryResp);
+  rpc QueryCategoryDetail(QueryCategoryDetailReq) returns(QueryCategoryResp);
+  rpc QueryCategoryList(QueryCategoryListReq) returns(QueryCategoryListResp);
+  rpc DeleteCategory(DeleteCategoryReq) returns(DeleteCategoryResp);
+  rpc UpdateCategory(UpdateCategoryReq) returns(UpdateCategoryResp);
+}
+
+service PropertyService {
+  rpc CreateProperty(CreatePropertyReq) returns(CreatePropertyResp);
+  rpc QueryPropertyDetail(QueryPropertyDetailReq) returns(QueryPropertyDetailResp);
+  rpc QueryPropertyList(QueryPropertyListReq) returns(QueryPropertyListResp);
+  rpc DeleteProperty(DeletePropertyReq) returns(DeletePropertyResp);
+  rpc UpdateProperty(UpdatePropertyReq) returns(UpdatePropertyResp);
 }
