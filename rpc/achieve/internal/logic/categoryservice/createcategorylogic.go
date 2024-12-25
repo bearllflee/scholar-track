@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/bearllflee/scholar-track/rpc/achieve/achieve"
+	"github.com/bearllflee/scholar-track/rpc/achieve/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -24,7 +25,29 @@ func NewCreateCategoryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cr
 }
 
 func (l *CreateCategoryLogic) CreateCategory(in *achieve.CreateCategoryReq) (*achieve.CreateCategoryResp, error) {
-	// todo: add your logic here and delete this line
+	// 检查名称是否存在
+	// exist, err := l.svcCtx.CategoryService.CheckCategoryNameExist(l.ctx, in.Name)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	category, err := l.svcCtx.CategoryService.CreateCategory(l.ctx, &model.Category{
+		Name: in.Name,
+		Type: in.Type,
+		Description: in.Description,
+		Status: in.Status,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return &achieve.CreateCategoryResp{}, nil
+
+	return &achieve.CreateCategoryResp{
+		Id:        category.Id,
+		Name:      category.Name,
+		Type:      category.Type,
+		Status:    category.Status,
+		CreatedAt: category.CreatedAt.Unix(),
+		UpdatedAt: category.UpdatedAt.Unix(),
+		DeletedAt: category.DeletedAt.Time.Unix(),
+	}, nil
 }

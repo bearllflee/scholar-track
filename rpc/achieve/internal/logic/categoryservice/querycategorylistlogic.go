@@ -24,7 +24,24 @@ func NewQueryCategoryListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *QueryCategoryListLogic) QueryCategoryList(in *achieve.QueryCategoryListReq) (*achieve.QueryCategoryListResp, error) {
-	// todo: add your logic here and delete this line
-
-	return &achieve.QueryCategoryListResp{}, nil
+	err,total, categories := l.svcCtx.CategoryService.QueryCategoryList(l.ctx, in.Name, in.Type, in.Status, int(in.Page), int(in.PageSize))
+	if err != nil {
+		return nil, err
+	}
+	achieveCategories := make([]*achieve.Category, len(categories))
+	for i, category := range categories {
+		achieveCategories[i] = &achieve.Category{
+			Id:        category.Id,
+			Name:      category.Name,
+			Type:      category.Type,
+			Status:    category.Status,
+			CreatedAt: category.CreatedAt.Unix(),
+			UpdatedAt: category.UpdatedAt.Unix(),
+			DeletedAt: category.DeletedAt.Time.Unix(),
+		}
+	}
+	return &achieve.QueryCategoryListResp{
+		Categories: achieveCategories,
+		Total: uint64(total),
+	}, nil
 }

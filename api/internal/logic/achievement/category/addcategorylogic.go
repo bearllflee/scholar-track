@@ -5,6 +5,7 @@ import (
 
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
+	"github.com/bearllflee/scholar-track/rpc/achieve/client/categoryservice"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +25,23 @@ func NewAddCategoryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddCa
 }
 
 func (l *AddCategoryLogic) AddCategory(req *types.AddCategoryReq) (resp *types.AddCategoryResp, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	rpcResp, err := l.svcCtx.Category.CreateCategory(l.ctx, &categoryservice.CreateCategoryReq{
+		Name: req.Name,
+		Type: req.Type,
+		Description: req.Description,
+		Status: req.Status,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &types.AddCategoryResp{
+		Id:        rpcResp.Id,
+		Name:      rpcResp.Name,
+		Type:      rpcResp.Type,
+		Description: rpcResp.Description,
+		Status: rpcResp.Status,
+		CreatedAt: rpcResp.CreatedAt,
+		UpdatedAt: rpcResp.UpdatedAt,
+		DeletedAt: rpcResp.DeletedAt,
+	}, nil
 }

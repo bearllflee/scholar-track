@@ -5,6 +5,7 @@ import (
 
 	"github.com/bearllflee/scholar-track/api/internal/config"
 	"github.com/bearllflee/scholar-track/api/internal/middleware"
+	"github.com/bearllflee/scholar-track/rpc/achieve/achieve"
 	"github.com/bearllflee/scholar-track/rpc/system/client/apiservice"
 	"github.com/bearllflee/scholar-track/rpc/system/client/casbin"
 	"github.com/bearllflee/scholar-track/rpc/system/client/role"
@@ -19,6 +20,8 @@ type ServiceContext struct {
 	Role          role.Role
 	Casbin        casbin.Casbin
 	Api           apiservice.ApiService
+	Category      achieve.CategoryServiceClient
+	Property      achieve.PropertyServiceClient
 	CasbinRbac    rest.Middleware
 	JwtMiddleWare rest.Middleware
 }

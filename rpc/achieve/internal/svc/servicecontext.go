@@ -3,17 +3,21 @@ package svc
 import (
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/config"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/initialize"
-	"gorm.io/gorm"
+	"github.com/bearllflee/scholar-track/rpc/achieve/internal/service"
 )
 
 type ServiceContext struct {
 	Config config.Config
-	DB     *gorm.DB
+	CategoryService *service.CategoryService
+	// PropertyService service.PropertyService
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
+	db := initialize.MustNewGrom(c.DataSource)
 	return &ServiceContext{
 		Config: c,
-		DB:     initialize.MustNewGrom(c.DataSource),
+		CategoryService: &service.CategoryService{
+			DB: db,
+		},
 	}
 }
