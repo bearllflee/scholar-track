@@ -1,7 +1,6 @@
 package user
 
 import (
-	"errors"
 	"github.com/bearllflee/scholar-track/pkg/cerror"
 	"github.com/bearllflee/scholar-track/pkg/response"
 	"google.golang.org/grpc/status"
@@ -25,7 +24,7 @@ func RegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := user.NewRegisterLogic(r.Context(), svcCtx)
 		resp, err := l.Register(&req)
 		if err != nil {
-			if cerror.FromError(cerror.ErrUserHasExists) || errors.Is(err, cerror.ErrEmailHasExists) || errors.Is(err, cerror.ErrPhoneHasExists) {
+			if cerror.CheckIsDefinedUserError(err) {
 				response.ErrWithMessage(r.Context(), w, status.Convert(err).Message())
 				return
 			}

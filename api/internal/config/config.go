@@ -8,6 +8,7 @@ import (
 type Config struct {
 	rest.RestConf
 	System  zrpc.RpcClientConf
+	Achieve zrpc.RpcClientConf
 	JwtConf struct {
 		SecretKey string
 		Expire    string

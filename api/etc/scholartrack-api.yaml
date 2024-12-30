@@ -6,6 +6,11 @@ System:
     Hosts:
     - 127.0.0.1:2379
     Key: system.rpc
+Achieve:
+  Etcd:
+    Hosts:
+    - 127.0.0.1:2379
+    Key: achieve.rpc
 JwtConf:
   SecretKey: "api"
   Expire: 24h # 过期时间

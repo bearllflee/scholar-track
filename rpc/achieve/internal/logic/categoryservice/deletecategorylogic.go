@@ -24,7 +24,9 @@ func NewDeleteCategoryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *De
 }
 
 func (l *DeleteCategoryLogic) DeleteCategory(in *achieve.DeleteCategoryReq) (*achieve.DeleteCategoryResp, error) {
-	// todo: add your logic here and delete this line
-
+	err := l.svcCtx.CategoryService.DeleteCategory(l.ctx, in)
+	if err != nil {
+		return nil, err
+	}
 	return &achieve.DeleteCategoryResp{}, nil
 }

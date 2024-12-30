@@ -7,7 +7,7 @@ type AddCategoryReq struct {
 	Name        string `json:"name"`
 	Type        string `json:"type"`
 	Description string `json:"description"`
-	Status      int32  `json:"status"`
+	Status      int32  `json:"status,optional"`
 }
 
 type AddCategoryResp struct {
@@ -226,10 +226,10 @@ type QueryCategoryReq struct {
 }
 
 type QueryCategoryResp struct {
-	Total      int64      `json:"total"`
-	Categories []Category `json:"categories"`
-	Page       int64      `json:"page"`
-	PageSize   int64      `json:"pageSize"`
+	Total      int64       `json:"total"`
+	Categories []*Category `json:"categories"`
+	Page       int64       `json:"page"`
+	PageSize   int64       `json:"pageSize"`
 }
 
 type QueryPropertyDetailReq struct {

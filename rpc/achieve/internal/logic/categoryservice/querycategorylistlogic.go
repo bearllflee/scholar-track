@@ -42,6 +42,6 @@ func (l *QueryCategoryListLogic) QueryCategoryList(in *achieve.QueryCategoryList
 	}
 	return &achieve.QueryCategoryListResp{
 		Categories: achieveCategories,
-		Total: uint64(total),
+		Total:      total,
 	}, nil
 }

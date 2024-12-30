@@ -50,8 +50,8 @@ message QueryCategoryResp {
 }
 // 查询成就分类列表
 message QueryCategoryListReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
+  int64 page = 1;
+  int64 page_size = 2;
   string name = 3;
   string type = 4;
   int32 status = 5;
@@ -59,9 +59,9 @@ message QueryCategoryListReq {
 }
 
 message QueryCategoryListResp {
-  uint64 total = 1;
-  uint64 page = 2;
-  uint64 page_size = 3;
+  int64 total = 1;
+  int64 page = 2;
+  int64 page_size = 3;
   repeated Category categories = 4;
 }
 // 删除成就分类

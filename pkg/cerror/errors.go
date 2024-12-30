@@ -31,9 +31,11 @@ var (
 var (
 	ErrHasSameApi = status.Error(901, "添加的权限中有相同的api")
 	ErrCasbinUpdateFailed = status.Error(902, "casbin更新失败")
+	ErrApiAlreadyExists = status.Error(1001, "api已存在")
+	ErrApiNotFound = status.Error(1002, "api不存在")
 )
 
 var (
-	ErrApiAlreadyExists = status.Error(1001, "api已存在")
-	ErrApiNotFound = status.Error(1002, "api不存在")
+	ErrCategoryNameAlreadyExists = status.Error(1101, "分类名称已存在")
+	ErrCategoryNotFound = status.Error(1102, "分类不存在")
 )

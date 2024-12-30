@@ -5,6 +5,7 @@ import (
 
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
+	"github.com/bearllflee/scholar-track/rpc/achieve/achieve"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +25,14 @@ func NewQueryCategoryDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *QueryCategoryDetailLogic) QueryCategoryDetail(req *types.QueryCategoryDetailReq) (resp *types.QueryCategoryDetailResp, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	rpcResp, err := l.svcCtx.Category.QueryCategoryDetail(l.ctx, &achieve.QueryCategoryDetailReq{
+		Id: req.Id,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &types.QueryCategoryDetailResp{
+		Id:        rpcResp.Id,
+		Name:      rpcResp.Name,
+	}, nil
 }

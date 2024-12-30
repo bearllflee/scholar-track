@@ -5,6 +5,7 @@ import (
 
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
+	"github.com/bearllflee/scholar-track/rpc/achieve/achieve"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +25,11 @@ func NewDeleteCategoryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *De
 }
 
 func (l *DeleteCategoryLogic) DeleteCategory(req *types.DeleteCategoryReq) (resp *types.DeleteCategoryResp, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	_, err = l.svcCtx.Category.DeleteCategory(l.ctx, &achieve.DeleteCategoryReq{
+		Id: req.Id,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &types.DeleteCategoryResp{}, nil
 }

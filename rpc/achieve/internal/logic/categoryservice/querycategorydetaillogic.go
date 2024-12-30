@@ -24,7 +24,16 @@ func NewQueryCategoryDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *QueryCategoryDetailLogic) QueryCategoryDetail(in *achieve.QueryCategoryDetailReq) (*achieve.QueryCategoryResp, error) {
-	// todo: add your logic here and delete this line
+	category, err := l.svcCtx.CategoryService.QueryCategoryDetail(l.ctx, in.Id)
+	if err != nil {
+		return nil, err
+	}
 
-	return &achieve.QueryCategoryResp{}, nil
+	return &achieve.QueryCategoryResp{
+		Id:        category.Id,
+		Name:      category.Name,
+		CreatedAt: category.CreatedAt.Unix(),
+		UpdatedAt: category.UpdatedAt.Unix(),
+		Status:    category.Status,
+	}, nil
 }

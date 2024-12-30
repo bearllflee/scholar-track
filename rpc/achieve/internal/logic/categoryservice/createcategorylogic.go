@@ -3,6 +3,7 @@ package categoryservicelogic
 import (
 	"context"
 
+	"github.com/bearllflee/scholar-track/pkg/cerror"
 	"github.com/bearllflee/scholar-track/rpc/achieve/achieve"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/svc"
@@ -26,10 +27,10 @@ func NewCreateCategoryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cr
 
 func (l *CreateCategoryLogic) CreateCategory(in *achieve.CreateCategoryReq) (*achieve.CreateCategoryResp, error) {
 	// 检查名称是否存在
-	// exist, err := l.svcCtx.CategoryService.CheckCategoryNameExist(l.ctx, in.Name)
-	// if err != nil {
-	// 	return nil, err
-	// }
+	_, _, categories := l.svcCtx.CategoryService.QueryCategoryList(l.ctx, in.Name, "", 0, 1, 1)
+	if len(categories) > 0 {
+		return nil, cerror.ErrCategoryNameAlreadyExists
+	}
 	category, err := l.svcCtx.CategoryService.CreateCategory(l.ctx, &model.Category{
 		Name: in.Name,
 		Type: in.Type,
