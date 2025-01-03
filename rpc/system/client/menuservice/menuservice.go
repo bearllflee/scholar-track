@@ -2,7 +2,7 @@
 // goctl 1.7.3
 // Source: system.proto
 
-package role
+package menuservice
 
 import (
 	"context"
@@ -82,52 +82,52 @@ type (
 	UpdateRoleReq          = system.UpdateRoleReq
 	UpdateRoleResp         = system.UpdateRoleResp
 
-	Role interface {
-		AddRole(ctx context.Context, in *AddRoleReq, opts ...grpc.CallOption) (*AddRoleResp, error)
-		DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error)
-		UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error)
-		RoleTree(ctx context.Context, in *RoleTreeReq, opts ...grpc.CallOption) (*RoleTreeListResp, error)
-		SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*SetRolePoliciesResp, error)
-		QueryRolePolicies(ctx context.Context, in *QueryRolePoliciesReq, opts ...grpc.CallOption) (*QueryRolePoliciesResp, error)
+	MenuService interface {
+		CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error)
+		QueryAllMenuTree(ctx context.Context, in *QueryAllMenuTreeReq, opts ...grpc.CallOption) (*QueryAllMenuTreeResp, error)
+		QueryRoleMenuTree(ctx context.Context, in *QueryRoleMenuTreeReq, opts ...grpc.CallOption) (*QueryRoleMenuTreeResp, error)
+		UpdateRoleMenu(ctx context.Context, in *UpdateRoleMenuReq, opts ...grpc.CallOption) (*UpdateRoleMenuResp, error)
+		DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error)
+		QueryMenuDetail(ctx context.Context, in *QueryMenuDetailReq, opts ...grpc.CallOption) (*QueryMenuDetailResp, error)
 	}
 
-	defaultRole struct {
+	defaultMenuService struct {
 		cli zrpc.Client
 	}
 )
 
-func NewRole(cli zrpc.Client) Role {
-	return &defaultRole{
+func NewMenuService(cli zrpc.Client) MenuService {
+	return &defaultMenuService{
 		cli: cli,
 	}
 }
 
-func (m *defaultRole) AddRole(ctx context.Context, in *AddRoleReq, opts ...grpc.CallOption) (*AddRoleResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.AddRole(ctx, in, opts...)
+func (m *defaultMenuService) CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error) {
+	client := system.NewMenuServiceClient(m.cli.Conn())
+	return client.CreateMenu(ctx, in, opts...)
 }
 
-func (m *defaultRole) DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.DeleteRole(ctx, in, opts...)
+func (m *defaultMenuService) QueryAllMenuTree(ctx context.Context, in *QueryAllMenuTreeReq, opts ...grpc.CallOption) (*QueryAllMenuTreeResp, error) {
+	client := system.NewMenuServiceClient(m.cli.Conn())
+	return client.QueryAllMenuTree(ctx, in, opts...)
 }
 
-func (m *defaultRole) UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.UpdateRole(ctx, in, opts...)
+func (m *defaultMenuService) QueryRoleMenuTree(ctx context.Context, in *QueryRoleMenuTreeReq, opts ...grpc.CallOption) (*QueryRoleMenuTreeResp, error) {
+	client := system.NewMenuServiceClient(m.cli.Conn())
+	return client.QueryRoleMenuTree(ctx, in, opts...)
 }
 
-func (m *defaultRole) RoleTree(ctx context.Context, in *RoleTreeReq, opts ...grpc.CallOption) (*RoleTreeListResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.RoleTree(ctx, in, opts...)
+func (m *defaultMenuService) UpdateRoleMenu(ctx context.Context, in *UpdateRoleMenuReq, opts ...grpc.CallOption) (*UpdateRoleMenuResp, error) {
+	client := system.NewMenuServiceClient(m.cli.Conn())
+	return client.UpdateRoleMenu(ctx, in, opts...)
 }
 
-func (m *defaultRole) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*SetRolePoliciesResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.SetRolePolicies(ctx, in, opts...)
+func (m *defaultMenuService) DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error) {
+	client := system.NewMenuServiceClient(m.cli.Conn())
+	return client.DeleteMenu(ctx, in, opts...)
 }
 
-func (m *defaultRole) QueryRolePolicies(ctx context.Context, in *QueryRolePoliciesReq, opts ...grpc.CallOption) (*QueryRolePoliciesResp, error) {
-	client := system.NewRoleClient(m.cli.Conn())
-	return client.QueryRolePolicies(ctx, in, opts...)
+func (m *defaultMenuService) QueryMenuDetail(ctx context.Context, in *QueryMenuDetailReq, opts ...grpc.CallOption) (*QueryMenuDetailResp, error) {
+	client := system.NewMenuServiceClient(m.cli.Conn())
+	return client.QueryMenuDetail(ctx, in, opts...)
 }

@@ -17,5 +17,5 @@ func MustNewGrom(dataSource string) {
 }
 
 func AutoMigrate(db *gorm.DB) {
-	db.AutoMigrate(&model.User{}, &model.Role{}, &model.UserRole{}, &model.Api{})
+	db.AutoMigrate(&model.User{}, &model.Role{}, &model.UserRole{}, &model.Api{}, &model.Menu{})
 }

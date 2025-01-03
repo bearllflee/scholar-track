@@ -114,6 +114,20 @@ type CreateApiResp struct {
 	DeletedAt   int64  `json:"-"`
 }
 
+type CreateMenuReq struct {
+	ParentId  uint64 `json:"parentId"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Hidden    bool   `json:"hidden"`
+	Component string `json:"component"`
+	Sort      int    `json:"sort"`
+	Meta      Meta   `json:"meta"`
+}
+
+type CreateMenuResp struct {
+	Id uint64 `json:"id"`
+}
+
 type DeleteApiReq struct {
 	Id uint64 `path:"id"`
 }
@@ -126,6 +140,13 @@ type DeleteCategoryReq struct {
 }
 
 type DeleteCategoryResp struct {
+}
+
+type DeleteMenuReq struct {
+	Id uint64 `path:"id"`
+}
+
+type DeleteMenuResp struct {
 }
 
 type DeletePropertyReq struct {
@@ -158,6 +179,30 @@ type LoginResp struct {
 	Token string `json:"token"`
 }
 
+type Menu struct {
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	DeletedAt int64  `json:"-"`
+	MenuLevel uint   `json:"-"`
+	ParentId  uint64 `json:"parentId"`  // 父菜单ID
+	Path      string `json:"path"`      // 路由path
+	Name      string `json:"name"`      // 路由name
+	Hidden    bool   `json:"hidden"`    // 是否在列表隐藏
+	Component string `json:"component"` // 对应前端文件路径
+	Sort      int    `json:"sort"`      // 排序标记
+	Meta      Meta   `json:"meta"`      // 附加属性
+	Children  []Menu `json:"children"`
+}
+
+type Meta struct {
+	ActiveName string `json:"activeName"`
+	KeepAlive  bool   `json:"keepAlive"`
+	Title      string `json:"title"`
+	Icon       string `json:"icon"`
+	CloseTab   bool   `json:"closeTab"`
+}
+
 type PolicyInfo struct {
 	Method string `json:"method"`
 	Path   string `json:"path"`
@@ -183,6 +228,13 @@ type QueryAllApiReq struct {
 
 type QueryAllApiResp struct {
 	Apis []Api `json:"apis"`
+}
+
+type QueryAllMenuTreeReq struct {
+}
+
+type QueryAllMenuTreeResp struct {
+	Menus []Menu `json:"menus"`
 }
 
 type QueryApiDetailReq struct {
@@ -232,6 +284,24 @@ type QueryCategoryResp struct {
 	PageSize   int64       `json:"pageSize"`
 }
 
+type QueryMenuDetailReq struct {
+	Id uint64 `path:"id"`
+}
+
+type QueryMenuDetailResp struct {
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	ParentId  uint64 `json:"parentId"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Hidden    bool   `json:"hidden"`
+	Component string `json:"component"`
+	Sort      int    `json:"sort"`
+	Meta      Meta   `json:"meta"`
+	Children  []Menu `json:"children"`
+}
+
 type QueryPropertyDetailReq struct {
 	Id uint64 `path:"id"`
 }
@@ -266,6 +336,14 @@ type QueryPropertyResp struct {
 	Properties []Property `json:"properties"`
 	Page       int64      `json:"page"`
 	PageSize   int64      `json:"pageSize"`
+}
+
+type QueryRoleMenuTreeReq struct {
+	RoleId uint64 `json:"roleId"`
+}
+
+type QueryRoleMenuTreeResp struct {
+	Menus []Menu `json:"menus"`
 }
 
 type QueryRolePoliciesReq struct {
@@ -483,6 +561,31 @@ type UpdateCategoryResp struct {
 	DeletedAt   int64  `json:"-"`
 }
 
+type UpdateMenuReq struct {
+	Id        uint64 `json:"id"`
+	ParentId  uint64 `json:"parentId"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Hidden    bool   `json:"hidden"`
+	Component string `json:"component"`
+	Sort      int    `json:"sort"`
+	Meta      Meta   `json:"meta"`
+}
+
+type UpdateMenuResp struct {
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	DeletedAt int64  `json:"-"`
+	ParentId  uint64 `json:"parentId"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Hidden    bool   `json:"hidden"`
+	Component string `json:"component"`
+	Sort      int    `json:"sort"`
+	Meta      Meta   `json:"meta"`
+}
+
 type UpdatePropertyReq struct {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
@@ -508,4 +611,12 @@ type UpdatePropertyResp struct {
 	CreatedAt    int64  `json:"createdAt"`
 	UpdatedAt    int64  `json:"updatedAt"`
 	DeletedAt    int64  `json:"-"`
+}
+
+type UpdateRoleMenuReq struct {
+	RoleId  uint64   `json:"roleId"`
+	MenuIds []uint64 `json:"menuIds"`
+}
+
+type UpdateRoleMenuResp struct {
 }

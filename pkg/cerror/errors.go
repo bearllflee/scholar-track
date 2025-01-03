@@ -39,3 +39,11 @@ var (
 	ErrCategoryNameAlreadyExists = status.Error(1101, "分类名称已存在")
 	ErrCategoryNotFound = status.Error(1102, "分类不存在")
 )
+
+var (
+	ErrMenuNotFound = status.Error(1201, "菜单不存在")
+	ErrMenuHasExists = status.Error(1202, "菜单已存在")
+	ErrMenuParentNotFound = status.Error(1203, "父菜单不存在")
+	ErrMenuInvalid = status.Error(1204, "添加的菜单中有无效数据")
+
+)

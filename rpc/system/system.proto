@@ -366,3 +366,86 @@ service ApiService {
   rpc UpdateApi(UpdateApiReq) returns (UpdateApiResp);
   rpc QueryApiDetail(QueryApiDetailReq) returns (QueryApiDetailResp);
 }
+
+message Menu {
+  uint64 id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  int64 deleted_at = 4;
+  uint64 menu_level = 5;
+  uint64 parent_id = 6;
+  string path = 7;
+  string name = 8;
+  bool hidden = 9;
+  string component = 10;
+  int32 sort = 11;
+  Meta meta = 12;
+  repeated Menu children = 13;
+}
+
+message Meta {
+  string active_name = 1;
+  bool keep_alive = 2;
+  string title = 3;
+  string icon = 4;
+  bool close_tab = 5;
+}
+
+message CreateMenuReq {
+  uint64 parent_id = 1;
+  string path = 2;
+  string name = 3;
+  bool hidden = 4;
+  string component = 5;
+  int32 sort = 6;
+  Meta meta = 7;
+}
+
+message CreateMenuResp {
+  Menu menu = 1;
+}
+
+message QueryAllMenuTreeReq {
+}
+
+message QueryAllMenuTreeResp {
+  repeated Menu menus = 1;
+}
+
+message QueryRoleMenuTreeReq {
+  uint64 role_id = 1;
+}
+
+message QueryRoleMenuTreeResp {
+  repeated Menu menus = 1;
+}
+
+message UpdateRoleMenuReq {
+  uint64 role_id = 1;
+  repeated uint64 menu_ids = 2;
+}
+
+message UpdateRoleMenuResp {}
+
+message DeleteMenuReq {
+  uint64 id = 1;
+}
+
+message DeleteMenuResp {}
+
+message QueryMenuDetailReq {
+  uint64 id = 1;
+}
+
+message QueryMenuDetailResp {
+  Menu menu = 1;
+}
+
+service MenuService {
+  rpc CreateMenu(CreateMenuReq) returns (CreateMenuResp);
+  rpc QueryAllMenuTree(QueryAllMenuTreeReq) returns (QueryAllMenuTreeResp);
+  rpc QueryRoleMenuTree(QueryRoleMenuTreeReq) returns (QueryRoleMenuTreeResp);
+  rpc UpdateRoleMenu(UpdateRoleMenuReq) returns (UpdateRoleMenuResp);
+  rpc DeleteMenu(DeleteMenuReq) returns (DeleteMenuResp);
+  rpc QueryMenuDetail(QueryMenuDetailReq) returns (QueryMenuDetailResp);
+}

@@ -10,6 +10,7 @@ import (
 	achievementproperty "github.com/bearllflee/scholar-track/api/internal/handler/achievement/property"
 	api "github.com/bearllflee/scholar-track/api/internal/handler/api"
 	casbin "github.com/bearllflee/scholar-track/api/internal/handler/casbin"
+	menu "github.com/bearllflee/scholar-track/api/internal/handler/menu"
 	role "github.com/bearllflee/scholar-track/api/internal/handler/role"
 	user "github.com/bearllflee/scholar-track/api/internal/handler/user"
 	"github.com/bearllflee/scholar-track/api/internal/svc"
@@ -114,6 +115,46 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPost,
 				Path:    "/casbin/addPolicies",
 				Handler: casbin.AddPoliciesHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/menu",
+				Handler: menu.CreateMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/menu",
+				Handler: menu.UpdateMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/menu/:id",
+				Handler: menu.QueryMenuDetailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/menu/:id",
+				Handler: menu.DeleteMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/menu/all",
+				Handler: menu.QueryAllMenuTreeHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/menu/role",
+				Handler: menu.UpdateRoleMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/menu/role/:roleId",
+				Handler: menu.QueryRoleMenuTreeHandler(serverCtx),
 			},
 		},
 	)

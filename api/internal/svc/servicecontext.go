@@ -10,6 +10,7 @@ import (
 	"github.com/bearllflee/scholar-track/rpc/achieve/client/propertyservice"
 	"github.com/bearllflee/scholar-track/rpc/system/client/apiservice"
 	"github.com/bearllflee/scholar-track/rpc/system/client/casbin"
+	"github.com/bearllflee/scholar-track/rpc/system/client/menuservice"
 	"github.com/bearllflee/scholar-track/rpc/system/client/role"
 	"github.com/bearllflee/scholar-track/rpc/system/client/user"
 	"github.com/zeromicro/go-zero/rest"
@@ -22,6 +23,7 @@ type ServiceContext struct {
 	Role          role.Role
 	Casbin        casbin.Casbin
 	Api           apiservice.ApiService
+	Menu          menuservice.MenuService
 	Category      achieve.CategoryServiceClient
 	Property      achieve.PropertyServiceClient
 	CasbinRbac    rest.Middleware
@@ -47,6 +49,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Role:   role.NewRole(zrpc.MustNewClient(c.System)),
 		Casbin:        casbin.NewCasbin(zrpc.MustNewClient(c.System)),
 		Api:           apiservice.NewApiService(zrpc.MustNewClient(c.System)),
+		Menu:          menuservice.NewMenuService(zrpc.MustNewClient(c.System)),
 		Category:      categoryservice.NewCategoryService(zrpc.MustNewClient(c.Achieve)),
 		Property:      propertyservice.NewPropertyService(zrpc.MustNewClient(c.Achieve)),
 	}

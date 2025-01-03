@@ -639,3 +639,138 @@ service scholartrack-api {
 	get /property/:id (QueryPropertyDetailReq) returns (QueryPropertyDetailResp)
 }
 
+type Menu {
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	DeletedAt int64  `json:"-"`
+	MenuLevel uint   `json:"-"`
+	ParentId  uint64 `json:"parentId"` // 父菜单ID
+	Path      string `json:"path"` // 路由path
+	Name      string `json:"name"` // 路由name
+	Hidden    bool   `json:"hidden"` // 是否在列表隐藏
+	Component string `json:"component"` // 对应前端文件路径
+	Sort      int    `json:"sort"` // 排序标记
+	Meta      Meta   `json:"meta"` // 附加属性
+	Children  []Menu `json:"children"`
+}
+
+type Meta {
+	ActiveName string `json:"activeName"`
+	KeepAlive  bool   `json:"keepAlive"`
+	Title      string `json:"title"`
+	Icon       string `json:"icon"`
+	CloseTab   bool   `json:"closeTab"`
+}
+
+// 菜单
+type CreateMenuReq {
+	ParentId  uint64 `json:"parentId"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Hidden    bool   `json:"hidden"`
+	Component string `json:"component"`
+	Sort      int    `json:"sort"`
+	Meta      Meta   `json:"meta"`
+}
+
+type CreateMenuResp {
+	Id uint64 `json:"id"`
+}
+
+type QueryMenuDetailReq {
+	Id uint64 `path:"id"`
+}
+
+type QueryMenuDetailResp {
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	ParentId  uint64 `json:"parentId"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Hidden    bool   `json:"hidden"`
+	Component string `json:"component"`
+	Sort      int    `json:"sort"`
+	Meta      Meta   `json:"meta"`
+	Children  []Menu `json:"children"`
+}
+
+type QueryAllMenuTreeReq {}
+
+type QueryAllMenuTreeResp {
+	Menus []Menu `json:"menus"`
+}
+
+type QueryRoleMenuTreeReq {
+	RoleId uint64 `json:"roleId"`
+}
+
+type QueryRoleMenuTreeResp {
+	Menus []Menu `json:"menus"`
+}
+
+type UpdateRoleMenuReq {
+	RoleId  uint64   `json:"roleId"`
+	MenuIds []uint64 `json:"menuIds"`
+}
+
+type UpdateRoleMenuResp {}
+
+type UpdateMenuReq {
+	Id        uint64 `json:"id"`
+	ParentId  uint64 `json:"parentId"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Hidden    bool   `json:"hidden"`
+	Component string `json:"component"`
+	Sort      int    `json:"sort"`
+	Meta      Meta   `json:"meta"`
+}
+
+type UpdateMenuResp {
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	DeletedAt int64  `json:"-"`
+	ParentId  uint64 `json:"parentId"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Hidden    bool   `json:"hidden"`
+	Component string `json:"component"`
+	Sort      int    `json:"sort"`
+	Meta      Meta   `json:"meta"`
+}
+
+type DeleteMenuReq {
+	Id uint64 `path:"id"`
+}
+
+type DeleteMenuResp {}
+
+@server (
+	group: menu
+)
+service scholartrack-api {
+	@handler CreateMenuHandler
+	post /menu (CreateMenuReq) returns (CreateMenuResp)
+
+	@handler QueryMenuDetailHandler
+	get /menu/:id (QueryMenuDetailReq) returns (QueryMenuDetailResp)
+
+	@handler QueryAllMenuTreeHandler
+	get /menu/all (QueryAllMenuTreeReq) returns (QueryAllMenuTreeResp)
+
+	@handler QueryRoleMenuTreeHandler
+	get /menu/role/:roleId (QueryRoleMenuTreeReq) returns (QueryRoleMenuTreeResp)
+
+	@handler UpdateRoleMenuHandler
+	post /menu/role (UpdateRoleMenuReq) returns (UpdateRoleMenuResp)
+
+	@handler UpdateMenuHandler
+	put /menu (UpdateMenuReq) returns (UpdateMenuResp)
+
+	@handler DeleteMenuHandler
+	delete /menu/:id (DeleteMenuReq) returns (DeleteMenuResp)
+}
+

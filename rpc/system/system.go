@@ -9,7 +9,7 @@ import (
 	roleServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/role"
 	userServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/user"
 	apiServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/apiservice"
-
+	menuServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/menuservice"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/config"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
@@ -37,7 +37,7 @@ func main() {
 		system.RegisterUserServer(grpcServer, userServer.NewUserServer(ctx))
 		system.RegisterRoleServer(grpcServer, roleServer.NewRoleServer(ctx))
 		system.RegisterApiServiceServer(grpcServer, apiServer.NewApiServiceServer(ctx))
-
+		system.RegisterMenuServiceServer(grpcServer, menuServer.NewMenuServiceServer(ctx))
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)
 		}

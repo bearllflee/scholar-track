@@ -35,3 +35,11 @@ func CheckIsDefinedCategoryError(err error) bool {
 	}
 	return false
 }
+
+func CheckIsDefinedMenuError(err error) bool {
+	if errors.Is(err, ErrMenuNotFound) || errors.Is(err, ErrMenuHasExists) || errors.Is(err, ErrMenuParentNotFound) ||
+		errors.Is(err, ErrMenuInvalid) {
+		return true
+	}
+	return false
+}
