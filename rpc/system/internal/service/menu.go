@@ -73,12 +73,12 @@ func (s *MenuService) GetAllMenuTree(ctx context.Context) ([]model.Menu, error) 
 	if err != nil {
 		return nil, err
 	}
-	for _, menu := range menus {
-		children, err := s.GetMenuTree(ctx, menu.Id)
+	for i := range menus {
+		children, err := s.GetMenuTree(ctx, menus[i].Id)
 		if err != nil {
 			return nil, err
 		}
-		menu.Children = children
+		menus[i].Children = children
 	}
 	return menus, nil
 }
@@ -89,12 +89,12 @@ func (s *MenuService) GetMenuTree(ctx context.Context, id uint64) ([]model.Menu,
 	if err != nil {
 		return nil, err
 	}
-	for _, menu := range menus {
-		children, err := s.GetMenuTree(ctx, menu.Id)
+	for i := range menus {
+		children, err := s.GetMenuTree(ctx, menus[i].Id)
 		if err != nil {
 			return nil, err
 		}
-		menu.Children = children
+		menus[i].Children = children
 	}
 	return menus, nil
 }
@@ -110,15 +110,15 @@ func (s *MenuService) GetMenuTreeByRoleId(ctx context.Context, roleId uint64) ([
 	if err != nil {
 		return nil, err
 	}
-	for _, menu := range menus {
-		if menu.ParentId == 0 {
+	for i := range menus {
+		if menus[i].ParentId == 0 {
 			continue
 		}
-		children, err := s.GetMenuTree(ctx, menu.Id)
+		children, err := s.GetMenuTree(ctx, menus[i].Id)
 		if err != nil {
 			return nil, err
 		}
-		menu.Children = children
+		menus[i].Children = children
 	}
 	return menus, nil
 }
