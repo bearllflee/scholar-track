@@ -5,6 +5,7 @@ import (
 
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
+	"github.com/bearllflee/scholar-track/rpc/system/client/menuservice"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +25,13 @@ func NewUpdateRoleMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Up
 }
 
 func (l *UpdateRoleMenuLogic) UpdateRoleMenu(req *types.UpdateRoleMenuReq) (resp *types.UpdateRoleMenuResp, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	_, err = l.svcCtx.Menu.UpdateRoleMenu(l.ctx, &menuservice.UpdateRoleMenuReq{
+		RoleId: req.RoleId,
+		MenuIds: req.MenuIds,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &types.UpdateRoleMenuResp{
+	}, nil
 }

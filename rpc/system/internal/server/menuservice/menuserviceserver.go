@@ -52,3 +52,8 @@ func (s *MenuServiceServer) QueryMenuDetail(ctx context.Context, in *system.Quer
 	l := menuservicelogic.NewQueryMenuDetailLogic(ctx, s.svcCtx)
 	return l.QueryMenuDetail(in)
 }
+
+func (s *MenuServiceServer) UpdateMenu(ctx context.Context, in *system.UpdateMenuReq) (*system.UpdateMenuResp, error) {
+	l := menuservicelogic.NewUpdateMenuLogic(ctx, s.svcCtx)
+	return l.UpdateMenu(in)
+}

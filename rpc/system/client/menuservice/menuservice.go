@@ -77,6 +77,8 @@ type (
 	SetUserRoleResp        = system.SetUserRoleResp
 	UpdateApiReq           = system.UpdateApiReq
 	UpdateApiResp          = system.UpdateApiResp
+	UpdateMenuReq          = system.UpdateMenuReq
+	UpdateMenuResp         = system.UpdateMenuResp
 	UpdateRoleMenuReq      = system.UpdateRoleMenuReq
 	UpdateRoleMenuResp     = system.UpdateRoleMenuResp
 	UpdateRoleReq          = system.UpdateRoleReq
@@ -89,6 +91,7 @@ type (
 		UpdateRoleMenu(ctx context.Context, in *UpdateRoleMenuReq, opts ...grpc.CallOption) (*UpdateRoleMenuResp, error)
 		DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error)
 		QueryMenuDetail(ctx context.Context, in *QueryMenuDetailReq, opts ...grpc.CallOption) (*QueryMenuDetailResp, error)
+		UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error)
 	}
 
 	defaultMenuService struct {
@@ -130,4 +133,9 @@ func (m *defaultMenuService) DeleteMenu(ctx context.Context, in *DeleteMenuReq, 
 func (m *defaultMenuService) QueryMenuDetail(ctx context.Context, in *QueryMenuDetailReq, opts ...grpc.CallOption) (*QueryMenuDetailResp, error) {
 	client := system.NewMenuServiceClient(m.cli.Conn())
 	return client.QueryMenuDetail(ctx, in, opts...)
+}
+
+func (m *defaultMenuService) UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error) {
+	client := system.NewMenuServiceClient(m.cli.Conn())
+	return client.UpdateMenu(ctx, in, opts...)
 }

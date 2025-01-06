@@ -1197,6 +1197,7 @@ const (
 	MenuService_UpdateRoleMenu_FullMethodName    = "/system.MenuService/UpdateRoleMenu"
 	MenuService_DeleteMenu_FullMethodName        = "/system.MenuService/DeleteMenu"
 	MenuService_QueryMenuDetail_FullMethodName   = "/system.MenuService/QueryMenuDetail"
+	MenuService_UpdateMenu_FullMethodName        = "/system.MenuService/UpdateMenu"
 )
 
 // MenuServiceClient is the client API for MenuService service.
@@ -1209,6 +1210,7 @@ type MenuServiceClient interface {
 	UpdateRoleMenu(ctx context.Context, in *UpdateRoleMenuReq, opts ...grpc.CallOption) (*UpdateRoleMenuResp, error)
 	DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error)
 	QueryMenuDetail(ctx context.Context, in *QueryMenuDetailReq, opts ...grpc.CallOption) (*QueryMenuDetailResp, error)
+	UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error)
 }
 
 type menuServiceClient struct {
@@ -1279,6 +1281,16 @@ func (c *menuServiceClient) QueryMenuDetail(ctx context.Context, in *QueryMenuDe
 	return out, nil
 }
 
+func (c *menuServiceClient) UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateMenuResp)
+	err := c.cc.Invoke(ctx, MenuService_UpdateMenu_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MenuServiceServer is the server API for MenuService service.
 // All implementations must embed UnimplementedMenuServiceServer
 // for forward compatibility.
@@ -1289,6 +1301,7 @@ type MenuServiceServer interface {
 	UpdateRoleMenu(context.Context, *UpdateRoleMenuReq) (*UpdateRoleMenuResp, error)
 	DeleteMenu(context.Context, *DeleteMenuReq) (*DeleteMenuResp, error)
 	QueryMenuDetail(context.Context, *QueryMenuDetailReq) (*QueryMenuDetailResp, error)
+	UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error)
 	mustEmbedUnimplementedMenuServiceServer()
 }
 
@@ -1316,6 +1329,9 @@ func (UnimplementedMenuServiceServer) DeleteMenu(context.Context, *DeleteMenuReq
 }
 func (UnimplementedMenuServiceServer) QueryMenuDetail(context.Context, *QueryMenuDetailReq) (*QueryMenuDetailResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryMenuDetail not implemented")
+}
+func (UnimplementedMenuServiceServer) UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
 }
 func (UnimplementedMenuServiceServer) mustEmbedUnimplementedMenuServiceServer() {}
 func (UnimplementedMenuServiceServer) testEmbeddedByValue()                     {}
@@ -1446,6 +1462,24 @@ func _MenuService_QueryMenuDetail_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MenuService_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MenuServiceServer).UpdateMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MenuService_UpdateMenu_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MenuServiceServer).UpdateMenu(ctx, req.(*UpdateMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MenuService_ServiceDesc is the grpc.ServiceDesc for MenuService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1476,6 +1510,10 @@ var MenuService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "QueryMenuDetail",
 			Handler:    _MenuService_QueryMenuDetail_Handler,
+		},
+		{
+			MethodName: "UpdateMenu",
+			Handler:    _MenuService_UpdateMenu_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

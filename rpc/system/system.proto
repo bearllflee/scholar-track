@@ -441,6 +441,21 @@ message QueryMenuDetailResp {
   Menu menu = 1;
 }
 
+message UpdateMenuReq {
+  uint64 id = 1;
+  uint64 parent_id = 2;
+  string path = 3;
+  string name = 4;
+  bool hidden = 5;
+  string component = 6;
+  int32 sort = 7;
+  Meta meta = 8;
+}
+
+message UpdateMenuResp {
+  Menu menu = 1;
+}
+
 service MenuService {
   rpc CreateMenu(CreateMenuReq) returns (CreateMenuResp);
   rpc QueryAllMenuTree(QueryAllMenuTreeReq) returns (QueryAllMenuTreeResp);
@@ -448,4 +463,5 @@ service MenuService {
   rpc UpdateRoleMenu(UpdateRoleMenuReq) returns (UpdateRoleMenuResp);
   rpc DeleteMenu(DeleteMenuReq) returns (DeleteMenuResp);
   rpc QueryMenuDetail(QueryMenuDetailReq) returns (QueryMenuDetailResp);
+  rpc UpdateMenu(UpdateMenuReq) returns (UpdateMenuResp);
 }

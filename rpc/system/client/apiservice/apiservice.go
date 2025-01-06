@@ -77,6 +77,8 @@ type (
 	SetUserRoleResp        = system.SetUserRoleResp
 	UpdateApiReq           = system.UpdateApiReq
 	UpdateApiResp          = system.UpdateApiResp
+	UpdateMenuReq          = system.UpdateMenuReq
+	UpdateMenuResp         = system.UpdateMenuResp
 	UpdateRoleMenuReq      = system.UpdateRoleMenuReq
 	UpdateRoleMenuResp     = system.UpdateRoleMenuResp
 	UpdateRoleReq          = system.UpdateRoleReq
