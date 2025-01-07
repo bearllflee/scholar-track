@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+
+package storage;
+option go_package = "./storage";
+
+message FileUploadRequest {
+  bytes file_data = 1;     // 文件数据
+  string file_name = 2;    // 文件名
+  string file_type = 3;    // 文件MIME类型
+  uint64 bussiness_id = 4; // 业务ID
+}
+
+message FileUploadResponse {
+  string file_url = 1; // 文件URL
+  uint64 file_id = 2;  // 文件ID
+}
+
+message FileDownloadRequest {
+  uint64 file_id = 1; // 文件ID
+}
+
+message FileDownloadResponse {
+  bytes file_data = 1; // 文件数据
+}
+
+message FileDeleteRequest {
+  uint64 file_id = 1; // 文件ID
+}
+
+message FileDeleteResponse {
+}
+
+message FileInfoRequest {
+  uint64 file_id = 1; // 文件ID
+}
+
+message FileInfoResponse {
+  uint64 file_id = 1;      // 文件ID
+  string file_url = 2;     // 文件URL
+  string file_name = 3;    // 文件名
+  string file_type = 4;    // 文件MIME类型
+  uint64 file_size = 5;    // 文件大小
+  uint64 bussiness_id = 6; // 业务ID
+  int64 created_at = 7;   // 创建时间
+  int64 updated_at = 8;   // 更新时间
+  int64 deleted_at = 9;   // 删除时间
+}
+
+service Storage {
+  rpc FileUpload(FileUploadRequest) returns (FileUploadResponse);
+  rpc FileDownload(FileDownloadRequest) returns (FileDownloadResponse);
+  rpc FileDelete(FileDeleteRequest) returns (FileDeleteResponse);
+  rpc FileInfo(FileInfoRequest) returns (FileInfoResponse);
+}
