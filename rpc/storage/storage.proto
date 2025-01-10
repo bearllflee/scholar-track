@@ -9,6 +9,7 @@ message FileUploadRequest {
   string file_name = 2;    // 文件名
   string file_type = 3;    // 文件MIME类型
   uint64 bussiness_id = 4; // 业务ID
+  string bussiness_name = 5; // 业务名称
 }
 
 message FileUploadResponse {
@@ -22,6 +23,9 @@ message FileDownloadRequest {
 
 message FileDownloadResponse {
   bytes file_data = 1; // 文件数据
+  string file_name = 2; // 文件名
+  string file_type = 3; // 文件MIME类型
+  uint64 file_size = 4; // 文件大小
 }
 
 message FileDeleteRequest {
@@ -37,14 +41,24 @@ message FileInfoRequest {
 
 message FileInfoResponse {
   uint64 file_id = 1;      // 文件ID
-  string file_url = 2;     // 文件URL
-  string file_name = 3;    // 文件名
-  string file_type = 4;    // 文件MIME类型
-  uint64 file_size = 5;    // 文件大小
-  uint64 bussiness_id = 6; // 业务ID
-  int64 created_at = 7;   // 创建时间
-  int64 updated_at = 8;   // 更新时间
-  int64 deleted_at = 9;   // 删除时间
+  string file_key = 2;    // 文件key
+  string file_url = 3;     // 文件URL
+  string file_name = 4;    // 文件名
+  string file_type = 5;    // 文件MIME类型
+  uint64 file_size = 6;    // 文件大小
+  uint64 bussiness_id = 7; // 业务ID
+  int64 created_at = 8;   // 创建时间
+  int64 updated_at = 9;   // 更新时间
+  int64 deleted_at = 10;   // 删除时间
+}
+
+message GetBussinessFilesRequest {
+  uint64 bussiness_id = 1; // 业务ID
+  string bussiness_name = 2; // 业务名称
+}
+
+message GetBussinessFilesResponse {
+  repeated FileInfoResponse files = 1; // 文件列表
 }
 
 service Storage {
@@ -52,4 +66,5 @@ service Storage {
   rpc FileDownload(FileDownloadRequest) returns (FileDownloadResponse);
   rpc FileDelete(FileDeleteRequest) returns (FileDeleteResponse);
   rpc FileInfo(FileInfoRequest) returns (FileInfoResponse);
+  rpc GetBussinessFiles(GetBussinessFilesRequest) returns (GetBussinessFilesResponse);
 }

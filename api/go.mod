@@ -15,6 +15,7 @@ replace github.com/bearllflee/scholar-track/rpc/achieve => ../rpc/achieve
 require (
 	github.com/bearllflee/scholar-track/pkg v0.0.0-00010101000000-000000000000
 	github.com/bearllflee/scholar-track/rpc/achieve v0.0.0-00010101000000-000000000000
+	github.com/bearllflee/scholar-track/rpc/storage v0.0.0-00010101000000-000000000000
 	github.com/bearllflee/scholar-track/rpc/system v0.0.0-00010101000000-000000000000
 	github.com/golang-jwt/jwt/v4 v4.5.1
 	github.com/zeromicro/go-zero v1.7.6
@@ -47,7 +48,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.20.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.17.9 // indirect
+	github.com/klauspost/compress v1.17.11 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

@@ -13,5 +13,5 @@ Storage:
   AccessKey: bearllflee
   SecretKey: '@Dyg20010701'
   Bucket: scholar-track
-  Endpoint: 127.0.0.1:9000
+  Endpoint: 127.0.0.1:9005
   UseSSL: false

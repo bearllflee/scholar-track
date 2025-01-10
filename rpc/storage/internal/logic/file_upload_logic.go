@@ -28,11 +28,7 @@ func NewFileUploadLogic(ctx context.Context, svcCtx *svc.ServiceContext) *FileUp
 
 func (l *FileUploadLogic) FileUpload(in *storage.FileUploadRequest) (*storage.FileUploadResponse, error) {
 	fileReader := io.NopCloser(bytes.NewReader(in.FileData))
-	objectName, err := l.svcCtx.StorageService.UploadFile(l.ctx, fileReader, in.FileName, int64(len(in.FileData)), in.FileType)
-	if err != nil {
-		return nil, err
-	}
-	fileUrl, err := l.svcCtx.StorageService.GetFileUrl(l.ctx, objectName)
+	objectName, err := l.svcCtx.StorageService.UploadFile(l.ctx, fileReader, in.FileName, in.BussinessId, in.BussinessName, int64(len(in.FileData)), in.FileType)
 	if err != nil {
 		return nil, err
 	}
@@ -43,11 +39,11 @@ func (l *FileUploadLogic) FileUpload(in *storage.FileUploadRequest) (*storage.Fi
 		FileSize: int64(len(in.FileData)),
 		BussinessId: in.BussinessId,
 	}
-	_, err = l.svcCtx.FileService.UploadFile(l.ctx, file)
+	file, err = l.svcCtx.FileService.UploadFile(l.ctx, file)
 	if err != nil {
 		return nil, err
 	}
 	return &storage.FileUploadResponse{
-		FileUrl: fileUrl,
+		FileId: file.Id,
 	}, nil
 }

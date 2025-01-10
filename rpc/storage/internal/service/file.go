@@ -11,6 +11,23 @@ type FileService struct {
 	db *gorm.DB
 }
 
+func (s *FileService) GetFileByBussinessId(ctx context.Context, id uint64) ([]*model.File, error) {
+	files := make([]*model.File, 0)
+	err := s.db.WithContext(ctx).Where("bussiness_id = ?", id).Find(&files).Error
+	if err != nil {
+		return nil, err
+	}
+	return files, nil
+}
+
+func (s *FileService) DeleteFile(ctx context.Context, id uint64) error {
+	err := s.db.WithContext(ctx).Delete(&model.File{}, id).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (s *FileService) GetFileById(ctx context.Context, id uint64) (*model.File, error) {
 	file := &model.File{}
 	err := s.db.WithContext(ctx).First(file, id).Error

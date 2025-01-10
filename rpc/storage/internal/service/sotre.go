@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/url"
 	"path"
+	"strconv"
 	"time"
 
 	"github.com/bearllflee/scholar-track/rpc/storage/internal/config"
@@ -14,12 +15,12 @@ import (
 
 type StorageService struct {
 	client *minio.Client
-	bucket	string
+	bucket string
 }
 
 func NewStorageService(c config.StorageConf) (*StorageService, error) {
 	client, err := minio.New(c.Endpoint, &minio.Options{
-		Creds: credentials.NewStaticV4(c.AccessKey, c.SecretKey, ""),
+		Creds:  credentials.NewStaticV4(c.AccessKey, c.SecretKey, ""),
 		Secure: c.UseSSL,
 	})
 	if err != nil {
@@ -31,7 +32,7 @@ func NewStorageService(c config.StorageConf) (*StorageService, error) {
 	}
 	if !bucketExists {
 		if err := client.MakeBucket(context.Background(), c.Bucket, minio.MakeBucketOptions{Region: "us-east-1"}); err != nil {
-            return nil, err
+			return nil, err
 		}
 	}
 	return &StorageService{
@@ -40,8 +41,8 @@ func NewStorageService(c config.StorageConf) (*StorageService, error) {
 	}, nil
 }
 
-func (s *StorageService) UploadFile(ctx context.Context, file io.Reader, fileName string, fileSize int64, fileType string) (string, error) {
-	objectName := generateObjectName(fileName)
+func (s *StorageService) UploadFile(ctx context.Context, file io.Reader, fileName string, bussinessId uint64, bussinessName string, fileSize int64, fileType string) (string, error) {
+	objectName := generateObjectName(fileName, bussinessId, bussinessName)
 	_, err := s.client.PutObject(ctx, s.bucket, objectName, file, fileSize, minio.PutObjectOptions{ContentType: fileType})
 	if err != nil {
 		return "", err
@@ -75,10 +76,9 @@ func (s *StorageService) GetFileUrl(ctx context.Context, objectName string) (str
 	return presignedURL.String(), nil
 }
 
-
-
 // generateObjectName 生成对象名称
-func generateObjectName(fileName string) string {
-	timestamp := time.Now().Format("20060102150405")
-	return path.Join(timestamp, fileName)
+func generateObjectName(fileName string, bussinessId uint64, bussinessName string) string {
+	// timestamp := time.Now().Format("20060102150405")
+	return path.Join(bussinessName, strconv.FormatUint(bussinessId, 10), fileName)
 }
+

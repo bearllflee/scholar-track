@@ -42,3 +42,8 @@ func (s *StorageServer) FileInfo(ctx context.Context, in *storage.FileInfoReques
 	l := logic.NewFileInfoLogic(ctx, s.svcCtx)
 	return l.FileInfo(in)
 }
+
+func (s *StorageServer) GetBussinessFiles(ctx context.Context, in *storage.GetBussinessFilesRequest) (*storage.GetBussinessFilesResponse, error) {
+	l := logic.NewGetBussinessFilesLogic(ctx, s.svcCtx)
+	return l.GetBussinessFiles(in)
+}

@@ -9,6 +9,7 @@ type Config struct {
 	rest.RestConf
 	System  zrpc.RpcClientConf
 	Achieve zrpc.RpcClientConf
+	Storage zrpc.RpcClientConf
 	JwtConf struct {
 		SecretKey string
 		Expire    string

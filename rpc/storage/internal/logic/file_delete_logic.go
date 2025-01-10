@@ -24,7 +24,17 @@ func NewFileDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *FileDe
 }
 
 func (l *FileDeleteLogic) FileDelete(in *storage.FileDeleteRequest) (*storage.FileDeleteResponse, error) {
-	// todo: add your logic here and delete this line
-
+	file, err := l.svcCtx.FileService.GetFileById(l.ctx, in.FileId)
+	if err != nil {
+		return nil, err
+	}
+	err = l.svcCtx.FileService.DeleteFile(l.ctx, file.Id)
+	if err != nil {
+		return nil, err
+	}
+	err = l.svcCtx.StorageService.DeleteFile(l.ctx, file.FileKey)
+	if err != nil {
+		return nil, err
+	}
 	return &storage.FileDeleteResponse{}, nil
 }

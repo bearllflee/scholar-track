@@ -142,6 +142,13 @@ type DeleteCategoryReq struct {
 type DeleteCategoryResp struct {
 }
 
+type DeleteFileReq struct {
+	Id uint64 `path:"id"`
+}
+
+type DeleteFileResp struct {
+}
+
 type DeleteMenuReq struct {
 	Id uint64 `path:"id"`
 }
@@ -168,6 +175,47 @@ type DeleteUserReq struct {
 }
 
 type DeleteUserResp struct {
+}
+
+type DownloadFileReq struct {
+	Id uint64 `path:"id"`
+}
+
+type DownloadFileResp struct {
+	FileData []byte `json:"fileData"`
+	FileName string `json:"fileName"`
+	FileType string `json:"fileType"`
+	FileSize int64  `json:"fileSize"`
+}
+
+type File struct {
+	Id          uint64 `json:"id"`
+	FileKey     string `json:"fileKey"`
+	FileUrl     string `json:"fileUrl"`
+	FileName    string `json:"fileName"`
+	FileSize    int64  `json:"fileSize"`
+	FileType    string `json:"fileType"`
+	BussinessId uint64 `json:"bussinessId"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
+type GetBussinessFilesReq struct {
+	BussinessId   uint64 `json:"bussinessId"`
+	BussinessName string `json:"bussinessName"`
+}
+
+type GetBussinessFilesResp struct {
+	Files []*File `json:"files"`
+}
+
+type GetFileUrlReq struct {
+	FileKey string `json:"fileKey"`
+}
+
+type GetFileUrlResp struct {
+	Url string `json:"url"`
 }
 
 type LoginReq struct {
@@ -282,6 +330,14 @@ type QueryCategoryResp struct {
 	Categories []*Category `json:"categories"`
 	Page       int64       `json:"page"`
 	PageSize   int64       `json:"pageSize"`
+}
+
+type QueryFileDetailReq struct {
+	Id uint64 `path:"id"`
+}
+
+type QueryFileDetailResp struct {
+	File File `json:"file"`
 }
 
 type QueryMenuDetailReq struct {
@@ -619,4 +675,16 @@ type UpdateRoleMenuReq struct {
 }
 
 type UpdateRoleMenuResp struct {
+}
+
+type UploadFileReq struct {
+	File          []byte `json:"file"`
+	FileName      string `json:"fileName"`
+	FileType      string `json:"fileType"`
+	BussinessId   uint64 `json:"bussinessId"`
+	BussinessName string `json:"bussinessName"`
+}
+
+type UploadFileResp struct {
+	FileId uint64 `json:"fileId"`
 }

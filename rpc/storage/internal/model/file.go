@@ -12,6 +12,7 @@ type File struct {
 	FileType string `json:"fileType" form:"fileType" gorm:"type:varchar(100);column:file_type;comment:文件类型"`
 	FileSize int64  `json:"fileSize" form:"fileSize" gorm:"type:bigint unsigned;column:file_size;comment:文件大小"`
 	BussinessId uint64 `json:"bussinessId" form:"bussinessId" gorm:"type:bigint unsigned;column:bussiness_id;comment:业务ID"`
+	FileUrl string `json:"fileUrl" form:"fileUrl" gorm:"-"`
 }
 
 func (File) TableName() string {

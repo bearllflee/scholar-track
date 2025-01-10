@@ -89,7 +89,7 @@ type (
 		UserId  uint64   `json:"userId"`
 		RoleIds []uint64 `json:"roleIds"`
 	}
-	SetUserRoleResp  {}
+	SetUserRoleResp struct{}
 	// 查看自身信息
 	QuerySelfInfoReq {
 		Id uint64 `json:"id,optional"`
@@ -114,7 +114,7 @@ type (
 		Realname string `json:"realname"`
 		Class    string `json:"class"`
 	}
-	SetUserInfoResp  {}
+	SetUserInfoResp struct{}
 	// 修改自身信息
 	SetSelfInfoReq {
 		Id       uint64 `json:"id,optional"`
@@ -132,24 +132,24 @@ type (
 		Realname string `json:"realname"`
 		Class    string `json:"class"`
 	}
-	SetSelfInfoResp  {}
+	SetSelfInfoResp struct{}
 	// 重置用户密码
 	ResetPasswordReq {
 		UserId uint64 `json:"userId"`
 	}
-	ResetPasswordResp  {}
+	ResetPasswordResp struct{}
 	// 修改密码
 	ChangePasswordReq {
 		UserId      uint64 `json:"userId,optional"`
 		OldPassword string `json:"oldPassword"`
 		NewPassword string `json:"newPassword"`
 	}
-	ChangePasswordResp  {}
+	ChangePasswordResp struct{}
 	// 删除用户
 	DeleteUserReq {
 		UserId uint64 `path:"id"`
 	}
-	DeleteUserResp  {}
+	DeleteUserResp struct{}
 )
 
 // 角色
@@ -189,13 +189,13 @@ type (
 	DeleteRoleReq {
 		RoleId uint64 `path:"id"`
 	}
-	DeleteRoleResp  {}
+	DeleteRoleResp struct{}
 	// 设置角色信息
 	SetRoleInfoReq {
 		RoleId   uint64 `json:"roleId"`
 		RoleName string `json:"roleName"`
 	}
-	SetRoleInfoResp  {}
+	SetRoleInfoResp struct{}
 	// 设置角色权限
 	PolicyInfo {
 		Method string `json:"method"`
@@ -205,7 +205,7 @@ type (
 		RoleId uint64       `json:"roleId"`
 		Rules  []PolicyInfo `json:"rules"`
 	}
-	SetRolePoliciesResp  {}
+	SetRolePoliciesResp struct{}
 	// 获取角色权限
 	QueryRolePoliciesReq {
 		RoleId uint64 `path:"roleId"`
@@ -645,13 +645,13 @@ type Menu {
 	UpdatedAt int64  `json:"updatedAt"`
 	DeletedAt int64  `json:"-"`
 	MenuLevel uint   `json:"-"`
-	ParentId  uint64 `json:"parentId"` // 父菜单ID
-	Path      string `json:"path"` // 路由path
-	Name      string `json:"name"` // 路由name
-	Hidden    bool   `json:"hidden"` // 是否在列表隐藏
+	ParentId  uint64 `json:"parentId"`  // 父菜单ID
+	Path      string `json:"path"`      // 路由path
+	Name      string `json:"name"`      // 路由name
+	Hidden    bool   `json:"hidden"`    // 是否在列表隐藏
 	Component string `json:"component"` // 对应前端文件路径
-	Sort      int    `json:"sort"` // 排序标记
-	Meta      Meta   `json:"meta"` // 附加属性
+	Sort      int    `json:"sort"`      // 排序标记
+	Meta      Meta   `json:"meta"`      // 附加属性
 	Children  []Menu `json:"children"`
 }
 
@@ -774,3 +774,92 @@ service scholartrack-api {
 	delete /menu/:id (DeleteMenuReq) returns (DeleteMenuResp)
 }
 
+type File {
+	Id          uint64 `json:"id"`
+	FileKey     string `json:"fileKey"`
+	FileUrl     string `json:"fileUrl"`
+	FileName    string `json:"fileName"`
+	FileSize    int64  `json:"fileSize"`
+	FileType    string `json:"fileType"`
+	BussinessId uint64 `json:"bussinessId"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	DeletedAt   int64  `json:"-"`
+}
+
+type DeleteFileReq {
+	Id uint64 `path:"id"`
+}
+
+type DeleteFileResp {}
+
+type GetFileUrlReq {
+	FileKey string `json:"fileKey"`
+}
+
+type GetFileUrlResp {
+	Url string `json:"url"`
+}
+
+type UploadFileReq {
+	File          []byte `json:"file"`
+	FileName      string `json:"fileName"`
+	FileType      string `json:"fileType"`
+	BussinessId   uint64 `json:"bussinessId"`
+	BussinessName string `json:"bussinessName"`
+}
+
+type UploadFileResp {
+	FileId uint64 `json:"fileId"`
+}
+
+type DownloadFileReq {
+	Id uint64 `path:"id"`
+}
+
+type DownloadFileResp {
+	FileData []byte `json:"fileData"`
+	FileName string `json:"fileName"`
+	FileType string `json:"fileType"`
+	FileSize int64  `json:"fileSize"`
+}
+
+type QueryFileDetailReq {
+	Id uint64 `path:"id"`
+}
+
+type QueryFileDetailResp {
+	File File `json:"file"`
+}
+
+type GetBussinessFilesReq {
+	BussinessId   uint64 `json:"bussinessId"`
+	BussinessName string `json:"bussinessName"`
+}
+
+type GetBussinessFilesResp {
+	Files []*File `json:"files"`
+}
+
+@server (
+	group: file
+)
+service scholartrack-api {
+	@handler UploadFileHandler
+	post /file/upload (UploadFileReq) returns (UploadFileResp)
+
+	@handler DeleteFileHandler
+	delete /file/:id (DeleteFileReq) returns (DeleteFileResp)
+
+	@handler GetFileUrlHandler
+	get /file/url (GetFileUrlReq) returns (GetFileUrlResp)
+
+	@handler DownloadFileHandler
+	get /file/download/:id (DownloadFileReq) returns (DownloadFileResp)
+
+	@handler QueryFileDetailHandler
+	get /file/:id (QueryFileDetailReq) returns (QueryFileDetailResp)
+
+	@handler GetBussinessFilesHandler
+	get /file/bussiness (GetBussinessFilesReq) returns (GetBussinessFilesResp)
+}

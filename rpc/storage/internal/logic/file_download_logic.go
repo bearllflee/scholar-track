@@ -39,5 +39,8 @@ func (l *FileDownloadLogic) FileDownload(in *storage.FileDownloadRequest) (*stor
 	}
 	return &storage.FileDownloadResponse{
 		FileData: fileData,
+		FileName: file.FileName,
+		FileType: file.FileType,
+		FileSize: uint64(file.FileSize),
 	}, nil
 }

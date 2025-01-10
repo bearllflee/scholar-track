@@ -10,6 +10,7 @@ import (
 	achievementproperty "github.com/bearllflee/scholar-track/api/internal/handler/achievement/property"
 	api "github.com/bearllflee/scholar-track/api/internal/handler/api"
 	casbin "github.com/bearllflee/scholar-track/api/internal/handler/casbin"
+	file "github.com/bearllflee/scholar-track/api/internal/handler/file"
 	menu "github.com/bearllflee/scholar-track/api/internal/handler/menu"
 	role "github.com/bearllflee/scholar-track/api/internal/handler/role"
 	user "github.com/bearllflee/scholar-track/api/internal/handler/user"
@@ -115,6 +116,41 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPost,
 				Path:    "/casbin/addPolicies",
 				Handler: casbin.AddPoliciesHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodDelete,
+				Path:    "/file/:id",
+				Handler: file.DeleteFileHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/file/:id",
+				Handler: file.QueryFileDetailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/file/bussiness",
+				Handler: file.GetBussinessFilesHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/file/download/:id",
+				Handler: file.DownloadFileHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/file/upload",
+				Handler: file.UploadFileHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/file/url",
+				Handler: file.GetFileUrlHandler(serverCtx),
 			},
 		},
 	)

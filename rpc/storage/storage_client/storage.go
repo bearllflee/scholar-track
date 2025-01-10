@@ -14,20 +14,23 @@ import (
 )
 
 type (
-	FileDeleteRequest    = storage.FileDeleteRequest
-	FileDeleteResponse   = storage.FileDeleteResponse
-	FileDownloadRequest  = storage.FileDownloadRequest
-	FileDownloadResponse = storage.FileDownloadResponse
-	FileInfoRequest      = storage.FileInfoRequest
-	FileInfoResponse     = storage.FileInfoResponse
-	FileUploadRequest    = storage.FileUploadRequest
-	FileUploadResponse   = storage.FileUploadResponse
+	FileDeleteRequest         = storage.FileDeleteRequest
+	FileDeleteResponse        = storage.FileDeleteResponse
+	FileDownloadRequest       = storage.FileDownloadRequest
+	FileDownloadResponse      = storage.FileDownloadResponse
+	FileInfoRequest           = storage.FileInfoRequest
+	FileInfoResponse          = storage.FileInfoResponse
+	FileUploadRequest         = storage.FileUploadRequest
+	FileUploadResponse        = storage.FileUploadResponse
+	GetBussinessFilesRequest  = storage.GetBussinessFilesRequest
+	GetBussinessFilesResponse = storage.GetBussinessFilesResponse
 
 	Storage interface {
 		FileUpload(ctx context.Context, in *FileUploadRequest, opts ...grpc.CallOption) (*FileUploadResponse, error)
 		FileDownload(ctx context.Context, in *FileDownloadRequest, opts ...grpc.CallOption) (*FileDownloadResponse, error)
 		FileDelete(ctx context.Context, in *FileDeleteRequest, opts ...grpc.CallOption) (*FileDeleteResponse, error)
 		FileInfo(ctx context.Context, in *FileInfoRequest, opts ...grpc.CallOption) (*FileInfoResponse, error)
+		GetBussinessFiles(ctx context.Context, in *GetBussinessFilesRequest, opts ...grpc.CallOption) (*GetBussinessFilesResponse, error)
 	}
 
 	defaultStorage struct {
@@ -59,4 +62,9 @@ func (m *defaultStorage) FileDelete(ctx context.Context, in *FileDeleteRequest, 
 func (m *defaultStorage) FileInfo(ctx context.Context, in *FileInfoRequest, opts ...grpc.CallOption) (*FileInfoResponse, error) {
 	client := storage.NewStorageClient(m.cli.Conn())
 	return client.FileInfo(ctx, in, opts...)
+}
+
+func (m *defaultStorage) GetBussinessFiles(ctx context.Context, in *GetBussinessFilesRequest, opts ...grpc.CallOption) (*GetBussinessFilesResponse, error) {
+	client := storage.NewStorageClient(m.cli.Conn())
+	return client.GetBussinessFiles(ctx, in, opts...)
 }

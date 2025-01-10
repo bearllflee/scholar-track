@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Storage_FileUpload_FullMethodName   = "/storage.Storage/FileUpload"
-	Storage_FileDownload_FullMethodName = "/storage.Storage/FileDownload"
-	Storage_FileDelete_FullMethodName   = "/storage.Storage/FileDelete"
-	Storage_FileInfo_FullMethodName     = "/storage.Storage/FileInfo"
+	Storage_FileUpload_FullMethodName        = "/storage.Storage/FileUpload"
+	Storage_FileDownload_FullMethodName      = "/storage.Storage/FileDownload"
+	Storage_FileDelete_FullMethodName        = "/storage.Storage/FileDelete"
+	Storage_FileInfo_FullMethodName          = "/storage.Storage/FileInfo"
+	Storage_GetBussinessFiles_FullMethodName = "/storage.Storage/GetBussinessFiles"
 )
 
 // StorageClient is the client API for Storage service.
@@ -33,6 +34,7 @@ type StorageClient interface {
 	FileDownload(ctx context.Context, in *FileDownloadRequest, opts ...grpc.CallOption) (*FileDownloadResponse, error)
 	FileDelete(ctx context.Context, in *FileDeleteRequest, opts ...grpc.CallOption) (*FileDeleteResponse, error)
 	FileInfo(ctx context.Context, in *FileInfoRequest, opts ...grpc.CallOption) (*FileInfoResponse, error)
+	GetBussinessFiles(ctx context.Context, in *GetBussinessFilesRequest, opts ...grpc.CallOption) (*GetBussinessFilesResponse, error)
 }
 
 type storageClient struct {
@@ -83,6 +85,16 @@ func (c *storageClient) FileInfo(ctx context.Context, in *FileInfoRequest, opts 
 	return out, nil
 }
 
+func (c *storageClient) GetBussinessFiles(ctx context.Context, in *GetBussinessFilesRequest, opts ...grpc.CallOption) (*GetBussinessFilesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetBussinessFilesResponse)
+	err := c.cc.Invoke(ctx, Storage_GetBussinessFiles_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StorageServer is the server API for Storage service.
 // All implementations must embed UnimplementedStorageServer
 // for forward compatibility.
@@ -91,6 +103,7 @@ type StorageServer interface {
 	FileDownload(context.Context, *FileDownloadRequest) (*FileDownloadResponse, error)
 	FileDelete(context.Context, *FileDeleteRequest) (*FileDeleteResponse, error)
 	FileInfo(context.Context, *FileInfoRequest) (*FileInfoResponse, error)
+	GetBussinessFiles(context.Context, *GetBussinessFilesRequest) (*GetBussinessFilesResponse, error)
 	mustEmbedUnimplementedStorageServer()
 }
 
@@ -112,6 +125,9 @@ func (UnimplementedStorageServer) FileDelete(context.Context, *FileDeleteRequest
 }
 func (UnimplementedStorageServer) FileInfo(context.Context, *FileInfoRequest) (*FileInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FileInfo not implemented")
+}
+func (UnimplementedStorageServer) GetBussinessFiles(context.Context, *GetBussinessFilesRequest) (*GetBussinessFilesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBussinessFiles not implemented")
 }
 func (UnimplementedStorageServer) mustEmbedUnimplementedStorageServer() {}
 func (UnimplementedStorageServer) testEmbeddedByValue()                 {}
@@ -206,6 +222,24 @@ func _Storage_FileInfo_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Storage_GetBussinessFiles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBussinessFilesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).GetBussinessFiles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_GetBussinessFiles_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).GetBussinessFiles(ctx, req.(*GetBussinessFilesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Storage_ServiceDesc is the grpc.ServiceDesc for Storage service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -228,6 +262,10 @@ var Storage_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FileInfo",
 			Handler:    _Storage_FileInfo_Handler,
+		},
+		{
+			MethodName: "GetBussinessFiles",
+			Handler:    _Storage_GetBussinessFiles_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
