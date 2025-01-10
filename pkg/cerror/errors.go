@@ -47,3 +47,7 @@ var (
 	ErrMenuInvalid = status.Error(1204, "添加的菜单中有无效数据")
 
 )
+
+var (
+	ErrFileNotFound = status.Error(1301, "文件不存在")
+)

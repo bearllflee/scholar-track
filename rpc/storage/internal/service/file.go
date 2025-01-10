@@ -2,7 +2,9 @@ package service
 
 import (
 	"context"
+	"errors"
 
+	"github.com/bearllflee/scholar-track/pkg/cerror"
 	"github.com/bearllflee/scholar-track/rpc/storage/internal/model"
 	"gorm.io/gorm"
 )
@@ -32,6 +34,9 @@ func (s *FileService) GetFileById(ctx context.Context, id uint64) (*model.File, 
 	file := &model.File{}
 	err := s.db.WithContext(ctx).First(file, id).Error
 	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, cerror.ErrFileNotFound
+		}
 		return nil, err
 	}
 	return file, nil

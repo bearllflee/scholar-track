@@ -43,3 +43,10 @@ func CheckIsDefinedMenuError(err error) bool {
 	}
 	return false
 }
+
+func CheckIsDefinedFileError(err error) bool {
+	if errors.Is(err, ErrFileNotFound) {
+		return true
+	}
+	return false
+}
