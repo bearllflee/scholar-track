@@ -5,6 +5,7 @@ import (
 
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
+	"github.com/bearllflee/scholar-track/rpc/storage/storage_client"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +25,11 @@ func NewDeleteFileLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteFileLogic) DeleteFile(req *types.DeleteFileReq) (resp *types.DeleteFileResp, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	_, err = l.svcCtx.Storage.FileDelete(l.ctx, &storage_client.FileDeleteRequest{
+		FileId: req.Id,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
