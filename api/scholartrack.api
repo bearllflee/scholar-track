@@ -89,7 +89,7 @@ type (
 		UserId  uint64   `json:"userId"`
 		RoleIds []uint64 `json:"roleIds"`
 	}
-	SetUserRoleResp struct{}
+	SetUserRoleResp  {}
 	// 查看自身信息
 	QuerySelfInfoReq {
 		Id uint64 `json:"id,optional"`
@@ -114,7 +114,7 @@ type (
 		Realname string `json:"realname"`
 		Class    string `json:"class"`
 	}
-	SetUserInfoResp struct{}
+	SetUserInfoResp  {}
 	// 修改自身信息
 	SetSelfInfoReq {
 		Id       uint64 `json:"id,optional"`
@@ -132,24 +132,24 @@ type (
 		Realname string `json:"realname"`
 		Class    string `json:"class"`
 	}
-	SetSelfInfoResp struct{}
+	SetSelfInfoResp  {}
 	// 重置用户密码
 	ResetPasswordReq {
 		UserId uint64 `json:"userId"`
 	}
-	ResetPasswordResp struct{}
+	ResetPasswordResp  {}
 	// 修改密码
 	ChangePasswordReq {
 		UserId      uint64 `json:"userId,optional"`
 		OldPassword string `json:"oldPassword"`
 		NewPassword string `json:"newPassword"`
 	}
-	ChangePasswordResp struct{}
+	ChangePasswordResp  {}
 	// 删除用户
 	DeleteUserReq {
 		UserId uint64 `path:"id"`
 	}
-	DeleteUserResp struct{}
+	DeleteUserResp  {}
 )
 
 // 角色
@@ -189,13 +189,13 @@ type (
 	DeleteRoleReq {
 		RoleId uint64 `path:"id"`
 	}
-	DeleteRoleResp struct{}
+	DeleteRoleResp  {}
 	// 设置角色信息
 	SetRoleInfoReq {
 		RoleId   uint64 `json:"roleId"`
 		RoleName string `json:"roleName"`
 	}
-	SetRoleInfoResp struct{}
+	SetRoleInfoResp  {}
 	// 设置角色权限
 	PolicyInfo {
 		Method string `json:"method"`
@@ -205,7 +205,7 @@ type (
 		RoleId uint64       `json:"roleId"`
 		Rules  []PolicyInfo `json:"rules"`
 	}
-	SetRolePoliciesResp struct{}
+	SetRolePoliciesResp  {}
 	// 获取角色权限
 	QueryRolePoliciesReq {
 		RoleId uint64 `path:"roleId"`
@@ -645,13 +645,13 @@ type Menu {
 	UpdatedAt int64  `json:"updatedAt"`
 	DeletedAt int64  `json:"-"`
 	MenuLevel uint   `json:"-"`
-	ParentId  uint64 `json:"parentId"`  // 父菜单ID
-	Path      string `json:"path"`      // 路由path
-	Name      string `json:"name"`      // 路由name
-	Hidden    bool   `json:"hidden"`    // 是否在列表隐藏
+	ParentId  uint64 `json:"parentId"` // 父菜单ID
+	Path      string `json:"path"` // 路由path
+	Name      string `json:"name"` // 路由name
+	Hidden    bool   `json:"hidden"` // 是否在列表隐藏
 	Component string `json:"component"` // 对应前端文件路径
-	Sort      int    `json:"sort"`      // 排序标记
-	Meta      Meta   `json:"meta"`      // 附加属性
+	Sort      int    `json:"sort"` // 排序标记
+	Meta      Meta   `json:"meta"` // 附加属性
 	Children  []Menu `json:"children"`
 }
 
@@ -863,3 +863,186 @@ service scholartrack-api {
 	@handler GetBussinessFilesHandler
 	get /file/bussiness (GetBussinessFilesReq) returns (GetBussinessFilesResp)
 }
+
+// 字典
+type (
+	Dictionary {
+		Id        uint64 `json:"id"`
+		CreatedAt int64  `json:"createdAt"`
+		UpdatedAt int64  `json:"updatedAt"`
+		DeletedAt int64  `json:"-"`
+		Name      string `json:"name"`
+		Code      string `json:"code"`
+		Remark    string `json:"remark"`
+	}
+	CreateDictionaryReq {
+		Name   string `json:"name"`
+		Code   string `json:"code"`
+		Remark string `json:"remark"`
+	}
+	CreateDictionaryResp {
+		Id        uint64 `json:"id"`
+		CreatedAt int64  `json:"createdAt"`
+		UpdatedAt int64  `json:"updatedAt"`
+		DeletedAt int64  `json:"-"`
+		Name      string `json:"name"`
+		Code      string `json:"code"`
+		Remark    string `json:"remark"`
+	}
+	UpdateDictionaryReq {
+		Id     uint64 `json:"id"`
+		Name   string `json:"name"`
+		Code   string `json:"code"`
+		Remark string `json:"remark"`
+	}
+	UpdateDictionaryResp  {}
+	DeleteDictionaryReq {
+		Id uint64 `path:"id"`
+	}
+	DeleteDictionaryResp  {}
+	QueryDictionaryDetailReq {
+		Id uint64 `path:"id"`
+	}
+	QueryDictionaryDetailResp {
+		Id        uint64 `json:"id"`
+		CreatedAt int64  `json:"createdAt"`
+		UpdatedAt int64  `json:"updatedAt"`
+		DeletedAt int64  `json:"-"`
+		Name      string `json:"name"`
+		Code      string `json:"code"`
+		Remark    string `json:"remark"`
+	}
+	QueryDictionaryListReq {
+		Page     int64  `json:"page"`
+		PageSize int64  `json:"pageSize"`
+		Name     string `json:"name,optional"`
+		Code     string `json:"code,optional"`
+		OrderBy  string `json:"orderBy,optional"`
+	}
+	QueryDictionaryListResp {
+		Total    int64        `json:"total"`
+		List     []Dictionary `json:"list"`
+		Page     int64        `json:"page"`
+		PageSize int64        `json:"pageSize"`
+	}
+)
+
+// 字典详情
+type (
+	DictionaryDetail {
+		Id             uint64 `json:"id"`
+		CreatedAt      int64  `json:"createdAt"`
+		UpdatedAt      int64  `json:"updatedAt"`
+		DeletedAt      int64  `json:"-"`
+		DictionaryId   uint64 `json:"dictionaryId"`
+		Key            string `json:"key"`
+		Value          string `json:"value"`
+		Remark         string `json:"remark"`
+		Sort           int32  `json:"sort"`
+		IsDefaultValue bool   `json:"isDefaultValue"`
+	}
+	CreateDictionaryDetailReq {
+		DictionaryId   uint64 `json:"dictionaryId"`
+		Key            string `json:"key"`
+		Value          string `json:"value"`
+		Remark         string `json:"remark"`
+		Sort           int32  `json:"sort"`
+		IsDefaultValue bool   `json:"isDefaultValue"`
+	}
+	CreateDictionaryDetailResp {
+		Id             uint64 `json:"id"`
+		CreatedAt      int64  `json:"createdAt"`
+		UpdatedAt      int64  `json:"updatedAt"`
+		DeletedAt      int64  `json:"-"`
+		DictionaryId   uint64 `json:"dictionaryId"`
+		Key            string `json:"key"`
+		Value          string `json:"value"`
+		Remark         string `json:"remark"`
+		Sort           int32  `json:"sort"`
+		IsDefaultValue bool   `json:"isDefaultValue"`
+	}
+	UpdateDictionaryDetailReq {
+		Id             uint64 `json:"id"`
+		DictionaryId   uint64 `json:"dictionaryId"`
+		Key            string `json:"key"`
+		Value          string `json:"value"`
+		Remark         string `json:"remark"`
+		Sort           int32  `json:"sort"`
+		IsDefaultValue bool   `json:"isDefaultValue"`
+	}
+	UpdateDictionaryDetailResp  {}
+	DeleteDictionaryDetailReq {
+		Id uint64 `path:"id"`
+	}
+	DeleteDictionaryDetailResp  {}
+	QueryDictionaryDetailDetailReq {
+		Id uint64 `path:"id"`
+	}
+	QueryDictionaryDetailDetailResp {
+		Id             uint64 `json:"id"`
+		CreatedAt      int64  `json:"createdAt"`
+		UpdatedAt      int64  `json:"updatedAt"`
+		DeletedAt      int64  `json:"-"`
+		DictionaryId   uint64 `json:"dictionaryId"`
+		Key            string `json:"key"`
+		Value          string `json:"value"`
+		Remark         string `json:"remark"`
+		Sort           int32  `json:"sort"`
+		IsDefaultValue bool   `json:"isDefaultValue"`
+	}
+	QueryDictionaryDetailListReq {
+		Page         int64  `json:"page"`
+		PageSize     int64  `json:"pageSize"`
+		DictionaryId uint64 `json:"dictionaryId"`
+		Key          string `json:"key,optional"`
+		Value        string `json:"value,optional"`
+		OrderBy      string `json:"orderBy,optional"`
+	}
+	QueryDictionaryDetailListResp {
+		Total    int64              `json:"total"`
+		List     []DictionaryDetail `json:"list"`
+		Page     int64              `json:"page"`
+		PageSize int64              `json:"pageSize"`
+	}
+)
+
+@server (
+	group: dictionary
+)
+service scholartrack-api {
+	@handler CreateDictionaryHandler
+	post /dictionary (CreateDictionaryReq) returns (CreateDictionaryResp)
+
+	@handler UpdateDictionaryHandler
+	put /dictionary (UpdateDictionaryReq) returns (UpdateDictionaryResp)
+
+	@handler DeleteDictionaryHandler
+	delete /dictionary/:id (DeleteDictionaryReq) returns (DeleteDictionaryResp)
+
+	@handler QueryDictionaryDetailHandler
+	get /dictionary/:id (QueryDictionaryDetailReq) returns (QueryDictionaryDetailResp)
+
+	@handler QueryDictionaryListHandler
+	post /dictionary/list (QueryDictionaryListReq) returns (QueryDictionaryListResp)
+}
+
+@server (
+	group: dictionary_detail
+)
+service scholartrack-api {
+	@handler CreateDictionaryDetailHandler
+	post /dictionary/detail (CreateDictionaryDetailReq) returns (CreateDictionaryDetailResp)
+
+	@handler UpdateDictionaryDetailHandler
+	put /dictionary/detail (UpdateDictionaryDetailReq) returns (UpdateDictionaryDetailResp)
+
+	@handler DeleteDictionaryDetailHandler
+	delete /dictionary/detail/:id (DeleteDictionaryDetailReq) returns (DeleteDictionaryDetailResp)
+
+	@handler QueryDictionaryDetailDetailHandler
+	get /dictionary/detail/:id (QueryDictionaryDetailDetailReq) returns (QueryDictionaryDetailDetailResp)
+
+	@handler QueryDictionaryDetailListHandler
+	post /dictionary/detail/list (QueryDictionaryDetailListReq) returns (QueryDictionaryDetailListResp)
+}
+

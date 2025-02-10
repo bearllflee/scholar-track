@@ -114,6 +114,46 @@ type CreateApiResp struct {
 	DeletedAt   int64  `json:"-"`
 }
 
+type CreateDictionaryDetailReq struct {
+	DictionaryId   uint64 `json:"dictionaryId"`
+	Key            string `json:"key"`
+	Value          string `json:"value"`
+	Remark         string `json:"remark"`
+	Sort           int32  `json:"sort"`
+	IsDefaultValue bool   `json:"isDefaultValue"`
+}
+
+type CreateDictionaryDetailResp struct {
+	Id             uint64 `json:"id"`
+	CreatedAt      int64  `json:"createdAt"`
+	UpdatedAt      int64  `json:"updatedAt"`
+	DeletedAt      int64  `json:"-"`
+	DictionaryId   uint64 `json:"dictionaryId"`
+	Key            string `json:"key"`
+	Value          string `json:"value"`
+	Remark         string `json:"remark"`
+	Sort           int32  `json:"sort"`
+	IsDefaultValue bool   `json:"isDefaultValue"`
+}
+
+type CreateDictionaryReq struct {
+	Name   string `json:"name"`
+	Type   string `json:"type"`
+	Status bool   `json:"status"`
+	Desc   string `json:"desc"`
+}
+
+type CreateDictionaryResp struct {
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	DeletedAt int64  `json:"-"`
+	Name      string `json:"name"`
+	Type   string `json:"type"`
+	Status bool   `json:"status"`
+	Desc   string `json:"desc"`
+}
+
 type CreateMenuReq struct {
 	ParentId  uint64 `json:"parentId"`
 	Path      string `json:"path"`
@@ -140,6 +180,20 @@ type DeleteCategoryReq struct {
 }
 
 type DeleteCategoryResp struct {
+}
+
+type DeleteDictionaryDetailReq struct {
+	Id uint64 `path:"id"`
+}
+
+type DeleteDictionaryDetailResp struct {
+}
+
+type DeleteDictionaryReq struct {
+	Id uint64 `path:"id"`
+}
+
+type DeleteDictionaryResp struct {
 }
 
 type DeleteFileReq struct {
@@ -175,6 +229,30 @@ type DeleteUserReq struct {
 }
 
 type DeleteUserResp struct {
+}
+
+type Dictionary struct {
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	DeletedAt int64  `json:"-"`
+	Name      string `json:"name"`
+	Type   string `json:"type"`
+	Status bool   `json:"status"`
+	Desc   string `json:"desc"`
+}
+
+type DictionaryDetail struct {
+	Id             uint64 `json:"id"`
+	CreatedAt      int64  `json:"createdAt"`
+	UpdatedAt      int64  `json:"updatedAt"`
+	DeletedAt      int64  `json:"-"`
+	DictionaryId   uint64 `json:"dictionaryId"`
+	Key            string `json:"key"`
+	Value          string `json:"value"`
+	Remark         string `json:"remark"`
+	Sort           int32  `json:"sort"`
+	IsDefaultValue bool   `json:"isDefaultValue"`
 }
 
 type DownloadFileReq struct {
@@ -330,6 +408,69 @@ type QueryCategoryResp struct {
 	Categories []*Category `json:"categories"`
 	Page       int64       `json:"page"`
 	PageSize   int64       `json:"pageSize"`
+}
+
+type QueryDictionaryDetailDetailReq struct {
+	Id uint64 `path:"id"`
+}
+
+type QueryDictionaryDetailDetailResp struct {
+	Id             uint64 `json:"id"`
+	CreatedAt      int64  `json:"createdAt"`
+	UpdatedAt      int64  `json:"updatedAt"`
+	DeletedAt      int64  `json:"-"`
+	DictionaryId   uint64 `json:"dictionaryId"`
+	Key            string `json:"key"`
+	Value          string `json:"value"`
+	Remark         string `json:"remark"`
+	Sort           int32  `json:"sort"`
+	IsDefaultValue bool   `json:"isDefaultValue"`
+}
+
+type QueryDictionaryDetailListReq struct {
+	Page         int64  `json:"page"`
+	PageSize     int64  `json:"pageSize"`
+	DictionaryId uint64 `json:"dictionaryId"`
+	Key          string `json:"key,optional"`
+	Value        string `json:"value,optional"`
+	OrderBy      string `json:"orderBy,optional"`
+}
+
+type QueryDictionaryDetailListResp struct {
+	Total    int64              `json:"total"`
+	List     []DictionaryDetail `json:"list"`
+	Page     int64              `json:"page"`
+	PageSize int64              `json:"pageSize"`
+}
+
+type QueryDictionaryDetailReq struct {
+	Id uint64 `path:"id"`
+}
+
+type QueryDictionaryDetailResp struct {
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+	DeletedAt int64  `json:"-"`
+	Name      string `json:"name"`
+	Type   string `json:"type"`
+	Status bool   `json:"status"`
+	Desc   string `json:"desc"`
+}
+
+type QueryDictionaryListReq struct {
+	Page     int64  `json:"page"`
+	PageSize int64  `json:"pageSize"`
+	Name     string `json:"name,optional"`
+	Code     string `json:"code,optional"`
+	OrderBy  string `json:"orderBy,optional"`
+}
+
+type QueryDictionaryListResp struct {
+	Total    int64        `json:"total"`
+	List     []Dictionary `json:"list"`
+	Page     int64        `json:"page"`
+	PageSize int64        `json:"pageSize"`
 }
 
 type QueryFileDetailReq struct {
@@ -615,6 +756,29 @@ type UpdateCategoryResp struct {
 	CreatedAt   int64  `json:"createdAt"`
 	UpdatedAt   int64  `json:"updatedAt"`
 	DeletedAt   int64  `json:"-"`
+}
+
+type UpdateDictionaryDetailReq struct {
+	Id             uint64 `json:"id"`
+	DictionaryId   uint64 `json:"dictionaryId"`
+	Key            string `json:"key"`
+	Value          string `json:"value"`
+	Remark         string `json:"remark"`
+	Sort           int32  `json:"sort"`
+	IsDefaultValue bool   `json:"isDefaultValue"`
+}
+
+type UpdateDictionaryDetailResp struct {
+}
+
+type UpdateDictionaryReq struct {
+	Id     uint64 `json:"id"`
+	Name   string `json:"name"`
+	Code   string `json:"code"`
+	Remark string `json:"remark"`
+}
+
+type UpdateDictionaryResp struct {
 }
 
 type UpdateMenuReq struct {

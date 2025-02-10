@@ -24,7 +24,28 @@ func NewQueryAllDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceCo
 }
 
 func (l *QueryAllDictionaryDetailLogic) QueryAllDictionaryDetail(in *system.QueryAllDictionaryDetailReq) (*system.QueryAllDictionaryDetailResp, error) {
-	// todo: add your logic here and delete this line
+	dictionaryDetails, err := l.svcCtx.DictionaryDetailService.QueryAllDictionaryDetail()
+	if err != nil {
+		return nil, err
+	}
 
-	return &system.QueryAllDictionaryDetailResp{}, nil
+	resp := &system.QueryAllDictionaryDetailResp{
+		DictionaryDetails: make([]*system.DictionaryDetail, len(dictionaryDetails)),
+	}
+
+	for i, detail := range dictionaryDetails {
+		resp.DictionaryDetails[i] = &system.DictionaryDetail{
+			Id:           uint64(detail.Id),
+			Label:        detail.Label,
+			Value:        detail.Value,
+			Extend:       detail.Extend,
+			Status:       *detail.Status,
+			Sort:         int32(detail.Sort),
+			DictionaryId: detail.DictionaryId,
+			CreatedAt:    detail.CreatedAt.Unix(),
+			UpdatedAt:    detail.UpdatedAt.Unix(),
+		}
+	}
+
+	return resp, nil
 }

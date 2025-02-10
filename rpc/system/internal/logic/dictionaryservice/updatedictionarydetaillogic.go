@@ -3,6 +3,8 @@ package dictionaryservicelogic
 import (
 	"context"
 
+	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
 
@@ -24,7 +26,34 @@ func NewUpdateDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceCont
 }
 
 func (l *UpdateDictionaryDetailLogic) UpdateDictionaryDetail(in *system.UpdateDictionaryDetailReq) (*system.UpdateDictionaryDetailResp, error) {
-	// todo: add your logic here and delete this line
+	dictionaryDetail := &model.DictionaryDetail{
+		StModel: global.StModel{
+			Id: uint64(in.Id),
+		},
+		Label:        in.Label,
+		Value:        in.Value,
+		Extend:       in.Extend,
+		Status:       &in.Status,
+		Sort:         int(in.Sort),
+		DictionaryId: in.DictionaryId,
+	}
 
-	return &system.UpdateDictionaryDetailResp{}, nil
+	updatedDictionaryDetail, err := l.svcCtx.DictionaryDetailService.UpdateDictionaryDetail(dictionaryDetail)
+	if err != nil {
+		return nil, err
+	}
+
+	return &system.UpdateDictionaryDetailResp{
+		DictionaryDetail: &system.DictionaryDetail{
+			Id:           uint64(updatedDictionaryDetail.Id),
+			Label:        updatedDictionaryDetail.Label,
+			Value:        updatedDictionaryDetail.Value,
+			Extend:       updatedDictionaryDetail.Extend,
+			Status:       *updatedDictionaryDetail.Status,
+			Sort:         int32(updatedDictionaryDetail.Sort),
+			DictionaryId: updatedDictionaryDetail.DictionaryId,
+			CreatedAt:    updatedDictionaryDetail.CreatedAt.Unix(),
+			UpdatedAt:    updatedDictionaryDetail.UpdatedAt.Unix(),
+		},
+	}, nil
 }

@@ -36,6 +36,7 @@ func (l *CreateDictionaryLogic) CreateDictionary(in *system.CreateDictionaryReq)
 		return nil, err
 	}
 
+
 	return &system.CreateDictionaryResp{
 		Dictionary: &system.Dictionary{
 			Id:   uint64(dictionary.Id),

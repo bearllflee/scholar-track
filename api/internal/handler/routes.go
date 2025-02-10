@@ -10,6 +10,8 @@ import (
 	achievementproperty "github.com/bearllflee/scholar-track/api/internal/handler/achievement/property"
 	api "github.com/bearllflee/scholar-track/api/internal/handler/api"
 	casbin "github.com/bearllflee/scholar-track/api/internal/handler/casbin"
+	dictionary "github.com/bearllflee/scholar-track/api/internal/handler/dictionary"
+	dictionary_detail "github.com/bearllflee/scholar-track/api/internal/handler/dictionary_detail"
 	file "github.com/bearllflee/scholar-track/api/internal/handler/file"
 	menu "github.com/bearllflee/scholar-track/api/internal/handler/menu"
 	role "github.com/bearllflee/scholar-track/api/internal/handler/role"
@@ -116,6 +118,66 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPost,
 				Path:    "/casbin/addPolicies",
 				Handler: casbin.AddPoliciesHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/dictionary",
+				Handler: dictionary.CreateDictionaryHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/dictionary",
+				Handler: dictionary.UpdateDictionaryHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/dictionary/:id",
+				Handler: dictionary.DeleteDictionaryHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/dictionary/:id",
+				Handler: dictionary.QueryDictionaryDetailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/dictionary/list",
+				Handler: dictionary.QueryDictionaryListHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/dictionary/detail",
+				Handler: dictionary_detail.CreateDictionaryDetailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/dictionary/detail",
+				Handler: dictionary_detail.UpdateDictionaryDetailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/dictionary/detail/:id",
+				Handler: dictionary_detail.DeleteDictionaryDetailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/dictionary/detail/:id",
+				Handler: dictionary_detail.QueryDictionaryDetailDetailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/dictionary/detail/list",
+				Handler: dictionary_detail.QueryDictionaryDetailListHandler(serverCtx),
 			},
 		},
 	)

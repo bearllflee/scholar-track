@@ -24,7 +24,22 @@ func NewQueryDictionaryDetailDetailLogic(ctx context.Context, svcCtx *svc.Servic
 }
 
 func (l *QueryDictionaryDetailDetailLogic) QueryDictionaryDetailDetail(in *system.QueryDictionaryDetailDetailReq) (*system.QueryDictionaryDetailDetailResp, error) {
-	// todo: add your logic here and delete this line
+	dictionaryDetail, err := l.svcCtx.DictionaryDetailService.QueryDictionaryDetailDetail(uint64(in.Id))
+	if err != nil {
+		return nil, err
+	}
 
-	return &system.QueryDictionaryDetailDetailResp{}, nil
+	return &system.QueryDictionaryDetailDetailResp{
+		DictionaryDetail: &system.DictionaryDetail{
+			Id:           uint64(dictionaryDetail.Id),
+			Label:        dictionaryDetail.Label,
+			Value:        dictionaryDetail.Value,
+			Extend:       dictionaryDetail.Extend,
+			Status:       *dictionaryDetail.Status,
+			Sort:         int32(dictionaryDetail.Sort),
+			DictionaryId: dictionaryDetail.DictionaryId,
+			CreatedAt:    dictionaryDetail.CreatedAt.Unix(),
+			UpdatedAt:    dictionaryDetail.UpdatedAt.Unix(),
+		},
+	}, nil
 }

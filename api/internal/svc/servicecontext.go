@@ -14,6 +14,7 @@ import (
 	"github.com/bearllflee/scholar-track/rpc/system/client/role"
 	"github.com/bearllflee/scholar-track/rpc/system/client/user"
 	"github.com/bearllflee/scholar-track/rpc/storage/storage_client"
+	"github.com/bearllflee/scholar-track/rpc/system/client/dictionaryservice"
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/zrpc"
 )
@@ -28,6 +29,7 @@ type ServiceContext struct {
 	Category      achieve.CategoryServiceClient
 	Property      achieve.PropertyServiceClient
 	Storage       storage_client.Storage
+	DictionaryService dictionaryservice.DictionaryService
 	CasbinRbac    rest.Middleware
 	JwtMiddleWare rest.Middleware
 }
@@ -55,6 +57,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Category:      categoryservice.NewCategoryService(zrpc.MustNewClient(c.Achieve)),
 		Property:      propertyservice.NewPropertyService(zrpc.MustNewClient(c.Achieve)),
 		Storage:       storage_client.NewStorage(zrpc.MustNewClient(c.Storage)),
+		DictionaryService: dictionaryservice.NewDictionaryService(zrpc.MustNewClient(c.System)),
 	}
 	svcCtx.CasbinRbac = middleware.NewCasbinMiddleware(svcCtx).Handle
 	svcCtx.JwtMiddleWare = middleware.NewJwtMiddleware(c).Handle

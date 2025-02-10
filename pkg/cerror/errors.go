@@ -51,3 +51,10 @@ var (
 var (
 	ErrFileNotFound = status.Error(1301, "文件不存在")
 )
+
+var (
+	ErrDictionaryHasExists = status.Error(1401, "字典已存在")
+	ErrDictionaryNotFound = status.Error(1402, "字典不存在")
+	ErrDictionaryDetailHasExists = status.Error(1403, "字典详情已存在")
+	ErrDictionaryDetailNotFound = status.Error(1404, "字典详情不存在")
+)

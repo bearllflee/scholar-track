@@ -50,3 +50,11 @@ func CheckIsDefinedFileError(err error) bool {
 	}
 	return false
 }
+
+func CheckIsDictionaryError(err error) bool {
+	if errors.Is(err, ErrDictionaryNotFound) || errors.Is(err, ErrDictionaryHasExists) ||
+		errors.Is(err, ErrDictionaryDetailNotFound) || errors.Is(err, ErrDictionaryDetailHasExists) {
+		return true
+	}
+	return false
+}
