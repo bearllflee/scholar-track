@@ -465,3 +465,135 @@ service MenuService {
   rpc QueryMenuDetail(QueryMenuDetailReq) returns (QueryMenuDetailResp);
   rpc UpdateMenu(UpdateMenuReq) returns (UpdateMenuResp);
 }
+
+message Dictionary {
+  uint64 id = 1;
+  string name = 2;
+  string type = 3;
+  bool status = 4;
+  string desc = 5;
+  repeated DictionaryDetail dictionary_details = 6;
+  int64 created_at = 7;
+  int64 updated_at = 8;
+  int64 deleted_at = 9;
+}
+
+message DictionaryDetail {
+  uint64 id = 1;
+  string label = 2;
+  string value = 3;
+  string extend = 4;
+  bool status = 5;
+  int32 sort = 6;
+  uint64 dictionary_id = 7;
+  int64 created_at = 8;
+  int64 updated_at = 9;
+  int64 deleted_at = 10;
+}
+
+message CreateDictionaryReq {
+  string name = 1;
+  string type = 2;
+  bool status = 3;
+  string desc = 4;
+}
+
+message CreateDictionaryResp {
+  Dictionary dictionary = 1;
+}
+
+message QueryDictionaryDetailReq {
+  uint64 id = 1;
+}
+
+message QueryDictionaryDetailResp {
+  Dictionary dictionary = 1;
+}
+
+message QueryAllDictionaryReq {
+}
+
+message QueryAllDictionaryResp {
+  repeated Dictionary dictionaries = 1;
+}
+
+message UpdateDictionaryReq {
+  uint64 id = 1;
+  string name = 2;
+  string type = 3;
+  bool status = 4;
+  string desc = 5;
+}
+
+message UpdateDictionaryResp {
+  Dictionary dictionary = 1;
+}
+
+message DeleteDictionaryReq {
+  uint64 id = 1;
+}
+
+message DeleteDictionaryResp {
+}
+
+message CreateDictionaryDetailReq {
+  string label = 1;
+  string value = 2;
+  string extend = 3;
+  bool status = 4;
+  int32 sort = 5;
+  uint64 dictionary_id = 6;
+}
+
+message CreateDictionaryDetailResp {
+  DictionaryDetail dictionary_detail = 1;
+}
+
+message DeleteDictionaryDetailReq {
+  uint64 id = 1;
+}
+
+message DeleteDictionaryDetailResp {
+}
+
+service DictionaryService {
+  rpc CreateDictionary(CreateDictionaryReq) returns (CreateDictionaryResp);
+  rpc QueryDictionaryDetail(QueryDictionaryDetailReq) returns (QueryDictionaryDetailResp);
+  rpc QueryAllDictionary(QueryAllDictionaryReq) returns (QueryAllDictionaryResp);
+  rpc UpdateDictionary(UpdateDictionaryReq) returns (UpdateDictionaryResp);
+  rpc DeleteDictionary(DeleteDictionaryReq) returns (DeleteDictionaryResp);
+  rpc CreateDictionaryDetail(CreateDictionaryDetailReq) returns (CreateDictionaryDetailResp);
+  rpc QueryDictionaryDetailDetail(QueryDictionaryDetailDetailReq) returns (QueryDictionaryDetailDetailResp);
+  rpc QueryAllDictionaryDetail(QueryAllDictionaryDetailReq) returns (QueryAllDictionaryDetailResp);
+  rpc UpdateDictionaryDetail(UpdateDictionaryDetailReq) returns (UpdateDictionaryDetailResp);
+  rpc DeleteDictionaryDetail(DeleteDictionaryDetailReq) returns (DeleteDictionaryDetailResp);
+}
+
+message QueryAllDictionaryDetailReq {
+}
+
+message QueryAllDictionaryDetailResp {
+  repeated DictionaryDetail dictionary_details = 1;
+}
+
+message QueryDictionaryDetailDetailReq {
+  uint64 id = 1;
+}
+
+message QueryDictionaryDetailDetailResp {
+  DictionaryDetail dictionary_detail = 1;
+}
+
+message UpdateDictionaryDetailReq {
+  uint64 id = 1;
+  string label = 2;
+  string value = 3;
+  string extend = 4;
+  bool status = 5;
+  int32 sort = 6;
+  uint64 dictionary_id = 7;
+}
+
+message UpdateDictionaryDetailResp {
+  DictionaryDetail dictionary_detail = 1;
+}

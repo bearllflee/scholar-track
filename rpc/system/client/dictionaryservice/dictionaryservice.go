@@ -2,7 +2,7 @@
 // goctl 1.7.3
 // Source: system.proto
 
-package menuservice
+package dictionaryservice
 
 import (
 	"context"
@@ -106,58 +106,76 @@ type (
 	UpdateRoleReq                   = system.UpdateRoleReq
 	UpdateRoleResp                  = system.UpdateRoleResp
 
-	MenuService interface {
-		CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error)
-		QueryAllMenuTree(ctx context.Context, in *QueryAllMenuTreeReq, opts ...grpc.CallOption) (*QueryAllMenuTreeResp, error)
-		QueryRoleMenuTree(ctx context.Context, in *QueryRoleMenuTreeReq, opts ...grpc.CallOption) (*QueryRoleMenuTreeResp, error)
-		UpdateRoleMenu(ctx context.Context, in *UpdateRoleMenuReq, opts ...grpc.CallOption) (*UpdateRoleMenuResp, error)
-		DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error)
-		QueryMenuDetail(ctx context.Context, in *QueryMenuDetailReq, opts ...grpc.CallOption) (*QueryMenuDetailResp, error)
-		UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error)
+	DictionaryService interface {
+		CreateDictionary(ctx context.Context, in *CreateDictionaryReq, opts ...grpc.CallOption) (*CreateDictionaryResp, error)
+		QueryDictionaryDetail(ctx context.Context, in *QueryDictionaryDetailReq, opts ...grpc.CallOption) (*QueryDictionaryDetailResp, error)
+		QueryAllDictionary(ctx context.Context, in *QueryAllDictionaryReq, opts ...grpc.CallOption) (*QueryAllDictionaryResp, error)
+		UpdateDictionary(ctx context.Context, in *UpdateDictionaryReq, opts ...grpc.CallOption) (*UpdateDictionaryResp, error)
+		DeleteDictionary(ctx context.Context, in *DeleteDictionaryReq, opts ...grpc.CallOption) (*DeleteDictionaryResp, error)
+		CreateDictionaryDetail(ctx context.Context, in *CreateDictionaryDetailReq, opts ...grpc.CallOption) (*CreateDictionaryDetailResp, error)
+		QueryDictionaryDetailDetail(ctx context.Context, in *QueryDictionaryDetailDetailReq, opts ...grpc.CallOption) (*QueryDictionaryDetailDetailResp, error)
+		QueryAllDictionaryDetail(ctx context.Context, in *QueryAllDictionaryDetailReq, opts ...grpc.CallOption) (*QueryAllDictionaryDetailResp, error)
+		UpdateDictionaryDetail(ctx context.Context, in *UpdateDictionaryDetailReq, opts ...grpc.CallOption) (*UpdateDictionaryDetailResp, error)
+		DeleteDictionaryDetail(ctx context.Context, in *DeleteDictionaryDetailReq, opts ...grpc.CallOption) (*DeleteDictionaryDetailResp, error)
 	}
 
-	defaultMenuService struct {
+	defaultDictionaryService struct {
 		cli zrpc.Client
 	}
 )
 
-func NewMenuService(cli zrpc.Client) MenuService {
-	return &defaultMenuService{
+func NewDictionaryService(cli zrpc.Client) DictionaryService {
+	return &defaultDictionaryService{
 		cli: cli,
 	}
 }
 
-func (m *defaultMenuService) CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error) {
-	client := system.NewMenuServiceClient(m.cli.Conn())
-	return client.CreateMenu(ctx, in, opts...)
+func (m *defaultDictionaryService) CreateDictionary(ctx context.Context, in *CreateDictionaryReq, opts ...grpc.CallOption) (*CreateDictionaryResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.CreateDictionary(ctx, in, opts...)
 }
 
-func (m *defaultMenuService) QueryAllMenuTree(ctx context.Context, in *QueryAllMenuTreeReq, opts ...grpc.CallOption) (*QueryAllMenuTreeResp, error) {
-	client := system.NewMenuServiceClient(m.cli.Conn())
-	return client.QueryAllMenuTree(ctx, in, opts...)
+func (m *defaultDictionaryService) QueryDictionaryDetail(ctx context.Context, in *QueryDictionaryDetailReq, opts ...grpc.CallOption) (*QueryDictionaryDetailResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.QueryDictionaryDetail(ctx, in, opts...)
 }
 
-func (m *defaultMenuService) QueryRoleMenuTree(ctx context.Context, in *QueryRoleMenuTreeReq, opts ...grpc.CallOption) (*QueryRoleMenuTreeResp, error) {
-	client := system.NewMenuServiceClient(m.cli.Conn())
-	return client.QueryRoleMenuTree(ctx, in, opts...)
+func (m *defaultDictionaryService) QueryAllDictionary(ctx context.Context, in *QueryAllDictionaryReq, opts ...grpc.CallOption) (*QueryAllDictionaryResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.QueryAllDictionary(ctx, in, opts...)
 }
 
-func (m *defaultMenuService) UpdateRoleMenu(ctx context.Context, in *UpdateRoleMenuReq, opts ...grpc.CallOption) (*UpdateRoleMenuResp, error) {
-	client := system.NewMenuServiceClient(m.cli.Conn())
-	return client.UpdateRoleMenu(ctx, in, opts...)
+func (m *defaultDictionaryService) UpdateDictionary(ctx context.Context, in *UpdateDictionaryReq, opts ...grpc.CallOption) (*UpdateDictionaryResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.UpdateDictionary(ctx, in, opts...)
 }
 
-func (m *defaultMenuService) DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error) {
-	client := system.NewMenuServiceClient(m.cli.Conn())
-	return client.DeleteMenu(ctx, in, opts...)
+func (m *defaultDictionaryService) DeleteDictionary(ctx context.Context, in *DeleteDictionaryReq, opts ...grpc.CallOption) (*DeleteDictionaryResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.DeleteDictionary(ctx, in, opts...)
 }
 
-func (m *defaultMenuService) QueryMenuDetail(ctx context.Context, in *QueryMenuDetailReq, opts ...grpc.CallOption) (*QueryMenuDetailResp, error) {
-	client := system.NewMenuServiceClient(m.cli.Conn())
-	return client.QueryMenuDetail(ctx, in, opts...)
+func (m *defaultDictionaryService) CreateDictionaryDetail(ctx context.Context, in *CreateDictionaryDetailReq, opts ...grpc.CallOption) (*CreateDictionaryDetailResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.CreateDictionaryDetail(ctx, in, opts...)
 }
 
-func (m *defaultMenuService) UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error) {
-	client := system.NewMenuServiceClient(m.cli.Conn())
-	return client.UpdateMenu(ctx, in, opts...)
+func (m *defaultDictionaryService) QueryDictionaryDetailDetail(ctx context.Context, in *QueryDictionaryDetailDetailReq, opts ...grpc.CallOption) (*QueryDictionaryDetailDetailResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.QueryDictionaryDetailDetail(ctx, in, opts...)
+}
+
+func (m *defaultDictionaryService) QueryAllDictionaryDetail(ctx context.Context, in *QueryAllDictionaryDetailReq, opts ...grpc.CallOption) (*QueryAllDictionaryDetailResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.QueryAllDictionaryDetail(ctx, in, opts...)
+}
+
+func (m *defaultDictionaryService) UpdateDictionaryDetail(ctx context.Context, in *UpdateDictionaryDetailReq, opts ...grpc.CallOption) (*UpdateDictionaryDetailResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.UpdateDictionaryDetail(ctx, in, opts...)
+}
+
+func (m *defaultDictionaryService) DeleteDictionaryDetail(ctx context.Context, in *DeleteDictionaryDetailReq, opts ...grpc.CallOption) (*DeleteDictionaryDetailResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.DeleteDictionaryDetail(ctx, in, opts...)
 }

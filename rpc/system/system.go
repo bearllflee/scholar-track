@@ -28,7 +28,6 @@ func main() {
 
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
-	initialize.MustNewGrom(c.DataSource)
 	initialize.Casbin(global.DB)
 	ctx := svc.NewServiceContext(c)
 

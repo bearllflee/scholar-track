@@ -1519,3 +1519,447 @@ var MenuService_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "system.proto",
 }
+
+const (
+	DictionaryService_CreateDictionary_FullMethodName            = "/system.DictionaryService/CreateDictionary"
+	DictionaryService_QueryDictionaryDetail_FullMethodName       = "/system.DictionaryService/QueryDictionaryDetail"
+	DictionaryService_QueryAllDictionary_FullMethodName          = "/system.DictionaryService/QueryAllDictionary"
+	DictionaryService_UpdateDictionary_FullMethodName            = "/system.DictionaryService/UpdateDictionary"
+	DictionaryService_DeleteDictionary_FullMethodName            = "/system.DictionaryService/DeleteDictionary"
+	DictionaryService_CreateDictionaryDetail_FullMethodName      = "/system.DictionaryService/CreateDictionaryDetail"
+	DictionaryService_QueryDictionaryDetailDetail_FullMethodName = "/system.DictionaryService/QueryDictionaryDetailDetail"
+	DictionaryService_QueryAllDictionaryDetail_FullMethodName    = "/system.DictionaryService/QueryAllDictionaryDetail"
+	DictionaryService_UpdateDictionaryDetail_FullMethodName      = "/system.DictionaryService/UpdateDictionaryDetail"
+	DictionaryService_DeleteDictionaryDetail_FullMethodName      = "/system.DictionaryService/DeleteDictionaryDetail"
+)
+
+// DictionaryServiceClient is the client API for DictionaryService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type DictionaryServiceClient interface {
+	CreateDictionary(ctx context.Context, in *CreateDictionaryReq, opts ...grpc.CallOption) (*CreateDictionaryResp, error)
+	QueryDictionaryDetail(ctx context.Context, in *QueryDictionaryDetailReq, opts ...grpc.CallOption) (*QueryDictionaryDetailResp, error)
+	QueryAllDictionary(ctx context.Context, in *QueryAllDictionaryReq, opts ...grpc.CallOption) (*QueryAllDictionaryResp, error)
+	UpdateDictionary(ctx context.Context, in *UpdateDictionaryReq, opts ...grpc.CallOption) (*UpdateDictionaryResp, error)
+	DeleteDictionary(ctx context.Context, in *DeleteDictionaryReq, opts ...grpc.CallOption) (*DeleteDictionaryResp, error)
+	CreateDictionaryDetail(ctx context.Context, in *CreateDictionaryDetailReq, opts ...grpc.CallOption) (*CreateDictionaryDetailResp, error)
+	QueryDictionaryDetailDetail(ctx context.Context, in *QueryDictionaryDetailDetailReq, opts ...grpc.CallOption) (*QueryDictionaryDetailDetailResp, error)
+	QueryAllDictionaryDetail(ctx context.Context, in *QueryAllDictionaryDetailReq, opts ...grpc.CallOption) (*QueryAllDictionaryDetailResp, error)
+	UpdateDictionaryDetail(ctx context.Context, in *UpdateDictionaryDetailReq, opts ...grpc.CallOption) (*UpdateDictionaryDetailResp, error)
+	DeleteDictionaryDetail(ctx context.Context, in *DeleteDictionaryDetailReq, opts ...grpc.CallOption) (*DeleteDictionaryDetailResp, error)
+}
+
+type dictionaryServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewDictionaryServiceClient(cc grpc.ClientConnInterface) DictionaryServiceClient {
+	return &dictionaryServiceClient{cc}
+}
+
+func (c *dictionaryServiceClient) CreateDictionary(ctx context.Context, in *CreateDictionaryReq, opts ...grpc.CallOption) (*CreateDictionaryResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateDictionaryResp)
+	err := c.cc.Invoke(ctx, DictionaryService_CreateDictionary_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) QueryDictionaryDetail(ctx context.Context, in *QueryDictionaryDetailReq, opts ...grpc.CallOption) (*QueryDictionaryDetailResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryDictionaryDetailResp)
+	err := c.cc.Invoke(ctx, DictionaryService_QueryDictionaryDetail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) QueryAllDictionary(ctx context.Context, in *QueryAllDictionaryReq, opts ...grpc.CallOption) (*QueryAllDictionaryResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryAllDictionaryResp)
+	err := c.cc.Invoke(ctx, DictionaryService_QueryAllDictionary_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) UpdateDictionary(ctx context.Context, in *UpdateDictionaryReq, opts ...grpc.CallOption) (*UpdateDictionaryResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateDictionaryResp)
+	err := c.cc.Invoke(ctx, DictionaryService_UpdateDictionary_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) DeleteDictionary(ctx context.Context, in *DeleteDictionaryReq, opts ...grpc.CallOption) (*DeleteDictionaryResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteDictionaryResp)
+	err := c.cc.Invoke(ctx, DictionaryService_DeleteDictionary_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) CreateDictionaryDetail(ctx context.Context, in *CreateDictionaryDetailReq, opts ...grpc.CallOption) (*CreateDictionaryDetailResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateDictionaryDetailResp)
+	err := c.cc.Invoke(ctx, DictionaryService_CreateDictionaryDetail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) QueryDictionaryDetailDetail(ctx context.Context, in *QueryDictionaryDetailDetailReq, opts ...grpc.CallOption) (*QueryDictionaryDetailDetailResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryDictionaryDetailDetailResp)
+	err := c.cc.Invoke(ctx, DictionaryService_QueryDictionaryDetailDetail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) QueryAllDictionaryDetail(ctx context.Context, in *QueryAllDictionaryDetailReq, opts ...grpc.CallOption) (*QueryAllDictionaryDetailResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryAllDictionaryDetailResp)
+	err := c.cc.Invoke(ctx, DictionaryService_QueryAllDictionaryDetail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) UpdateDictionaryDetail(ctx context.Context, in *UpdateDictionaryDetailReq, opts ...grpc.CallOption) (*UpdateDictionaryDetailResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateDictionaryDetailResp)
+	err := c.cc.Invoke(ctx, DictionaryService_UpdateDictionaryDetail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) DeleteDictionaryDetail(ctx context.Context, in *DeleteDictionaryDetailReq, opts ...grpc.CallOption) (*DeleteDictionaryDetailResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteDictionaryDetailResp)
+	err := c.cc.Invoke(ctx, DictionaryService_DeleteDictionaryDetail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// DictionaryServiceServer is the server API for DictionaryService service.
+// All implementations must embed UnimplementedDictionaryServiceServer
+// for forward compatibility.
+type DictionaryServiceServer interface {
+	CreateDictionary(context.Context, *CreateDictionaryReq) (*CreateDictionaryResp, error)
+	QueryDictionaryDetail(context.Context, *QueryDictionaryDetailReq) (*QueryDictionaryDetailResp, error)
+	QueryAllDictionary(context.Context, *QueryAllDictionaryReq) (*QueryAllDictionaryResp, error)
+	UpdateDictionary(context.Context, *UpdateDictionaryReq) (*UpdateDictionaryResp, error)
+	DeleteDictionary(context.Context, *DeleteDictionaryReq) (*DeleteDictionaryResp, error)
+	CreateDictionaryDetail(context.Context, *CreateDictionaryDetailReq) (*CreateDictionaryDetailResp, error)
+	QueryDictionaryDetailDetail(context.Context, *QueryDictionaryDetailDetailReq) (*QueryDictionaryDetailDetailResp, error)
+	QueryAllDictionaryDetail(context.Context, *QueryAllDictionaryDetailReq) (*QueryAllDictionaryDetailResp, error)
+	UpdateDictionaryDetail(context.Context, *UpdateDictionaryDetailReq) (*UpdateDictionaryDetailResp, error)
+	DeleteDictionaryDetail(context.Context, *DeleteDictionaryDetailReq) (*DeleteDictionaryDetailResp, error)
+	mustEmbedUnimplementedDictionaryServiceServer()
+}
+
+// UnimplementedDictionaryServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedDictionaryServiceServer struct{}
+
+func (UnimplementedDictionaryServiceServer) CreateDictionary(context.Context, *CreateDictionaryReq) (*CreateDictionaryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDictionary not implemented")
+}
+func (UnimplementedDictionaryServiceServer) QueryDictionaryDetail(context.Context, *QueryDictionaryDetailReq) (*QueryDictionaryDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryDictionaryDetail not implemented")
+}
+func (UnimplementedDictionaryServiceServer) QueryAllDictionary(context.Context, *QueryAllDictionaryReq) (*QueryAllDictionaryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryAllDictionary not implemented")
+}
+func (UnimplementedDictionaryServiceServer) UpdateDictionary(context.Context, *UpdateDictionaryReq) (*UpdateDictionaryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDictionary not implemented")
+}
+func (UnimplementedDictionaryServiceServer) DeleteDictionary(context.Context, *DeleteDictionaryReq) (*DeleteDictionaryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionary not implemented")
+}
+func (UnimplementedDictionaryServiceServer) CreateDictionaryDetail(context.Context, *CreateDictionaryDetailReq) (*CreateDictionaryDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDictionaryDetail not implemented")
+}
+func (UnimplementedDictionaryServiceServer) QueryDictionaryDetailDetail(context.Context, *QueryDictionaryDetailDetailReq) (*QueryDictionaryDetailDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryDictionaryDetailDetail not implemented")
+}
+func (UnimplementedDictionaryServiceServer) QueryAllDictionaryDetail(context.Context, *QueryAllDictionaryDetailReq) (*QueryAllDictionaryDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryAllDictionaryDetail not implemented")
+}
+func (UnimplementedDictionaryServiceServer) UpdateDictionaryDetail(context.Context, *UpdateDictionaryDetailReq) (*UpdateDictionaryDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDictionaryDetail not implemented")
+}
+func (UnimplementedDictionaryServiceServer) DeleteDictionaryDetail(context.Context, *DeleteDictionaryDetailReq) (*DeleteDictionaryDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionaryDetail not implemented")
+}
+func (UnimplementedDictionaryServiceServer) mustEmbedUnimplementedDictionaryServiceServer() {}
+func (UnimplementedDictionaryServiceServer) testEmbeddedByValue()                           {}
+
+// UnsafeDictionaryServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to DictionaryServiceServer will
+// result in compilation errors.
+type UnsafeDictionaryServiceServer interface {
+	mustEmbedUnimplementedDictionaryServiceServer()
+}
+
+func RegisterDictionaryServiceServer(s grpc.ServiceRegistrar, srv DictionaryServiceServer) {
+	// If the following call pancis, it indicates UnimplementedDictionaryServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&DictionaryService_ServiceDesc, srv)
+}
+
+func _DictionaryService_CreateDictionary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDictionaryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).CreateDictionary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_CreateDictionary_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).CreateDictionary(ctx, req.(*CreateDictionaryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_QueryDictionaryDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDictionaryDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).QueryDictionaryDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_QueryDictionaryDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).QueryDictionaryDetail(ctx, req.(*QueryDictionaryDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_QueryAllDictionary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllDictionaryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).QueryAllDictionary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_QueryAllDictionary_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).QueryAllDictionary(ctx, req.(*QueryAllDictionaryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_UpdateDictionary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDictionaryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).UpdateDictionary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_UpdateDictionary_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).UpdateDictionary(ctx, req.(*UpdateDictionaryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_DeleteDictionary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDictionaryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).DeleteDictionary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_DeleteDictionary_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).DeleteDictionary(ctx, req.(*DeleteDictionaryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_CreateDictionaryDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDictionaryDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).CreateDictionaryDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_CreateDictionaryDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).CreateDictionaryDetail(ctx, req.(*CreateDictionaryDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_QueryDictionaryDetailDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDictionaryDetailDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).QueryDictionaryDetailDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_QueryDictionaryDetailDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).QueryDictionaryDetailDetail(ctx, req.(*QueryDictionaryDetailDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_QueryAllDictionaryDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllDictionaryDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).QueryAllDictionaryDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_QueryAllDictionaryDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).QueryAllDictionaryDetail(ctx, req.(*QueryAllDictionaryDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_UpdateDictionaryDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDictionaryDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).UpdateDictionaryDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_UpdateDictionaryDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).UpdateDictionaryDetail(ctx, req.(*UpdateDictionaryDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_DeleteDictionaryDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDictionaryDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).DeleteDictionaryDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_DeleteDictionaryDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).DeleteDictionaryDetail(ctx, req.(*DeleteDictionaryDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// DictionaryService_ServiceDesc is the grpc.ServiceDesc for DictionaryService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var DictionaryService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "system.DictionaryService",
+	HandlerType: (*DictionaryServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateDictionary",
+			Handler:    _DictionaryService_CreateDictionary_Handler,
+		},
+		{
+			MethodName: "QueryDictionaryDetail",
+			Handler:    _DictionaryService_QueryDictionaryDetail_Handler,
+		},
+		{
+			MethodName: "QueryAllDictionary",
+			Handler:    _DictionaryService_QueryAllDictionary_Handler,
+		},
+		{
+			MethodName: "UpdateDictionary",
+			Handler:    _DictionaryService_UpdateDictionary_Handler,
+		},
+		{
+			MethodName: "DeleteDictionary",
+			Handler:    _DictionaryService_DeleteDictionary_Handler,
+		},
+		{
+			MethodName: "CreateDictionaryDetail",
+			Handler:    _DictionaryService_CreateDictionaryDetail_Handler,
+		},
+		{
+			MethodName: "QueryDictionaryDetailDetail",
+			Handler:    _DictionaryService_QueryDictionaryDetailDetail_Handler,
+		},
+		{
+			MethodName: "QueryAllDictionaryDetail",
+			Handler:    _DictionaryService_QueryAllDictionaryDetail_Handler,
+		},
+		{
+			MethodName: "UpdateDictionaryDetail",
+			Handler:    _DictionaryService_UpdateDictionaryDetail_Handler,
+		},
+		{
+			MethodName: "DeleteDictionaryDetail",
+			Handler:    _DictionaryService_DeleteDictionaryDetail_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "system.proto",
+}
