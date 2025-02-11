@@ -64,6 +64,8 @@ type (
 	QueryDictionaryDetailDetailResp = system.QueryDictionaryDetailDetailResp
 	QueryDictionaryDetailReq        = system.QueryDictionaryDetailReq
 	QueryDictionaryDetailResp       = system.QueryDictionaryDetailResp
+	QueryDictionaryListReq          = system.QueryDictionaryListReq
+	QueryDictionaryListResp         = system.QueryDictionaryListResp
 	QueryMenuDetailReq              = system.QueryMenuDetailReq
 	QueryMenuDetailResp             = system.QueryMenuDetailResp
 	QueryRoleMenuTreeReq            = system.QueryRoleMenuTreeReq
@@ -117,6 +119,7 @@ type (
 		QueryAllDictionaryDetail(ctx context.Context, in *QueryAllDictionaryDetailReq, opts ...grpc.CallOption) (*QueryAllDictionaryDetailResp, error)
 		UpdateDictionaryDetail(ctx context.Context, in *UpdateDictionaryDetailReq, opts ...grpc.CallOption) (*UpdateDictionaryDetailResp, error)
 		DeleteDictionaryDetail(ctx context.Context, in *DeleteDictionaryDetailReq, opts ...grpc.CallOption) (*DeleteDictionaryDetailResp, error)
+		QueryDictionaryList(ctx context.Context, in *QueryDictionaryListReq, opts ...grpc.CallOption) (*QueryDictionaryListResp, error)
 	}
 
 	defaultDictionaryService struct {
@@ -178,4 +181,9 @@ func (m *defaultDictionaryService) UpdateDictionaryDetail(ctx context.Context, i
 func (m *defaultDictionaryService) DeleteDictionaryDetail(ctx context.Context, in *DeleteDictionaryDetailReq, opts ...grpc.CallOption) (*DeleteDictionaryDetailResp, error) {
 	client := system.NewDictionaryServiceClient(m.cli.Conn())
 	return client.DeleteDictionaryDetail(ctx, in, opts...)
+}
+
+func (m *defaultDictionaryService) QueryDictionaryList(ctx context.Context, in *QueryDictionaryListReq, opts ...grpc.CallOption) (*QueryDictionaryListResp, error) {
+	client := system.NewDictionaryServiceClient(m.cli.Conn())
+	return client.QueryDictionaryList(ctx, in, opts...)
 }

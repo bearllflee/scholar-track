@@ -72,3 +72,8 @@ func (s *DictionaryServiceServer) DeleteDictionaryDetail(ctx context.Context, in
 	l := dictionaryservicelogic.NewDeleteDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.DeleteDictionaryDetail(in)
 }
+
+func (s *DictionaryServiceServer) QueryDictionaryList(ctx context.Context, in *system.QueryDictionaryListReq) (*system.QueryDictionaryListResp, error) {
+	l := dictionaryservicelogic.NewQueryDictionaryListLogic(ctx, s.svcCtx)
+	return l.QueryDictionaryList(in)
+}

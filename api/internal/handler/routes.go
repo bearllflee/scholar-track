@@ -169,16 +169,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/dictionary/detail/:id",
 				Handler: dictionary_detail.DeleteDictionaryDetailHandler(serverCtx),
 			},
-			{
-				Method:  http.MethodGet,
-				Path:    "/dictionary/detail/:id",
-				Handler: dictionary_detail.QueryDictionaryDetailDetailHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/dictionary/detail/list",
-				Handler: dictionary_detail.QueryDictionaryDetailListHandler(serverCtx),
-			},
 		},
 	)
 

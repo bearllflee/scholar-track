@@ -1531,6 +1531,7 @@ const (
 	DictionaryService_QueryAllDictionaryDetail_FullMethodName    = "/system.DictionaryService/QueryAllDictionaryDetail"
 	DictionaryService_UpdateDictionaryDetail_FullMethodName      = "/system.DictionaryService/UpdateDictionaryDetail"
 	DictionaryService_DeleteDictionaryDetail_FullMethodName      = "/system.DictionaryService/DeleteDictionaryDetail"
+	DictionaryService_QueryDictionaryList_FullMethodName         = "/system.DictionaryService/QueryDictionaryList"
 )
 
 // DictionaryServiceClient is the client API for DictionaryService service.
@@ -1547,6 +1548,7 @@ type DictionaryServiceClient interface {
 	QueryAllDictionaryDetail(ctx context.Context, in *QueryAllDictionaryDetailReq, opts ...grpc.CallOption) (*QueryAllDictionaryDetailResp, error)
 	UpdateDictionaryDetail(ctx context.Context, in *UpdateDictionaryDetailReq, opts ...grpc.CallOption) (*UpdateDictionaryDetailResp, error)
 	DeleteDictionaryDetail(ctx context.Context, in *DeleteDictionaryDetailReq, opts ...grpc.CallOption) (*DeleteDictionaryDetailResp, error)
+	QueryDictionaryList(ctx context.Context, in *QueryDictionaryListReq, opts ...grpc.CallOption) (*QueryDictionaryListResp, error)
 }
 
 type dictionaryServiceClient struct {
@@ -1657,6 +1659,16 @@ func (c *dictionaryServiceClient) DeleteDictionaryDetail(ctx context.Context, in
 	return out, nil
 }
 
+func (c *dictionaryServiceClient) QueryDictionaryList(ctx context.Context, in *QueryDictionaryListReq, opts ...grpc.CallOption) (*QueryDictionaryListResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryDictionaryListResp)
+	err := c.cc.Invoke(ctx, DictionaryService_QueryDictionaryList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DictionaryServiceServer is the server API for DictionaryService service.
 // All implementations must embed UnimplementedDictionaryServiceServer
 // for forward compatibility.
@@ -1671,6 +1683,7 @@ type DictionaryServiceServer interface {
 	QueryAllDictionaryDetail(context.Context, *QueryAllDictionaryDetailReq) (*QueryAllDictionaryDetailResp, error)
 	UpdateDictionaryDetail(context.Context, *UpdateDictionaryDetailReq) (*UpdateDictionaryDetailResp, error)
 	DeleteDictionaryDetail(context.Context, *DeleteDictionaryDetailReq) (*DeleteDictionaryDetailResp, error)
+	QueryDictionaryList(context.Context, *QueryDictionaryListReq) (*QueryDictionaryListResp, error)
 	mustEmbedUnimplementedDictionaryServiceServer()
 }
 
@@ -1710,6 +1723,9 @@ func (UnimplementedDictionaryServiceServer) UpdateDictionaryDetail(context.Conte
 }
 func (UnimplementedDictionaryServiceServer) DeleteDictionaryDetail(context.Context, *DeleteDictionaryDetailReq) (*DeleteDictionaryDetailResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionaryDetail not implemented")
+}
+func (UnimplementedDictionaryServiceServer) QueryDictionaryList(context.Context, *QueryDictionaryListReq) (*QueryDictionaryListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryDictionaryList not implemented")
 }
 func (UnimplementedDictionaryServiceServer) mustEmbedUnimplementedDictionaryServiceServer() {}
 func (UnimplementedDictionaryServiceServer) testEmbeddedByValue()                           {}
@@ -1912,6 +1928,24 @@ func _DictionaryService_DeleteDictionaryDetail_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DictionaryService_QueryDictionaryList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDictionaryListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).QueryDictionaryList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_QueryDictionaryList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).QueryDictionaryList(ctx, req.(*QueryDictionaryListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DictionaryService_ServiceDesc is the grpc.ServiceDesc for DictionaryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1958,6 +1992,10 @@ var DictionaryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteDictionaryDetail",
 			Handler:    _DictionaryService_DeleteDictionaryDetail_Handler,
+		},
+		{
+			MethodName: "QueryDictionaryList",
+			Handler:    _DictionaryService_QueryDictionaryList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

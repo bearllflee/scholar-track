@@ -64,6 +64,8 @@ type (
 	QueryDictionaryDetailDetailResp = system.QueryDictionaryDetailDetailResp
 	QueryDictionaryDetailReq        = system.QueryDictionaryDetailReq
 	QueryDictionaryDetailResp       = system.QueryDictionaryDetailResp
+	QueryDictionaryListReq          = system.QueryDictionaryListReq
+	QueryDictionaryListResp         = system.QueryDictionaryListResp
 	QueryMenuDetailReq              = system.QueryMenuDetailReq
 	QueryMenuDetailResp             = system.QueryMenuDetailResp
 	QueryRoleMenuTreeReq            = system.QueryRoleMenuTreeReq

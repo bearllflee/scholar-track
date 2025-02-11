@@ -24,7 +24,10 @@ func NewDeleteDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *DeleteDictionaryLogic) DeleteDictionary(in *system.DeleteDictionaryReq) (*system.DeleteDictionaryResp, error) {
-	// todo: add your logic here and delete this line
+	err := l.svcCtx.DictionaryService.DeleteDictionary(in.Id)
+	if err != nil {
+		return nil, err
+	}
 
 	return &system.DeleteDictionaryResp{}, nil
 }

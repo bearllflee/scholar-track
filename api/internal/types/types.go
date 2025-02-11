@@ -118,7 +118,6 @@ type CreateDictionaryDetailReq struct {
 	DictionaryId   uint64 `json:"dictionaryId"`
 	Key            string `json:"key"`
 	Value          string `json:"value"`
-	Remark         string `json:"remark"`
 	Sort           int32  `json:"sort"`
 	IsDefaultValue bool   `json:"isDefaultValue"`
 }
@@ -131,7 +130,6 @@ type CreateDictionaryDetailResp struct {
 	DictionaryId   uint64 `json:"dictionaryId"`
 	Key            string `json:"key"`
 	Value          string `json:"value"`
-	Remark         string `json:"remark"`
 	Sort           int32  `json:"sort"`
 	IsDefaultValue bool   `json:"isDefaultValue"`
 }
@@ -149,9 +147,9 @@ type CreateDictionaryResp struct {
 	UpdatedAt int64  `json:"updatedAt"`
 	DeletedAt int64  `json:"-"`
 	Name      string `json:"name"`
-	Type   string `json:"type"`
-	Status bool   `json:"status"`
-	Desc   string `json:"desc"`
+	Type      string `json:"type"`
+	Status    bool   `json:"status"`
+	Desc      string `json:"desc"`
 }
 
 type CreateMenuReq struct {
@@ -232,14 +230,15 @@ type DeleteUserResp struct {
 }
 
 type Dictionary struct {
-	Id        uint64 `json:"id"`
-	CreatedAt int64  `json:"createdAt"`
-	UpdatedAt int64  `json:"updatedAt"`
-	DeletedAt int64  `json:"-"`
-	Name      string `json:"name"`
-	Type   string `json:"type"`
-	Status bool   `json:"status"`
-	Desc   string `json:"desc"`
+	Id                uint64              `json:"id"`
+	CreatedAt         int64               `json:"createdAt"`
+	UpdatedAt         int64               `json:"updatedAt"`
+	DeletedAt         int64               `json:"-"`
+	Name              string              `json:"name"`
+	Type              string              `json:"type"`
+	Status            bool                `json:"status"`
+	Desc              string              `json:"desc"`
+	DictionaryDetails []*DictionaryDetail `json:"dictionaryDetails"`
 }
 
 type DictionaryDetail struct {
@@ -250,7 +249,6 @@ type DictionaryDetail struct {
 	DictionaryId   uint64 `json:"dictionaryId"`
 	Key            string `json:"key"`
 	Value          string `json:"value"`
-	Remark         string `json:"remark"`
 	Sort           int32  `json:"sort"`
 	IsDefaultValue bool   `json:"isDefaultValue"`
 }
@@ -422,7 +420,6 @@ type QueryDictionaryDetailDetailResp struct {
 	DictionaryId   uint64 `json:"dictionaryId"`
 	Key            string `json:"key"`
 	Value          string `json:"value"`
-	Remark         string `json:"remark"`
 	Sort           int32  `json:"sort"`
 	IsDefaultValue bool   `json:"isDefaultValue"`
 }
@@ -437,10 +434,11 @@ type QueryDictionaryDetailListReq struct {
 }
 
 type QueryDictionaryDetailListResp struct {
-	Total    int64              `json:"total"`
-	List     []DictionaryDetail `json:"list"`
-	Page     int64              `json:"page"`
-	PageSize int64              `json:"pageSize"`
+	Total    int64               `json:"total"`
+	List     []*DictionaryDetail `json:"list"`
+	Page     int64               `json:"page"`
+	PageSize int64               `json:"pageSize"`
+	Type     string              `json:"type"`
 }
 
 type QueryDictionaryDetailReq struct {
@@ -453,24 +451,24 @@ type QueryDictionaryDetailResp struct {
 	UpdatedAt int64  `json:"updatedAt"`
 	DeletedAt int64  `json:"-"`
 	Name      string `json:"name"`
-	Type   string `json:"type"`
-	Status bool   `json:"status"`
-	Desc   string `json:"desc"`
+	Type      string `json:"type"`
+	Status    bool   `json:"status"`
+	Desc      string `json:"desc"`
 }
 
 type QueryDictionaryListReq struct {
 	Page     int64  `json:"page"`
 	PageSize int64  `json:"pageSize"`
 	Name     string `json:"name,optional"`
-	Code     string `json:"code,optional"`
+	Type     string `json:"type,optional"`
 	OrderBy  string `json:"orderBy,optional"`
 }
 
 type QueryDictionaryListResp struct {
-	Total    int64        `json:"total"`
-	List     []Dictionary `json:"list"`
-	Page     int64        `json:"page"`
-	PageSize int64        `json:"pageSize"`
+	Total    int64         `json:"total"`
+	List     []*Dictionary `json:"list"`
+	Page     int64         `json:"page"`
+	PageSize int64         `json:"pageSize"`
 }
 
 type QueryFileDetailReq struct {
@@ -763,7 +761,6 @@ type UpdateDictionaryDetailReq struct {
 	DictionaryId   uint64 `json:"dictionaryId"`
 	Key            string `json:"key"`
 	Value          string `json:"value"`
-	Remark         string `json:"remark"`
 	Sort           int32  `json:"sort"`
 	IsDefaultValue bool   `json:"isDefaultValue"`
 }
@@ -774,8 +771,9 @@ type UpdateDictionaryDetailResp struct {
 type UpdateDictionaryReq struct {
 	Id     uint64 `json:"id"`
 	Name   string `json:"name"`
-	Code   string `json:"code"`
-	Remark string `json:"remark"`
+	Type   string `json:"type"`
+	Status bool   `json:"status"`
+	Desc   string `json:"desc"`
 }
 
 type UpdateDictionaryResp struct {

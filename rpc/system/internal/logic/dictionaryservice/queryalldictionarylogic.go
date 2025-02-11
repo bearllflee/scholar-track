@@ -24,7 +24,25 @@ func NewQueryAllDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *QueryAllDictionaryLogic) QueryAllDictionary(in *system.QueryAllDictionaryReq) (*system.QueryAllDictionaryResp, error) {
-	// todo: add your logic here and delete this line
+	dictionaries, err := l.svcCtx.DictionaryService.QueryAllDictionary()
+	if err != nil {
+		return nil, err
+	}
 
-	return &system.QueryAllDictionaryResp{}, nil
+	resp := &system.QueryAllDictionaryResp{
+		Dictionaries: make([]*system.Dictionary, 0, len(dictionaries)),
+	}
+	for _, dictionary := range dictionaries {
+		resp.Dictionaries = append(resp.Dictionaries, &system.Dictionary{
+			Id:   uint64(dictionary.Id),
+			Name: dictionary.Name,
+			Type: dictionary.Type,
+			Status: *dictionary.Status,
+			Desc: dictionary.Desc,
+			CreatedAt: dictionary.CreatedAt.Unix(),
+			UpdatedAt: dictionary.UpdatedAt.Unix(),
+		})
+	}
+
+	return resp, nil
 }

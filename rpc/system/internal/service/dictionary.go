@@ -45,3 +45,30 @@ func (s *DictionaryService) QueryAllDictionary() ([]*model.Dictionary, error) {
 	}
 	return dictionaries, nil
 }
+
+func (s *DictionaryService) QueryDictionaryList(page, pageSize int64, name, dictionaryType string) ([]*model.Dictionary, int64, error) {
+	var dictionaries []*model.Dictionary
+	var total int64
+
+	db := s.db.Model(&model.Dictionary{})
+
+	if name != "" {
+		db = db.Where("name LIKE ?", "%"+name+"%")
+	}
+
+	if dictionaryType != "" {
+		db = db.Where("type = ?", dictionaryType)
+	}
+
+	err := db.Count(&total).Error
+	if err != nil {
+		return nil, 0, err
+	}
+
+	err = db.Preload("DictionaryDetails").Limit(int(pageSize)).Offset(int((page - 1) * pageSize)).Find(&dictionaries).Error
+	if err != nil {
+		return nil, 0, err
+	}
+
+	return dictionaries, total, nil
+}

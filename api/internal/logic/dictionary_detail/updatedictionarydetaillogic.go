@@ -5,6 +5,7 @@ import (
 
 	"github.com/bearllflee/scholar-track/api/internal/svc"
 	"github.com/bearllflee/scholar-track/api/internal/types"
+	"github.com/bearllflee/scholar-track/rpc/system/client/dictionaryservice"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +25,15 @@ func NewUpdateDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceCont
 }
 
 func (l *UpdateDictionaryDetailLogic) UpdateDictionaryDetail(req *types.UpdateDictionaryDetailReq) (resp *types.UpdateDictionaryDetailResp, err error) {
-	// todo: add your logic here and delete this line
+	_, err = l.svcCtx.DictionaryService.UpdateDictionaryDetail(l.ctx, &dictionaryservice.UpdateDictionaryDetailReq{
+		Id:           req.Id,
+		DictionaryId: req.DictionaryId,
+		Value:        req.Value,
+		Sort:         req.Sort,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	return &types.UpdateDictionaryDetailResp{}, nil
 }
