@@ -11,11 +11,14 @@ import (
 )
 
 type CategoryService struct {
-	DB *gorm.DB
+	db *gorm.DB
+}
+func NewCategoryService(db *gorm.DB) *CategoryService {
+	return &CategoryService{db: db}
 }
 
 func (c *CategoryService) UpdateCategory(ctx context.Context, category *model.Category) error {
-	err := c.DB.WithContext(ctx).Model(&model.Category{}).Where("id = ?", category.Id).Updates(category).Error
+	err := c.db.WithContext(ctx).Model(&model.Category{}).Where("id = ?", category.Id).Updates(category).Error
 	if err != nil {
 		return err
 	}
@@ -24,7 +27,7 @@ func (c *CategoryService) UpdateCategory(ctx context.Context, category *model.Ca
 
 func (c *CategoryService) QueryCategoryDetail(ctx context.Context, id uint64) (*model.Category, error) {
 	var category model.Category
-	err := c.DB.WithContext(ctx).Model(&model.Category{}).Where("id = ?", id).First(&category).Error
+	err := c.db.WithContext(ctx).Model(&model.Category{}).Where("id = ?", id).First(&category).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, cerror.ErrCategoryNotFound
@@ -35,7 +38,7 @@ func (c *CategoryService) QueryCategoryDetail(ctx context.Context, id uint64) (*
 }
 
 func (c *CategoryService) DeleteCategory(ctx context.Context, in *achieve.DeleteCategoryReq) error {
-	err := c.DB.WithContext(ctx).Model(&model.Category{}).Where("id = ?", in.Id).Delete(&model.Category{}).Error
+	err := c.db.WithContext(ctx).Model(&model.Category{}).Where("id = ?", in.Id).Delete(&model.Category{}).Error
 	if err != nil {
 		return err
 	}
@@ -43,7 +46,7 @@ func (c *CategoryService) DeleteCategory(ctx context.Context, in *achieve.Delete
 }
 
 func (c *CategoryService) CreateCategory(ctx context.Context, category *model.Category) (*model.Category, error) {
-	err := c.DB.Create(category).Error
+	err := c.db.Create(category).Error
 	if err != nil {
 		return nil, err
 	}
@@ -54,26 +57,22 @@ func (c *CategoryService) QueryCategoryList(ctx context.Context, name string, ty
 	var categories []*model.Category
 	var total int64
 	if name != "" {
-		err := c.DB.Model(&model.Category{}).Where("name LIKE ?", "%"+name+"%").Where("type = ?", typeStr).Where("status = ?", status).Count(&total).Error
+		err := c.db.Model(&model.Category{}).Where("name LIKE ?", "%"+name+"%").Where("type = ?", typeStr).Where("status = ?", status).Count(&total).Error
 		if err != nil {
 			return err, 0, nil
 		}
 	}
 	if typeStr != "" {
-		err := c.DB.Model(&model.Category{}).Where("type = ?", typeStr).Where("status = ?", status).Count(&total).Error
+		err := c.db.Model(&model.Category{}).Where("type = ?", typeStr).Where("status = ?", status).Count(&total).Error
 		if err != nil {
 			return err, 0, nil
 		}
 	}
 	if status != 0 {
-		err := c.DB.Model(&model.Category{}).Where("status = ?", status).Count(&total).Error
+		err := c.db.Model(&model.Category{}).Where("status = ?", status).Count(&total).Error
 		if err != nil {
 			return err, 0, nil
 		}
 	}
-	// err = c.DB.Model(&model.Category{}).Where("name LIKE ?", "%"+name+"%").Where("type = ?", typeStr).Where("status = ?", status).Offset((page - 1) * pageSize).Limit(pageSize).Find(&categories).Error
-	// if err != nil {
-	// 	return err, 0, nil
-	// }
 	return nil, total, categories
 }

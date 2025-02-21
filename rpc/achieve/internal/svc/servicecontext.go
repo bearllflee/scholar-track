@@ -9,15 +9,14 @@ import (
 type ServiceContext struct {
 	Config config.Config
 	CategoryService *service.CategoryService
-	// PropertyService service.PropertyService
+	PropertyService *service.PropertyService
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	db := initialize.MustNewGrom(c.DataSource)
 	return &ServiceContext{
 		Config: c,
-		CategoryService: &service.CategoryService{
-			DB: db,
-		},
+		CategoryService: service.NewCategoryService(db),
+		PropertyService: service.NewPropertyService(db),
 	}
 }
