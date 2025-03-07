@@ -29,8 +29,8 @@ func NewUploadAchieveLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upl
 
 func (l *UploadAchieveLogic) UploadAchieve(in *achieve.UploadAchieveReq) (*achieve.UploadAchieveResp, error) {
 	// 使用分布式事务 saga 给补偿方式
-	// 1. 先上传文件，插入文件库
-	// 2. 上传成果，插入成果库
+	// 1. 先上传成果，插入成果库
+	// 2. 上传文件，插入文件库
 	// 3. 如果出现错误，给出第一步的补偿
 	var achieveBasic = &model.AchieveBasic{
 		StModel:     global.StModel{},
