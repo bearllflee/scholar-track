@@ -23,6 +23,7 @@ type (
 	DeleteCategoryResp      = achieve.DeleteCategoryResp
 	DeletePropertyReq       = achieve.DeletePropertyReq
 	DeletePropertyResp      = achieve.DeletePropertyResp
+	File                    = achieve.File
 	Property                = achieve.Property
 	QueryCategoryDetailReq  = achieve.QueryCategoryDetailReq
 	QueryCategoryListReq    = achieve.QueryCategoryListReq
@@ -36,6 +37,8 @@ type (
 	UpdateCategoryResp      = achieve.UpdateCategoryResp
 	UpdatePropertyReq       = achieve.UpdatePropertyReq
 	UpdatePropertyResp      = achieve.UpdatePropertyResp
+	UploadAchieveReq        = achieve.UploadAchieveReq
+	UploadAchieveResp       = achieve.UploadAchieveResp
 
 	CategoryService interface {
 		CreateCategory(ctx context.Context, in *CreateCategoryReq, opts ...grpc.CallOption) (*CreateCategoryResp, error)

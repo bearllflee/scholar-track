@@ -33,14 +33,15 @@ func (l *FileUploadLogic) FileUpload(in *storage.FileUploadRequest) (*storage.Fi
 		return nil, err
 	}
 	file := &model.File{
-		FileName: in.FileName,
-		FileKey: objectName,
-		FileType: in.FileType,
-		FileSize: int64(len(in.FileData)),
+		FileName:    in.FileName,
+		FileKey:     objectName,
+		FileType:    in.FileType,
+		FileSize:    int64(len(in.FileData)),
 		BussinessId: in.BussinessId,
 	}
 	file, err = l.svcCtx.FileService.UploadFile(l.ctx, file)
 	if err != nil {
+		l.svcCtx.StorageService.DeleteFile(l.ctx, objectName)
 		return nil, err
 	}
 	return &storage.FileUploadResponse{

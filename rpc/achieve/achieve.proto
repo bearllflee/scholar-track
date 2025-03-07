@@ -1,6 +1,7 @@
 syntax = "proto3";
-
 package achieve;
+import "google/protobuf/struct.proto";
+
 option go_package="./achieve";
 
 message Category {
@@ -212,4 +213,37 @@ service PropertyService {
   rpc QueryPropertyList(QueryPropertyListReq) returns(QueryPropertyListResp);
   rpc DeleteProperty(DeletePropertyReq) returns(DeletePropertyResp);
   rpc UpdateProperty(UpdatePropertyReq) returns(UpdatePropertyResp);
+}
+
+message File {
+  string key = 1;
+  string name = 2;
+  string type = 3;
+  int64 size = 4;
+  bytes content = 5;
+}
+
+message UploadAchieveReq {
+  string code = 1;
+  string name = 2;
+  int32 status = 3;
+  int32 level = 4;
+  int32 rank = 5;
+  int64 award_time = 6;
+  bool share = 7;
+  uint64 star = 8;
+  uint64 uploader = 9;
+  bool team = 10;
+  repeated uint64 team_members = 11;
+  string description = 12;
+  uint64 category_id = 13;
+  google.protobuf.Struct other_info = 14;
+  repeated File file = 15;
+}
+message UploadAchieveResp {
+  uint64 id = 1;
+}
+
+service AchieveService {
+  rpc UploadAchieve(UploadAchieveReq) returns(UploadAchieveResp);
 }

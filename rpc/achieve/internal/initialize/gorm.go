@@ -9,7 +9,7 @@ import (
 func AutoMigrate(db *gorm.DB) {
 	db.AutoMigrate(&model.Category{}, &model.Property{}, &model.AchieveBasic{}, &model.PropertyValue{})
 }
-func MustNewGrom(dataSource string) *gorm.DB {
+func MustNewGorm(dataSource string) *gorm.DB {
 	db, err := gorm.Open(mysql.Open(dataSource), &gorm.Config{})
 	if err != nil {
 		panic(err)

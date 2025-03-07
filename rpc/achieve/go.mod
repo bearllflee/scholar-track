@@ -6,11 +6,14 @@ replace github.com/bearllflee/scholar-track/pkg => ../../pkg
 
 replace github.com/bearllflee/scholar-track/api => ../../api
 
+replace github.com/bearllflee/scholar-track/rpc/storage => ../storage
+
 require (
 	github.com/bearllflee/scholar-track/pkg v0.0.0-00010101000000-000000000000
+	github.com/bearllflee/scholar-track/rpc/storage v0.0.0-20250221091123-cad9b5f53bd0
 	github.com/zeromicro/go-zero v1.7.6
 	google.golang.org/grpc v1.69.2
-	google.golang.org/protobuf v1.36.1
+	google.golang.org/protobuf v1.36.5
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.12
 )
@@ -44,7 +47,7 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.17.9 // indirect
+	github.com/klauspost/compress v1.17.11 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

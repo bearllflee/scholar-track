@@ -5,9 +5,12 @@ import (
 	"fmt"
 	"github.com/bearllflee/scholar-track/rpc/achieve/achieve"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/config"
+	"github.com/bearllflee/scholar-track/rpc/achieve/internal/initialize"
+	achieveservice "github.com/bearllflee/scholar-track/rpc/achieve/internal/server/achieveservice"
 	categoryservice "github.com/bearllflee/scholar-track/rpc/achieve/internal/server/categoryservice"
 	propertyservice "github.com/bearllflee/scholar-track/rpc/achieve/internal/server/propertyservice"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/svc"
+	"log"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -25,9 +28,15 @@ func main() {
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
 
+	sc, err := initialize.ShouldNewFileClient()
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx.StorageClient = sc
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 		achieve.RegisterCategoryServiceServer(grpcServer, categoryservice.NewCategoryServiceServer(ctx))
 		achieve.RegisterPropertyServiceServer(grpcServer, propertyservice.NewPropertyServiceServer(ctx))
+		achieve.RegisterAchieveServiceServer(grpcServer, achieveservice.NewAchieveServiceServer(ctx))
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)
 		}

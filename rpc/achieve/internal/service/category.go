@@ -13,6 +13,7 @@ import (
 type CategoryService struct {
 	db *gorm.DB
 }
+
 func NewCategoryService(db *gorm.DB) *CategoryService {
 	return &CategoryService{db: db}
 }
@@ -46,7 +47,7 @@ func (c *CategoryService) DeleteCategory(ctx context.Context, in *achieve.Delete
 }
 
 func (c *CategoryService) CreateCategory(ctx context.Context, category *model.Category) (*model.Category, error) {
-	err := c.db.Create(category).Error
+	err := c.db.WithContext(ctx).Create(category).Error
 	if err != nil {
 		return nil, err
 	}
@@ -56,20 +57,21 @@ func (c *CategoryService) CreateCategory(ctx context.Context, category *model.Ca
 func (c *CategoryService) QueryCategoryList(ctx context.Context, name string, typeStr string, status int32, page int, pageSize int) (error, int64, []*model.Category) {
 	var categories []*model.Category
 	var total int64
+	var db = c.db.WithContext(ctx)
 	if name != "" {
-		err := c.db.Model(&model.Category{}).Where("name LIKE ?", "%"+name+"%").Where("type = ?", typeStr).Where("status = ?", status).Count(&total).Error
+		err := db.Model(&model.Category{}).Where("name LIKE ?", "%"+name+"%").Where("type = ?", typeStr).Where("status = ?", status).Count(&total).Error
 		if err != nil {
 			return err, 0, nil
 		}
 	}
 	if typeStr != "" {
-		err := c.db.Model(&model.Category{}).Where("type = ?", typeStr).Where("status = ?", status).Count(&total).Error
+		err := db.Model(&model.Category{}).Where("type = ?", typeStr).Where("status = ?", status).Count(&total).Error
 		if err != nil {
 			return err, 0, nil
 		}
 	}
 	if status != 0 {
-		err := c.db.Model(&model.Category{}).Where("status = ?", status).Count(&total).Error
+		err := db.Model(&model.Category{}).Where("status = ?", status).Count(&total).Error
 		if err != nil {
 			return err, 0, nil
 		}

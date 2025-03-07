@@ -1011,11 +1011,28 @@ service scholartrack-api {
 
 	@handler DeleteDictionaryDetailHandler
 	delete /dictionary/detail/:id (DeleteDictionaryDetailReq) returns (DeleteDictionaryDetailResp)
-
-	@handler QueryDictionaryDetailDetailHandler
-	get /dictionary/detail/:id (QueryDictionaryDetailDetailReq) returns (QueryDictionaryDetailDetailResp)
-
-	@handler QueryDictionaryDetailListHandler
-	post /dictionary/detail/list (QueryDictionaryDetailListReq) returns (QueryDictionaryDetailListResp)
 }
+
+type (
+
+	UploadAchievementReq {
+		Code string `json:"code"`
+		Name string `json:"name"`
+		Status int32 `json:"status"`
+		Level int32 `json:"level"`
+		Rank int32 `json:"rank"`
+		AwardTime int64 `json:"awardTime"`
+		Share bool `json:"share"`
+		Star uint64 `json:"star"`
+		Uploader uint64 `json:"uploader"`
+		Team bool   `json:"team"`
+		TeamMembers []uint64 `json:"teamMembers"`
+		Description string `json:"description"`
+		CatetoryId uint64 `json:"catetoryId"`
+		Files []byte `json:"files"`
+	}
+	UploadAchievementResp {
+		Id uint64 `json:"id"`
+	}
+)
 
