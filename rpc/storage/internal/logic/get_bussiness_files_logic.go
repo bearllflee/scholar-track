@@ -38,16 +38,16 @@ func (l *GetBussinessFilesLogic) GetBussinessFiles(in *storage.GetBussinessFiles
 	filesResponse := make([]*storage.FileInfoResponse, 0)
 	for _, file := range files {
 		filesResponse = append(filesResponse, &storage.FileInfoResponse{
-			FileId:   file.Id,
-			FileKey:  file.FileKey,
-			FileUrl:  file.FileUrl,
-			FileName: file.FileName,
-			FileType: file.FileType,
-			FileSize: uint64(file.FileSize),
-			BussinessId: file.BussinessId,
-			CreatedAt: file.CreatedAt.Unix(),
-			UpdatedAt: file.UpdatedAt.Unix(),
-			DeletedAt: file.DeletedAt.Time.Unix(),
+			FileId:      file.Id,
+			FileKey:     file.FileKey,
+			FileUrl:     file.FileUrl,
+			FileName:    file.FileName,
+			FileType:    file.FileType,
+			FileSize:    uint64(file.FileSize),
+			BussinessId: file.BusinessId,
+			CreatedAt:   file.CreatedAt.Unix(),
+			UpdatedAt:   file.UpdatedAt.Unix(),
+			DeletedAt:   file.DeletedAt.Time.Unix(),
 		})
 	}
 

@@ -31,7 +31,7 @@ func NewStorageService(c config.StorageConf) (*StorageService, error) {
 		return nil, err
 	}
 	if !bucketExists {
-		if err := client.MakeBucket(context.Background(), c.Bucket, minio.MakeBucketOptions{Region: "us-east-1"}); err != nil {
+		if err = client.MakeBucket(context.Background(), c.Bucket, minio.MakeBucketOptions{Region: "us-east-1"}); err != nil {
 			return nil, err
 		}
 	}
@@ -81,4 +81,3 @@ func generateObjectName(fileName string, bussinessId uint64, bussinessName strin
 	// timestamp := time.Now().Format("20060102150405")
 	return path.Join(bussinessName, strconv.FormatUint(bussinessId, 10), fileName)
 }
-

@@ -34,7 +34,7 @@ func (l *FileInfoLogic) FileInfo(in *storage.FileInfoRequest) (*storage.FileInfo
 		FileName:    file.FileName,
 		FileType:    file.FileType,
 		FileSize:    uint64(file.FileSize),
-		BussinessId: file.BussinessId,
+		BussinessId: file.BusinessId,
 		CreatedAt:   file.CreatedAt.Unix(),
 		UpdatedAt:   file.UpdatedAt.Unix(),
 		DeletedAt:   file.DeletedAt.Time.Unix(),

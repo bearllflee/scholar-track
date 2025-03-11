@@ -277,6 +277,13 @@ type File struct {
 	DeletedAt   int64  `json:"-"`
 }
 
+type FileBasic struct {
+	Name    string `json:"name"`
+	Size    int64  `json:"size"`
+	Content []byte `json:"content"`
+	Usage   string `json:"usage"`
+}
+
 type GetBussinessFilesReq struct {
 	BussinessId   uint64 `json:"bussinessId"`
 	BussinessName string `json:"bussinessName"`
@@ -406,39 +413,6 @@ type QueryCategoryResp struct {
 	Categories []*Category `json:"categories"`
 	Page       int64       `json:"page"`
 	PageSize   int64       `json:"pageSize"`
-}
-
-type QueryDictionaryDetailDetailReq struct {
-	Id uint64 `path:"id"`
-}
-
-type QueryDictionaryDetailDetailResp struct {
-	Id             uint64 `json:"id"`
-	CreatedAt      int64  `json:"createdAt"`
-	UpdatedAt      int64  `json:"updatedAt"`
-	DeletedAt      int64  `json:"-"`
-	DictionaryId   uint64 `json:"dictionaryId"`
-	Key            string `json:"key"`
-	Value          string `json:"value"`
-	Sort           int32  `json:"sort"`
-	IsDefaultValue bool   `json:"isDefaultValue"`
-}
-
-type QueryDictionaryDetailListReq struct {
-	Page         int64  `json:"page"`
-	PageSize     int64  `json:"pageSize"`
-	DictionaryId uint64 `json:"dictionaryId"`
-	Key          string `json:"key,optional"`
-	Value        string `json:"value,optional"`
-	OrderBy      string `json:"orderBy,optional"`
-}
-
-type QueryDictionaryDetailListResp struct {
-	Total    int64               `json:"total"`
-	List     []*DictionaryDetail `json:"list"`
-	Page     int64               `json:"page"`
-	PageSize int64               `json:"pageSize"`
-	Type     string              `json:"type"`
 }
 
 type QueryDictionaryDetailReq struct {
@@ -837,6 +811,28 @@ type UpdateRoleMenuReq struct {
 }
 
 type UpdateRoleMenuResp struct {
+}
+
+type UploadAchievementReq struct {
+	Code        string                 `json:"code"`
+	Name        string                 `json:"name"`
+	Status      int32                  `json:"status"`
+	Level       int32                  `json:"level"`
+	Rank        int32                  `json:"rank"`
+	AwardTime   int64                  `json:"awardTime"`
+	Share       bool                   `json:"share"`
+	Star        uint64                 `json:"star"`
+	Uploader    uint64                 `json:"uploader"`
+	Team        bool                   `json:"team"`
+	TeamMembers []uint64               `json:"teamMembers"`
+	Description string                 `json:"description"`
+	CatetoryId  uint64                 `json:"catetoryId"`
+	Files       []*FileBasic           `json:"files"`
+	OtherInfo   map[string]interface{} `json:"otherInfo"`
+}
+
+type UploadAchievementResp struct {
+	Id uint64 `json:"id"`
 }
 
 type UploadFileReq struct {

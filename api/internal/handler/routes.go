@@ -6,6 +6,7 @@ package handler
 import (
 	"net/http"
 
+	achievementbasic "github.com/bearllflee/scholar-track/api/internal/handler/achievement/basic"
 	achievementcategory "github.com/bearllflee/scholar-track/api/internal/handler/achievement/category"
 	achievementproperty "github.com/bearllflee/scholar-track/api/internal/handler/achievement/property"
 	api "github.com/bearllflee/scholar-track/api/internal/handler/api"
@@ -22,6 +23,16 @@ import (
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/achievement",
+				Handler: achievementbasic.UploadAchievementHandler(serverCtx),
+			},
+		},
+	)
+
 	server.AddRoutes(
 		[]rest.Route{
 			{

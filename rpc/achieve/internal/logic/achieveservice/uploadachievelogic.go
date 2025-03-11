@@ -67,5 +67,5 @@ func (l *UploadAchieveLogic) UploadAchieve(in *achieve.UploadAchieveReq) (*achie
 			return nil, err
 		}
 	}
-	return &achieve.UploadAchieveResp{}, nil
+	return &achieve.UploadAchieveResp{Id: uploadAchieve.Id}, nil
 }
