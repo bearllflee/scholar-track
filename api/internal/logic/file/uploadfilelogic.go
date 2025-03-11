@@ -25,10 +25,10 @@ func NewUploadFileLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upload
 
 func (l *UploadFileLogic) UploadFile(req *types.UploadFileReq) (resp *types.UploadFileResp, err error) {
 	rpcResp, err := l.svcCtx.Storage.FileUpload(l.ctx, &storage_client.FileUploadRequest{
-		FileName: req.FileName,
-		FileType: req.FileType,
-		FileData: req.File,
-		BussinessId: req.BussinessId,
+		FileName:      req.FileName,
+		FileType:      req.FileType,
+		FileData:      req.File,
+		BussinessId:   req.BusinessId,
 		BussinessName: req.BussinessName,
 	})
 	if err != nil {

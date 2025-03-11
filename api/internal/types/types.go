@@ -265,16 +265,16 @@ type DownloadFileResp struct {
 }
 
 type File struct {
-	Id          uint64 `json:"id"`
-	FileKey     string `json:"fileKey"`
-	FileUrl     string `json:"fileUrl"`
-	FileName    string `json:"fileName"`
-	FileSize    int64  `json:"fileSize"`
-	FileType    string `json:"fileType"`
-	BussinessId uint64 `json:"bussinessId"`
-	CreatedAt   int64  `json:"createdAt"`
-	UpdatedAt   int64  `json:"updatedAt"`
-	DeletedAt   int64  `json:"-"`
+	Id         uint64 `json:"id"`
+	FileKey    string `json:"fileKey"`
+	FileUrl    string `json:"fileUrl"`
+	FileName   string `json:"fileName"`
+	FileSize   int64  `json:"fileSize"`
+	FileType   string `json:"fileType"`
+	BusinessId uint64 `json:"bussinessId"`
+	CreatedAt  int64  `json:"createdAt"`
+	UpdatedAt  int64  `json:"updatedAt"`
+	DeletedAt  int64  `json:"-"`
 }
 
 type FileBasic struct {
@@ -285,7 +285,7 @@ type FileBasic struct {
 }
 
 type GetBussinessFilesReq struct {
-	BussinessId   uint64 `json:"bussinessId"`
+	BusinessId    uint64 `json:"bussinessId"`
 	BussinessName string `json:"bussinessName"`
 }
 
@@ -816,18 +816,18 @@ type UpdateRoleMenuResp struct {
 type UploadAchievementReq struct {
 	Code        string                 `json:"code"`
 	Name        string                 `json:"name"`
-	Status      int32                  `json:"status"`
+	Status      int32                  `json:"status,optional"`
 	Level       int32                  `json:"level"`
 	Rank        int32                  `json:"rank"`
 	AwardTime   int64                  `json:"awardTime"`
 	Share       bool                   `json:"share"`
-	Star        uint64                 `json:"star"`
+	Star        uint64                 `json:"star,optional"`
 	Uploader    uint64                 `json:"uploader"`
 	Team        bool                   `json:"team"`
 	TeamMembers []uint64               `json:"teamMembers"`
 	Description string                 `json:"description"`
-	CatetoryId  uint64                 `json:"catetoryId"`
-	Files       []*FileBasic           `json:"files"`
+	CategoryId  uint64                 `json:"categoryId"`
+	Files       []*FileBasic           `json:"files,optional"`
 	OtherInfo   map[string]interface{} `json:"otherInfo"`
 }
 
@@ -839,7 +839,7 @@ type UploadFileReq struct {
 	File          []byte `json:"file"`
 	FileName      string `json:"fileName"`
 	FileType      string `json:"fileType"`
-	BussinessId   uint64 `json:"bussinessId"`
+	BusinessId    uint64 `json:"bussinessId"`
 	BussinessName string `json:"bussinessName"`
 }
 

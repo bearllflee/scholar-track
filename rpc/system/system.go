@@ -3,14 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/config"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/initialize"
+	apiServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/apiservice"
 	casbinServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/casbin"
+	menuServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/menuservice"
 	roleServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/role"
 	userServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/user"
-	apiServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/apiservice"
-	menuServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/menuservice"
-	"github.com/bearllflee/scholar-track/rpc/system/internal/config"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
 
@@ -28,8 +28,8 @@ func main() {
 
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
-	initialize.Casbin(global.DB)
 	ctx := svc.NewServiceContext(c)
+	initialize.Casbin(global.DB)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 		system.RegisterCasbinServer(grpcServer, casbinServer.NewCasbinServer(ctx))

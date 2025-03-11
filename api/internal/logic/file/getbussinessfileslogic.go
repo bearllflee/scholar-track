@@ -26,7 +26,7 @@ func NewGetBussinessFilesLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *GetBussinessFilesLogic) GetBussinessFiles(req *types.GetBussinessFilesReq) (resp *types.GetBussinessFilesResp, err error) {
 	files, err := l.svcCtx.Storage.GetBussinessFiles(l.ctx, &storage_client.GetBussinessFilesRequest{
-		BussinessId: req.BussinessId,
+		BussinessId:   req.BusinessId,
 		BussinessName: req.BussinessName,
 	})
 	if err != nil {
@@ -35,16 +35,16 @@ func (l *GetBussinessFilesLogic) GetBussinessFiles(req *types.GetBussinessFilesR
 	filesResponse := make([]*types.File, 0)
 	for _, file := range files.Files {
 		filesResponse = append(filesResponse, &types.File{
-			Id:        file.FileId,
-			FileKey:   file.FileKey,
-			FileUrl:   file.FileUrl,
-			FileName:  file.FileName,
-			FileSize:  int64(file.FileSize),
-			FileType:  file.FileType,
-			BussinessId: file.BussinessId,
-			CreatedAt: file.CreatedAt,
-			UpdatedAt: file.UpdatedAt,
-			DeletedAt: file.DeletedAt,
+			Id:         file.FileId,
+			FileKey:    file.FileKey,
+			FileUrl:    file.FileUrl,
+			FileName:   file.FileName,
+			FileSize:   int64(file.FileSize),
+			FileType:   file.FileType,
+			BusinessId: file.BussinessId,
+			CreatedAt:  file.CreatedAt,
+			UpdatedAt:  file.UpdatedAt,
+			DeletedAt:  file.DeletedAt,
 		})
 	}
 
@@ -52,4 +52,3 @@ func (l *GetBussinessFilesLogic) GetBussinessFiles(req *types.GetBussinessFilesR
 		Files: filesResponse,
 	}, nil
 }
-

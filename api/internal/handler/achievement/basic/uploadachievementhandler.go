@@ -2,6 +2,7 @@ package basic
 
 import (
 	"github.com/bearllflee/scholar-track/pkg/response"
+	"github.com/zeromicro/go-zero/core/logx"
 	"net/http"
 
 	"github.com/bearllflee/scholar-track/api/internal/logic/achievement/basic"
@@ -14,12 +15,18 @@ func UploadAchievementHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UploadAchievementReq
 		if err := httpx.Parse(r, &req); err != nil {
+			logx.Error(err)
 			response.ErrWithMessage(r.Context(), w, "参数错误")
 			return
 		}
-
+		err := r.ParseMultipartForm(32 << 20)
+		if err != nil {
+			logx.Error(err)
+			response.ErrWithMessage(r.Context(), w, "文件大小超过32MB限制")
+			return
+		}
 		materials := r.MultipartForm.File["materials"]
-		if len(materials) == 0 {
+		if materials == nil || len(materials) == 0 {
 			response.ErrWithMessage(r.Context(), w, "请上传证明材料")
 			return
 		}
@@ -42,7 +49,7 @@ func UploadAchievementHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			req.Files = append(req.Files, fileBasic)
 		}
 		pictures := r.MultipartForm.File["pictures"]
-		if len(pictures) > 0 {
+		if pictures != nil && len(pictures) > 0 {
 			for _, picture := range pictures {
 				fileBasic := &types.FileBasic{}
 				fileBasic.Name = picture.Filename
@@ -63,7 +70,7 @@ func UploadAchievementHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := basic.NewUploadAchievementLogic(r.Context(), svcCtx)
-		_, err := l.UploadAchievement(&req)
+		_, err = l.UploadAchievement(&req)
 		if err != nil {
 			response.ErrWithMessage(r.Context(), w, "上传失败")
 		} else {

@@ -37,12 +37,12 @@ func UploadFileHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			response.ErrWithMessage(r.Context(), w, "参数错误，缺少文件类型")
 			return
 		}
-		req.BussinessId, err = strconv.ParseUint(r.FormValue("bussinessId"), 10, 64)
-		if err != nil || req.BussinessId == 0 {
+		req.BusinessId, err = strconv.ParseUint(r.FormValue("bussinessId"), 10, 64)
+		if err != nil || req.BusinessId == 0 {
 			response.ErrWithMessage(r.Context(), w, "参数错误，业务ID格式错误")
 			return
 		}
-		if req.BussinessId == 0 {
+		if req.BusinessId == 0 {
 			response.ErrWithMessage(r.Context(), w, "参数错误，缺少业务ID")
 			return
 		}

@@ -51,7 +51,7 @@ func (l *UploadAchievementLogic) UploadAchievement(req *types.UploadAchievementR
 		Team:        req.Team,
 		TeamMembers: req.TeamMembers,
 		Description: req.Description,
-		CategoryId:  req.CatetoryId,
+		CategoryId:  req.CategoryId,
 		OtherInfo:   otherInfo,
 		File:        files,
 	})
