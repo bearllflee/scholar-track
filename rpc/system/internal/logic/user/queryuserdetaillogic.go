@@ -3,9 +3,8 @@ package userlogic
 import (
 	"context"
 	"github.com/bearllflee/scholar-track/pkg/cerror"
-	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
-
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
 

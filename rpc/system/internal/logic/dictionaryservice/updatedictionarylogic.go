@@ -2,8 +2,7 @@ package dictionaryservicelogic
 
 import (
 	"context"
-
-	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
@@ -42,11 +41,11 @@ func (l *UpdateDictionaryLogic) UpdateDictionary(in *system.UpdateDictionaryReq)
 
 	return &system.UpdateDictionaryResp{
 		Dictionary: &system.Dictionary{
-			Id:   uint64(updatedDictionary.Id),
-			Name: updatedDictionary.Name,
-			Type: updatedDictionary.Type,
-			Status: *updatedDictionary.Status,
-			Desc: updatedDictionary.Desc,
+			Id:        uint64(updatedDictionary.Id),
+			Name:      updatedDictionary.Name,
+			Type:      updatedDictionary.Type,
+			Status:    *updatedDictionary.Status,
+			Desc:      updatedDictionary.Desc,
 			CreatedAt: updatedDictionary.CreatedAt.Unix(),
 			UpdatedAt: updatedDictionary.UpdatedAt.Unix(),
 		},

@@ -7,9 +7,9 @@ import (
 )
 
 type ServiceContext struct {
-	Config config.Config
+	Config         config.Config
 	StorageService *service.StorageService
-	FileService *service.FileService
+	FileService    *service.FileService
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -19,8 +19,8 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		panic(err)
 	}
 	return &ServiceContext{
-		Config: c,
+		Config:         c,
 		StorageService: storageService,
-		FileService: service.NewFileService(db),
+		FileService:    service.NewFileService(db),
 	}
 }

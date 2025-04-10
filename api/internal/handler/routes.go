@@ -24,13 +24,16 @@ import (
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodPost,
-				Path:    "/achievement",
-				Handler: achievementbasic.UploadAchievementHandler(serverCtx),
-			},
-		},
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.JwtMiddleWare,serverCtx.CasbinRbac},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/achievement",
+					Handler: achievementbasic.UploadAchievementHandler(serverCtx),
+				},
+			}...
+		),
 	)
 
 	server.AddRoutes(

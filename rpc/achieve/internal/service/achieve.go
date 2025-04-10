@@ -2,7 +2,8 @@ package service
 
 import (
 	"context"
-	"errors"
+
+	"github.com/bearllflee/scholar-track/pkg/cerror"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/model"
 	"gorm.io/gorm"
 )
@@ -16,15 +17,14 @@ func NewAchieveService(db *gorm.DB) *AchieveService {
 }
 
 func (s *AchieveService) UploadAchieve(ctx context.Context, achieve *model.AchieveBasic) (*model.AchieveBasic, error) {
-	db := s.db.WithContext(ctx).Model(&model.AchieveBasic{})
 	var achieveBasic = &model.AchieveBasic{}
-	err := db.Where("code = ?", achieve.Code).First(achieveBasic).Error
+	s.db.WithContext(ctx).Model(&model.AchieveBasic{}).Where("code = ?", achieve.Code).First(achieveBasic)
 	// 如果存在，则返回错误
-	if !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, err
+	if achieveBasic.Id != 0 {
+		return nil, cerror.ErrAchieveHasExists
 	}
 	// 创建新记录
-	if err = db.Create(achieve).Error; err != nil {
+	if err := s.db.WithContext(ctx).Create(achieve).Error; err != nil {
 		return nil, err
 	}
 	return achieve, nil

@@ -89,7 +89,9 @@ type (
 		UserId  uint64   `json:"userId"`
 		RoleIds []uint64 `json:"roleIds"`
 	}
-	SetUserRoleResp  {}
+	SetUserRoleResp {
+		Id uint64 `json:"id"`
+	}
 	// 查看自身信息
 	QuerySelfInfoReq {
 		Id uint64 `json:"id,optional"`
@@ -114,7 +116,9 @@ type (
 		Realname string `json:"realname"`
 		Class    string `json:"class"`
 	}
-	SetUserInfoResp  {}
+	SetUserInfoResp {
+		Id uint64 `json:"id"`
+	}
 	// 修改自身信息
 	SetSelfInfoReq {
 		Id       uint64 `json:"id,optional"`
@@ -132,24 +136,32 @@ type (
 		Realname string `json:"realname"`
 		Class    string `json:"class"`
 	}
-	SetSelfInfoResp  {}
+	SetSelfInfoResp {
+		Id uint64 `json:"id"`
+	}
 	// 重置用户密码
 	ResetPasswordReq {
 		UserId uint64 `json:"userId"`
 	}
-	ResetPasswordResp  {}
+	ResetPasswordResp {
+		Id uint64 `json:"id"`
+	}
 	// 修改密码
 	ChangePasswordReq {
 		UserId      uint64 `json:"userId,optional"`
 		OldPassword string `json:"oldPassword"`
 		NewPassword string `json:"newPassword"`
 	}
-	ChangePasswordResp  {}
+	ChangePasswordResp {
+		Id uint64 `json:"id"`
+	}
 	// 删除用户
 	DeleteUserReq {
 		UserId uint64 `path:"id"`
 	}
-	DeleteUserResp  {}
+	DeleteUserResp {
+		Id uint64 `json:"id"`
+	}
 )
 
 // 角色
@@ -189,13 +201,17 @@ type (
 	DeleteRoleReq {
 		RoleId uint64 `path:"id"`
 	}
-	DeleteRoleResp  {}
+	DeleteRoleResp {
+		Id uint64 `json:"id"`
+	}
 	// 设置角色信息
 	SetRoleInfoReq {
 		RoleId   uint64 `json:"roleId"`
 		RoleName string `json:"roleName"`
 	}
-	SetRoleInfoResp  {}
+	SetRoleInfoResp {
+		Id uint64 `json:"id"`
+	}
 	// 设置角色权限
 	PolicyInfo {
 		Method string `json:"method"`
@@ -205,7 +221,9 @@ type (
 		RoleId uint64       `json:"roleId"`
 		Rules  []PolicyInfo `json:"rules"`
 	}
-	SetRolePoliciesResp  {}
+	SetRolePoliciesResp {
+		Id uint64 `json:"id"`
+	}
 	// 获取角色权限
 	QueryRolePoliciesReq {
 		RoleId uint64 `path:"roleId"`
@@ -900,11 +918,15 @@ type (
 		Status bool   `json:"status"`
 		Desc   string `json:"desc"`
 	}
-	UpdateDictionaryResp  {}
+	UpdateDictionaryResp {
+		Id uint64 `json:"id"`
+	}
 	DeleteDictionaryReq {
 		Id uint64 `path:"id"`
 	}
-	DeleteDictionaryResp  {}
+	DeleteDictionaryResp {
+		Id uint64 `json:"id"`
+	}
 	QueryDictionaryDetailReq {
 		Id uint64 `path:"id"`
 	}
@@ -972,11 +994,15 @@ type (
 		Sort           int32  `json:"sort"`
 		IsDefaultValue bool   `json:"isDefaultValue"`
 	}
-	UpdateDictionaryDetailResp  {}
+	UpdateDictionaryDetailResp {
+		Id uint64 `json:"id"`
+	}
 	DeleteDictionaryDetailReq {
 		Id uint64 `path:"id"`
 	}
-	DeleteDictionaryDetailResp  {}
+	DeleteDictionaryDetailResp {
+		Id uint64 `json:"id"`
+	}
 )
 
 @server (
@@ -1014,28 +1040,21 @@ service scholartrack-api {
 }
 
 type (
-	FileBasic {
-		Name    string `json:"name"`
-		Size    int64  `json:"size"`
-		Content []byte `json:"content"`
-		Usage   string `json:"usage"`
-	}
 	UploadAchievementReq {
-		Code        string                 `json:"code"`
-		Name        string                 `json:"name"`
-		Status      int32                  `json:"status,optional"`
-		Level       int32                  `json:"level"`
-		Rank        int32                  `json:"rank"`
-		AwardTime   int64                  `json:"awardTime"`
-		Share       bool                   `json:"share"`
-		Star        uint64                 `json:"star,optional"`
-		Uploader    uint64                 `json:"uploader"`
-		Team        bool                   `json:"team"`
-		TeamMembers []uint64               `json:"teamMembers"`
-		Description string                 `json:"description"`
-		CategoryId  uint64                 `json:"categoryId"`
-		Files       []*FileBasic           `json:"files,optional"`
-		OtherInfo   map[string]interface{} `json:"otherInfo"`
+		Code        string                 `form:"code"`
+		Name        string                 `form:"name"`
+		Status      int32                  `form:"status,optional"`
+		Level       int32                  `form:"level"`
+		Rank        int32                  `form:"rank"`
+		AwardTime   int64                  `form:"awardTime"`
+		Share       bool                   `form:"share"`
+		Star        uint64                 `form:"star,optional"`
+		Uploader    uint64                 `form:"uploader"`
+		Team        bool                   `form:"team"`
+		TeamMembers []uint64               `form:"teamMembers"`
+		Description string                 `form:"description"`
+		CategoryId  uint64                 `form:"categoryId"`
+		OtherInfo   map[string]interface{} `form:"otherInfo"`
 	}
 	UploadAchievementResp {
 		Id uint64 `json:"id"`

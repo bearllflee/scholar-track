@@ -2,8 +2,7 @@ package rolelogic
 
 import (
 	"context"
-
-	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
@@ -27,7 +26,7 @@ func NewRoleTreeLogic(ctx context.Context, svcCtx *svc.ServiceContext) *RoleTree
 
 func (l *RoleTreeLogic) RoleTree(in *system.RoleTreeReq) (*system.RoleTreeListResp, error) {
 	var topRoles []*model.Role
-	err := global.DB.Model(&model.Role{}).Where("parent_id = ?", 0).Limit(int(in.PageSize)).Offset(int((in.Page-1)*in.PageSize)).Find(&topRoles).Error
+	err := global.DB.Model(&model.Role{}).Where("parent_id = ?", 0).Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).Find(&topRoles).Error
 	if err != nil {
 		return nil, err
 	}

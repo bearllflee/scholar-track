@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
 )
 
 type Role struct {

@@ -2,7 +2,7 @@ syntax = "proto3";
 package achieve;
 import "google/protobuf/struct.proto";
 
-option go_package="./achieve";
+option go_package = "./achieve";
 
 message Category {
   uint64 id = 1;
@@ -35,9 +35,7 @@ message CreateCategoryResp {
 }
 
 // 查询成就分类
-message QueryCategoryDetailReq {
-  uint64 id = 1;
-}
+message QueryCategoryDetailReq { uint64 id = 1; }
 
 message QueryCategoryResp {
   uint64 id = 1;
@@ -66,9 +64,7 @@ message QueryCategoryListResp {
   repeated Category categories = 4;
 }
 // 删除成就分类
-message DeleteCategoryReq {
-  uint64 id = 1;
-}
+message DeleteCategoryReq { uint64 id = 1; }
 
 message DeleteCategoryResp {}
 // 更新成就分类
@@ -90,7 +86,6 @@ message UpdateCategoryResp {
   int64 updated_at = 7;
   int64 deleted_at = 8;
 }
-
 
 message Property {
   uint64 id = 1;
@@ -128,9 +123,7 @@ message CreatePropertyResp {
 }
 
 // 查询成就属性
-message QueryPropertyDetailReq {
-  uint64 id = 1;
-}
+message QueryPropertyDetailReq { uint64 id = 1; }
 
 message QueryPropertyDetailResp {
   uint64 id = 1;
@@ -165,9 +158,7 @@ message QueryPropertyListResp {
 }
 
 // 删除成就属性
-message DeletePropertyReq {
-  uint64 id = 1;
-}
+message DeletePropertyReq { uint64 id = 1; }
 
 message DeletePropertyResp {}
 
@@ -200,27 +191,20 @@ message UpdatePropertyResp {
 }
 
 service CategoryService {
-  rpc CreateCategory(CreateCategoryReq) returns(CreateCategoryResp);
-  rpc QueryCategoryDetail(QueryCategoryDetailReq) returns(QueryCategoryResp);
-  rpc QueryCategoryList(QueryCategoryListReq) returns(QueryCategoryListResp);
-  rpc DeleteCategory(DeleteCategoryReq) returns(DeleteCategoryResp);
-  rpc UpdateCategory(UpdateCategoryReq) returns(UpdateCategoryResp);
+  rpc CreateCategory(CreateCategoryReq) returns (CreateCategoryResp);
+  rpc QueryCategoryDetail(QueryCategoryDetailReq) returns (QueryCategoryResp);
+  rpc QueryCategoryList(QueryCategoryListReq) returns (QueryCategoryListResp);
+  rpc DeleteCategory(DeleteCategoryReq) returns (DeleteCategoryResp);
+  rpc UpdateCategory(UpdateCategoryReq) returns (UpdateCategoryResp);
 }
 
 service PropertyService {
-  rpc CreateProperty(CreatePropertyReq) returns(CreatePropertyResp);
-  rpc QueryPropertyDetail(QueryPropertyDetailReq) returns(QueryPropertyDetailResp);
-  rpc QueryPropertyList(QueryPropertyListReq) returns(QueryPropertyListResp);
-  rpc DeleteProperty(DeletePropertyReq) returns(DeletePropertyResp);
-  rpc UpdateProperty(UpdatePropertyReq) returns(UpdatePropertyResp);
-}
-
-message File {
-  string key = 1;
-  string name = 2;
-  string type = 3;
-  int64 size = 4;
-  bytes content = 5;
+  rpc CreateProperty(CreatePropertyReq) returns (CreatePropertyResp);
+  rpc QueryPropertyDetail(QueryPropertyDetailReq)
+      returns (QueryPropertyDetailResp);
+  rpc QueryPropertyList(QueryPropertyListReq) returns (QueryPropertyListResp);
+  rpc DeleteProperty(DeletePropertyReq) returns (DeletePropertyResp);
+  rpc UpdateProperty(UpdatePropertyReq) returns (UpdatePropertyResp);
 }
 
 message UploadAchieveReq {
@@ -238,12 +222,9 @@ message UploadAchieveReq {
   string description = 12;
   uint64 category_id = 13;
   google.protobuf.Struct other_info = 14;
-  repeated File file = 15;
 }
-message UploadAchieveResp {
-  uint64 id = 1;
-}
+message UploadAchieveResp { uint64 id = 1; }
 
 service AchieveService {
-  rpc UploadAchieve(UploadAchieveReq) returns(UploadAchieveResp);
+  rpc UploadAchieve(UploadAchieveReq) returns (UploadAchieveResp);
 }

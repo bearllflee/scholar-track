@@ -1,6 +1,6 @@
 package model
 
-import "github.com/bearllflee/scholar-track/pkg/global"
+import "github.com/bearllflee/scholar-track/rpc/system/internal/global"
 
 type Dictionary struct {
 	global.StModel

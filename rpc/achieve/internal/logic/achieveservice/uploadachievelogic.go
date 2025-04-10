@@ -2,13 +2,13 @@ package achieveservicelogic
 
 import (
 	"context"
+	"time"
+
 	"github.com/bearllflee/scholar-track/pkg/global"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/model"
-	"time"
 
 	"github.com/bearllflee/scholar-track/rpc/achieve/achieve"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/svc"
-	"github.com/bearllflee/scholar-track/rpc/storage/storage_client"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -32,6 +32,7 @@ func (l *UploadAchieveLogic) UploadAchieve(in *achieve.UploadAchieveReq) (*achie
 	// 1. 先上传成果，插入成果库
 	// 2. 上传文件，插入文件库
 	// 3. 如果出现错误，给出第一步的补偿
+	// ohterInfoStr, _ := json.Marshal(in.OtherInfo.AsMap())
 	var achieveBasic = &model.AchieveBasic{
 		StModel:     global.StModel{},
 		Code:        in.Code,
@@ -52,20 +53,6 @@ func (l *UploadAchieveLogic) UploadAchieve(in *achieve.UploadAchieveReq) (*achie
 	uploadAchieve, err := l.svcCtx.AchieveService.UploadAchieve(l.ctx, achieveBasic)
 	if err != nil {
 		return nil, err
-	}
-
-	for _, file := range in.File {
-		_, err = l.svcCtx.StorageClient.FileUpload(l.ctx, &storage_client.FileUploadRequest{
-			FileData:      file.Content,
-			FileName:      file.Name,
-			FileType:      file.Type,
-			BussinessId:   uploadAchieve.Id,
-			BussinessName: "achieve",
-		})
-		if err != nil {
-			err = l.svcCtx.AchieveService.DeleteAchieve(l.ctx, uploadAchieve.Id)
-			return nil, err
-		}
 	}
 	return &achieve.UploadAchieveResp{Id: uploadAchieve.Id}, nil
 }

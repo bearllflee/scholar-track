@@ -2,8 +2,7 @@ package apiservicelogic
 
 import (
 	"context"
-
-	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
 	"gorm.io/gorm"
@@ -32,7 +31,6 @@ func (l *UpdateApiLogic) UpdateApi(in *system.UpdateApiReq) (*system.UpdateApiRe
 		return nil, err
 	}
 
-
 	global.DB.Transaction(func(tx *gorm.DB) error {
 		// 更新casbin
 		err = l.svcCtx.CasbinService.UpdateApi(api.Path, api.Method, in.Path, in.Method)
@@ -54,13 +52,13 @@ func (l *UpdateApiLogic) UpdateApi(in *system.UpdateApiReq) (*system.UpdateApiRe
 	})
 
 	return &system.UpdateApiResp{
-		Id:        api.Id,
-		Path:      api.Path,
-		Method:    api.Method,
-		ApiGroup:  api.ApiGroup,
+		Id:          api.Id,
+		Path:        api.Path,
+		Method:      api.Method,
+		ApiGroup:    api.ApiGroup,
 		Description: api.Description,
-		CreatedAt: api.CreatedAt.Unix(),
-		UpdatedAt: api.UpdatedAt.Unix(),
-		DeletedAt: api.DeletedAt.Time.Unix(),
+		CreatedAt:   api.CreatedAt.Unix(),
+		UpdatedAt:   api.UpdatedAt.Unix(),
+		DeletedAt:   api.DeletedAt.Time.Unix(),
 	}, nil
 }

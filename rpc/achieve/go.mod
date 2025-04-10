@@ -1,6 +1,6 @@
 module github.com/bearllflee/scholar-track/rpc/achieve
 
-go 1.22.6
+go 1.24.2
 
 replace github.com/bearllflee/scholar-track/pkg => ../../pkg
 

@@ -2,9 +2,8 @@ package rolelogic
 
 import (
 	"context"
-
 	"github.com/bearllflee/scholar-track/pkg/cerror"
-	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
@@ -43,7 +42,7 @@ func (l *QueryRolePoliciesLogic) QueryRolePolicies(in *system.QueryRolePoliciesR
 	if err != nil {
 		return nil, err
 	}
-	policies := make([]*system.PolicyInfo, 0)	
+	policies := make([]*system.PolicyInfo, 0)
 	for _, rule := range rules {
 		policies = append(policies, &system.PolicyInfo{
 			Method: rule.V2,

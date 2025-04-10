@@ -2,14 +2,13 @@ package rolelogic
 
 import (
 	"context"
-	"time"
-
 	"github.com/bearllflee/scholar-track/pkg/cerror"
-	"github.com/bearllflee/scholar-track/pkg/global"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
 	"gorm.io/gorm"
+	"time"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

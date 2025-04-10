@@ -94,6 +94,7 @@ type ChangePasswordReq struct {
 }
 
 type ChangePasswordResp struct {
+	Id uint64 `json:"id"`
 }
 
 type CreateApiReq struct {
@@ -185,6 +186,7 @@ type DeleteDictionaryDetailReq struct {
 }
 
 type DeleteDictionaryDetailResp struct {
+	Id uint64 `json:"id"`
 }
 
 type DeleteDictionaryReq struct {
@@ -192,6 +194,7 @@ type DeleteDictionaryReq struct {
 }
 
 type DeleteDictionaryResp struct {
+	Id uint64 `json:"id"`
 }
 
 type DeleteFileReq struct {
@@ -220,6 +223,7 @@ type DeleteRoleReq struct {
 }
 
 type DeleteRoleResp struct {
+	Id uint64 `json:"id"`
 }
 
 type DeleteUserReq struct {
@@ -227,6 +231,7 @@ type DeleteUserReq struct {
 }
 
 type DeleteUserResp struct {
+	Id uint64 `json:"id"`
 }
 
 type Dictionary struct {
@@ -275,13 +280,6 @@ type File struct {
 	CreatedAt  int64  `json:"createdAt"`
 	UpdatedAt  int64  `json:"updatedAt"`
 	DeletedAt  int64  `json:"-"`
-}
-
-type FileBasic struct {
-	Name    string `json:"name"`
-	Size    int64  `json:"size"`
-	Content []byte `json:"content"`
-	Usage   string `json:"usage"`
 }
 
 type GetBussinessFilesReq struct {
@@ -605,6 +603,7 @@ type ResetPasswordReq struct {
 }
 
 type ResetPasswordResp struct {
+	Id uint64 `json:"id"`
 }
 
 type RoleTree struct {
@@ -634,6 +633,7 @@ type SetRoleInfoReq struct {
 }
 
 type SetRoleInfoResp struct {
+	Id uint64 `json:"id"`
 }
 
 type SetRolePoliciesReq struct {
@@ -642,6 +642,7 @@ type SetRolePoliciesReq struct {
 }
 
 type SetRolePoliciesResp struct {
+	Id uint64 `json:"id"`
 }
 
 type SetSelfInfoReq struct {
@@ -662,6 +663,7 @@ type SetSelfInfoReq struct {
 }
 
 type SetSelfInfoResp struct {
+	Id uint64 `json:"id"`
 }
 
 type SetUserInfoReq struct {
@@ -682,6 +684,7 @@ type SetUserInfoReq struct {
 }
 
 type SetUserInfoResp struct {
+	Id uint64 `json:"id"`
 }
 
 type SetUserRoleReq struct {
@@ -690,6 +693,7 @@ type SetUserRoleReq struct {
 }
 
 type SetUserRoleResp struct {
+	Id uint64 `json:"id"`
 }
 
 type UpdateApiReq struct {
@@ -740,6 +744,7 @@ type UpdateDictionaryDetailReq struct {
 }
 
 type UpdateDictionaryDetailResp struct {
+	Id uint64 `json:"id"`
 }
 
 type UpdateDictionaryReq struct {
@@ -751,6 +756,7 @@ type UpdateDictionaryReq struct {
 }
 
 type UpdateDictionaryResp struct {
+	Id uint64 `json:"id"`
 }
 
 type UpdateMenuReq struct {
@@ -814,21 +820,20 @@ type UpdateRoleMenuResp struct {
 }
 
 type UploadAchievementReq struct {
-	Code        string                 `json:"code"`
-	Name        string                 `json:"name"`
-	Status      int32                  `json:"status,optional"`
-	Level       int32                  `json:"level"`
-	Rank        int32                  `json:"rank"`
-	AwardTime   int64                  `json:"awardTime"`
-	Share       bool                   `json:"share"`
-	Star        uint64                 `json:"star,optional"`
-	Uploader    uint64                 `json:"uploader"`
-	Team        bool                   `json:"team"`
-	TeamMembers []uint64               `json:"teamMembers"`
-	Description string                 `json:"description"`
-	CategoryId  uint64                 `json:"categoryId"`
-	Files       []*FileBasic           `json:"files,optional"`
-	OtherInfo   map[string]interface{} `json:"otherInfo"`
+	Code        string                 `form:"code"`
+	Name        string                 `form:"name"`
+	Status      int32                  `form:"status,optional"`
+	Level       int32                  `form:"level"`
+	Rank        int32                  `form:"rank"`
+	AwardTime   int64                  `form:"awardTime"`
+	Share       bool                   `form:"share"`
+	Star        uint64                 `form:"star,optional"`
+	Uploader    uint64                 `form:"uploader"`
+	Team        bool                   `form:"team"`
+	TeamMembers []uint64               `form:"teamMembers"`
+	Description string                 `form:"description"`
+	CategoryId  uint64                 `form:"categoryId"`
+	OtherInfo   map[string]interface{} `form:"otherInfo"`
 }
 
 type UploadAchievementResp struct {

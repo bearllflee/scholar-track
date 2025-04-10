@@ -23,7 +23,6 @@ type (
 	DeleteCategoryResp      = achieve.DeleteCategoryResp
 	DeletePropertyReq       = achieve.DeletePropertyReq
 	DeletePropertyResp      = achieve.DeletePropertyResp
-	File                    = achieve.File
 	Property                = achieve.Property
 	QueryCategoryDetailReq  = achieve.QueryCategoryDetailReq
 	QueryCategoryListReq    = achieve.QueryCategoryListReq
