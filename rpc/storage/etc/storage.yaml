@@ -15,3 +15,8 @@ Storage:
   Bucket: scholar-track
   Endpoint: 127.0.0.1:9000
   UseSSL: false
+
+FailedDeletion:
+  MaxRetry: 3
+  Interval: 5 // min
+  BatchSize: 100

@@ -7,7 +7,8 @@ import (
 
 type Config struct {
 	zrpc.RpcServerConf
-	DataSource string
-	Cache      cache.CacheConf
-	Storage    StorageConf
+	DataSource     string
+	Cache          cache.CacheConf
+	Storage        StorageConf
+	FailedDeletion FailedDeletion
 }

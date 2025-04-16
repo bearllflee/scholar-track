@@ -23,6 +23,11 @@ func RegisterAchievementRoutes(server *rest.Server, serverCtx *svc.ServiceContex
 					Path:    "/achievement",
 					Handler: achievementbasic.UploadAchievementHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/achievement/:id",
+					Handler: achievementbasic.DeleteAchievementHandler(serverCtx),
+				},
 				// Category
 				{
 					Method:  http.MethodGet,

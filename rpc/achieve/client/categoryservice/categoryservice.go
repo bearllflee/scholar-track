@@ -19,6 +19,8 @@ type (
 	CreateCategoryResp      = achieve.CreateCategoryResp
 	CreatePropertyReq       = achieve.CreatePropertyReq
 	CreatePropertyResp      = achieve.CreatePropertyResp
+	DeleteAchieveReq        = achieve.DeleteAchieveReq
+	DeleteAchieveResp       = achieve.DeleteAchieveResp
 	DeleteCategoryReq       = achieve.DeleteCategoryReq
 	DeleteCategoryResp      = achieve.DeleteCategoryResp
 	DeletePropertyReq       = achieve.DeletePropertyReq

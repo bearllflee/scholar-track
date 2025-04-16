@@ -19,6 +19,8 @@ type (
 	CreateCategoryResp      = achieve.CreateCategoryResp
 	CreatePropertyReq       = achieve.CreatePropertyReq
 	CreatePropertyResp      = achieve.CreatePropertyResp
+	DeleteAchieveReq        = achieve.DeleteAchieveReq
+	DeleteAchieveResp       = achieve.DeleteAchieveResp
 	DeleteCategoryReq       = achieve.DeleteCategoryReq
 	DeleteCategoryResp      = achieve.DeleteCategoryResp
 	DeletePropertyReq       = achieve.DeletePropertyReq
@@ -41,6 +43,7 @@ type (
 
 	AchieveService interface {
 		UploadAchieve(ctx context.Context, in *UploadAchieveReq, opts ...grpc.CallOption) (*UploadAchieveResp, error)
+		DeleteAchieve(ctx context.Context, in *DeleteAchieveReq, opts ...grpc.CallOption) (*DeleteAchieveResp, error)
 	}
 
 	defaultAchieveService struct {
@@ -57,4 +60,9 @@ func NewAchieveService(cli zrpc.Client) AchieveService {
 func (m *defaultAchieveService) UploadAchieve(ctx context.Context, in *UploadAchieveReq, opts ...grpc.CallOption) (*UploadAchieveResp, error) {
 	client := achieve.NewAchieveServiceClient(m.cli.Conn())
 	return client.UploadAchieve(ctx, in, opts...)
+}
+
+func (m *defaultAchieveService) DeleteAchieve(ctx context.Context, in *DeleteAchieveReq, opts ...grpc.CallOption) (*DeleteAchieveResp, error) {
+	client := achieve.NewAchieveServiceClient(m.cli.Conn())
+	return client.DeleteAchieve(ctx, in, opts...)
 }

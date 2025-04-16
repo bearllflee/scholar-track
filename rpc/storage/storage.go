@@ -1,12 +1,14 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 
 	"github.com/bearllflee/scholar-track/rpc/storage/internal/config"
 	"github.com/bearllflee/scholar-track/rpc/storage/internal/server"
 	"github.com/bearllflee/scholar-track/rpc/storage/internal/svc"
+	"github.com/bearllflee/scholar-track/rpc/storage/internal/task"
 	"github.com/bearllflee/scholar-track/rpc/storage/storage"
 
 	"github.com/zeromicro/go-zero/core/conf"
@@ -35,5 +37,8 @@ func main() {
 	defer s.Stop()
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
+
+	failedDeletionTask := task.NewClearFailedDeletionsTask(ctx)
+	failedDeletionTask.Start(context.Background())
 	s.Start()
 }

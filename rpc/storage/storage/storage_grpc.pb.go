@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Storage_FileUpload_FullMethodName        = "/storage.Storage/FileUpload"
-	Storage_FileDownload_FullMethodName      = "/storage.Storage/FileDownload"
-	Storage_FileDelete_FullMethodName        = "/storage.Storage/FileDelete"
-	Storage_FileInfo_FullMethodName          = "/storage.Storage/FileInfo"
-	Storage_GetBussinessFiles_FullMethodName = "/storage.Storage/GetBussinessFiles"
+	Storage_FileUpload_FullMethodName          = "/storage.Storage/FileUpload"
+	Storage_FileDownload_FullMethodName        = "/storage.Storage/FileDownload"
+	Storage_FileDelete_FullMethodName          = "/storage.Storage/FileDelete"
+	Storage_FileInfo_FullMethodName            = "/storage.Storage/FileInfo"
+	Storage_GetBussinessFiles_FullMethodName   = "/storage.Storage/GetBussinessFiles"
+	Storage_DeleteBusinessFiles_FullMethodName = "/storage.Storage/DeleteBusinessFiles"
 )
 
 // StorageClient is the client API for Storage service.
@@ -35,6 +36,7 @@ type StorageClient interface {
 	FileDelete(ctx context.Context, in *FileDeleteRequest, opts ...grpc.CallOption) (*FileDeleteResponse, error)
 	FileInfo(ctx context.Context, in *FileInfoRequest, opts ...grpc.CallOption) (*FileInfoResponse, error)
 	GetBussinessFiles(ctx context.Context, in *GetBussinessFilesRequest, opts ...grpc.CallOption) (*GetBussinessFilesResponse, error)
+	DeleteBusinessFiles(ctx context.Context, in *DeleteBusinessFilesRequest, opts ...grpc.CallOption) (*FileDeleteResponse, error)
 }
 
 type storageClient struct {
@@ -95,6 +97,16 @@ func (c *storageClient) GetBussinessFiles(ctx context.Context, in *GetBussinessF
 	return out, nil
 }
 
+func (c *storageClient) DeleteBusinessFiles(ctx context.Context, in *DeleteBusinessFilesRequest, opts ...grpc.CallOption) (*FileDeleteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FileDeleteResponse)
+	err := c.cc.Invoke(ctx, Storage_DeleteBusinessFiles_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StorageServer is the server API for Storage service.
 // All implementations must embed UnimplementedStorageServer
 // for forward compatibility.
@@ -104,6 +116,7 @@ type StorageServer interface {
 	FileDelete(context.Context, *FileDeleteRequest) (*FileDeleteResponse, error)
 	FileInfo(context.Context, *FileInfoRequest) (*FileInfoResponse, error)
 	GetBussinessFiles(context.Context, *GetBussinessFilesRequest) (*GetBussinessFilesResponse, error)
+	DeleteBusinessFiles(context.Context, *DeleteBusinessFilesRequest) (*FileDeleteResponse, error)
 	mustEmbedUnimplementedStorageServer()
 }
 
@@ -128,6 +141,9 @@ func (UnimplementedStorageServer) FileInfo(context.Context, *FileInfoRequest) (*
 }
 func (UnimplementedStorageServer) GetBussinessFiles(context.Context, *GetBussinessFilesRequest) (*GetBussinessFilesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBussinessFiles not implemented")
+}
+func (UnimplementedStorageServer) DeleteBusinessFiles(context.Context, *DeleteBusinessFilesRequest) (*FileDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteBusinessFiles not implemented")
 }
 func (UnimplementedStorageServer) mustEmbedUnimplementedStorageServer() {}
 func (UnimplementedStorageServer) testEmbeddedByValue()                 {}
@@ -240,6 +256,24 @@ func _Storage_GetBussinessFiles_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Storage_DeleteBusinessFiles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteBusinessFilesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).DeleteBusinessFiles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_DeleteBusinessFiles_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).DeleteBusinessFiles(ctx, req.(*DeleteBusinessFilesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Storage_ServiceDesc is the grpc.ServiceDesc for Storage service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +300,10 @@ var Storage_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBussinessFiles",
 			Handler:    _Storage_GetBussinessFiles_Handler,
+		},
+		{
+			MethodName: "DeleteBusinessFiles",
+			Handler:    _Storage_DeleteBusinessFiles_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

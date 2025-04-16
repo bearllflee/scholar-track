@@ -47,3 +47,8 @@ func (s *StorageServer) GetBussinessFiles(ctx context.Context, in *storage.GetBu
 	l := logic.NewGetBussinessFilesLogic(ctx, s.svcCtx)
 	return l.GetBussinessFiles(in)
 }
+
+func (s *StorageServer) DeleteBusinessFiles(ctx context.Context, in *storage.DeleteBusinessFilesRequest) (*storage.FileDeleteResponse, error) {
+	l := logic.NewDeleteBusinessFilesLogic(ctx, s.svcCtx)
+	return l.DeleteBusinessFiles(in)
+}

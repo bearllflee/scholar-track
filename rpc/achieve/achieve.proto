@@ -225,6 +225,10 @@ message UploadAchieveReq {
 }
 message UploadAchieveResp { uint64 id = 1; }
 
+message DeleteAchieveReq { uint64 id = 1; }
+
+message DeleteAchieveResp {}
 service AchieveService {
   rpc UploadAchieve(UploadAchieveReq) returns (UploadAchieveResp);
+  rpc DeleteAchieve(DeleteAchieveReq) returns (DeleteAchieveResp);
 }

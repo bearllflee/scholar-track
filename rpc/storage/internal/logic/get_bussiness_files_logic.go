@@ -24,7 +24,7 @@ func NewGetBussinessFilesLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *GetBussinessFilesLogic) GetBussinessFiles(in *storage.GetBussinessFilesRequest) (*storage.GetBussinessFilesResponse, error) {
-	files, err := l.svcCtx.FileService.GetFileByBussinessId(l.ctx, in.BussinessId)
+	files, err := l.svcCtx.FileService.GetFileByBussiness(l.ctx, in.BussinessId, in.BussinessName)
 	if err != nil {
 		return nil, err
 	}

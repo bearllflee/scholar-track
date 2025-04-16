@@ -22,15 +22,6 @@ type UploadAchievementLogic struct {
 	svcCtx *svc.ServiceContext
 }
 
-// UploadedFileInfo holds metadata about a file after it's uploaded to storage.
-type UploadedFileInfo struct {
-	FileId   uint64 // ID returned by storage service
-	FileName string
-	FileType string
-	FileSize int64
-	Usage    string // e.g., "material", "picture"
-}
-
 func NewUploadAchievementLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UploadAchievementLogic {
 	return &UploadAchievementLogic{
 		Logger: logx.WithContext(ctx),

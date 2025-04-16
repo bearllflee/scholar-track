@@ -33,7 +33,7 @@ func (s *AchieveService) UploadAchieve(ctx context.Context, achieve *model.Achie
 func (s *AchieveService) DeleteAchieve(ctx context.Context, id uint64) error {
 	db := s.db.WithContext(ctx).Model(&model.AchieveBasic{})
 	// 物理删除
-	if err := db.Unscoped().Delete(&model.AchieveBasic{}, id).Error; err != nil {
+	if err := db.Delete(&model.AchieveBasic{}, id).Error; err != nil {
 		return err
 	}
 	return nil

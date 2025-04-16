@@ -840,6 +840,13 @@ type UploadAchievementResp struct {
 	Id uint64 `json:"id"`
 }
 
+type DeleteAchievementReq struct {
+	Id uint64 `path:"id"`
+}
+
+type DeleteAchievementResp struct {
+}
+
 type UploadFileReq struct {
 	File          []byte `json:"file"`
 	FileName      string `json:"fileName"`

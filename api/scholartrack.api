@@ -663,13 +663,13 @@ type Menu {
 	UpdatedAt int64  `json:"updatedAt"`
 	DeletedAt int64  `json:"-"`
 	MenuLevel uint   `json:"-"`
-	ParentId  uint64 `json:"parentId"` // 父菜单ID
-	Path      string `json:"path"` // 路由path
-	Name      string `json:"name"` // 路由name
-	Hidden    bool   `json:"hidden"` // 是否在列表隐藏
+	ParentId  uint64 `json:"parentId"`  // 父菜单ID
+	Path      string `json:"path"`      // 路由path
+	Name      string `json:"name"`      // 路由name
+	Hidden    bool   `json:"hidden"`    // 是否在列表隐藏
 	Component string `json:"component"` // 对应前端文件路径
-	Sort      int    `json:"sort"` // 排序标记
-	Meta      Meta   `json:"meta"` // 附加属性
+	Sort      int    `json:"sort"`      // 排序标记
+	Meta      Meta   `json:"meta"`      // 附加属性
 	Children  []Menu `json:"children"`
 }
 
@@ -1068,4 +1068,3 @@ service scholartrack-api {
 	@handler UploadAchievementHandler
 	post /achievement (UploadAchievementReq) returns (UploadAchievementResp)
 }
-

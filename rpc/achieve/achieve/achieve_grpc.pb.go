@@ -528,6 +528,7 @@ var PropertyService_ServiceDesc = grpc.ServiceDesc{
 
 const (
 	AchieveService_UploadAchieve_FullMethodName = "/achieve.AchieveService/UploadAchieve"
+	AchieveService_DeleteAchieve_FullMethodName = "/achieve.AchieveService/DeleteAchieve"
 )
 
 // AchieveServiceClient is the client API for AchieveService service.
@@ -535,6 +536,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AchieveServiceClient interface {
 	UploadAchieve(ctx context.Context, in *UploadAchieveReq, opts ...grpc.CallOption) (*UploadAchieveResp, error)
+	DeleteAchieve(ctx context.Context, in *DeleteAchieveReq, opts ...grpc.CallOption) (*DeleteAchieveResp, error)
 }
 
 type achieveServiceClient struct {
@@ -555,11 +557,22 @@ func (c *achieveServiceClient) UploadAchieve(ctx context.Context, in *UploadAchi
 	return out, nil
 }
 
+func (c *achieveServiceClient) DeleteAchieve(ctx context.Context, in *DeleteAchieveReq, opts ...grpc.CallOption) (*DeleteAchieveResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteAchieveResp)
+	err := c.cc.Invoke(ctx, AchieveService_DeleteAchieve_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AchieveServiceServer is the server API for AchieveService service.
 // All implementations must embed UnimplementedAchieveServiceServer
 // for forward compatibility.
 type AchieveServiceServer interface {
 	UploadAchieve(context.Context, *UploadAchieveReq) (*UploadAchieveResp, error)
+	DeleteAchieve(context.Context, *DeleteAchieveReq) (*DeleteAchieveResp, error)
 	mustEmbedUnimplementedAchieveServiceServer()
 }
 
@@ -572,6 +585,9 @@ type UnimplementedAchieveServiceServer struct{}
 
 func (UnimplementedAchieveServiceServer) UploadAchieve(context.Context, *UploadAchieveReq) (*UploadAchieveResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UploadAchieve not implemented")
+}
+func (UnimplementedAchieveServiceServer) DeleteAchieve(context.Context, *DeleteAchieveReq) (*DeleteAchieveResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAchieve not implemented")
 }
 func (UnimplementedAchieveServiceServer) mustEmbedUnimplementedAchieveServiceServer() {}
 func (UnimplementedAchieveServiceServer) testEmbeddedByValue()                        {}
@@ -612,6 +628,24 @@ func _AchieveService_UploadAchieve_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AchieveService_DeleteAchieve_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAchieveReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AchieveServiceServer).DeleteAchieve(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AchieveService_DeleteAchieve_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AchieveServiceServer).DeleteAchieve(ctx, req.(*DeleteAchieveReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AchieveService_ServiceDesc is the grpc.ServiceDesc for AchieveService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -622,6 +656,10 @@ var AchieveService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UploadAchieve",
 			Handler:    _AchieveService_UploadAchieve_Handler,
+		},
+		{
+			MethodName: "DeleteAchieve",
+			Handler:    _AchieveService_DeleteAchieve_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

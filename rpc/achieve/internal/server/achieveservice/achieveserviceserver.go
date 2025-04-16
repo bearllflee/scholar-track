@@ -27,3 +27,8 @@ func (s *AchieveServiceServer) UploadAchieve(ctx context.Context, in *achieve.Up
 	l := achieveservicelogic.NewUploadAchieveLogic(ctx, s.svcCtx)
 	return l.UploadAchieve(in)
 }
+
+func (s *AchieveServiceServer) DeleteAchieve(ctx context.Context, in *achieve.DeleteAchieveReq) (*achieve.DeleteAchieveResp, error) {
+	l := achieveservicelogic.NewDeleteAchieveLogic(ctx, s.svcCtx)
+	return l.DeleteAchieve(in)
+}
