@@ -7,7 +7,7 @@ import (
 )
 
 func AutoMigrate(db *gorm.DB) {
-	db.AutoMigrate(&model.File{})
+	db.AutoMigrate(&model.File{}, &model.FailedDeletion{})
 }
 func MustNewGrom(dataSource string) *gorm.DB {
 	db, err := gorm.Open(mysql.Open(dataSource), &gorm.Config{})

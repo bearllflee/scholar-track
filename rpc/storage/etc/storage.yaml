@@ -18,5 +18,5 @@ Storage:
 
 FailedDeletion:
   MaxRetry: 3
-  Interval: 5 // min
+  Interval: 5
   BatchSize: 100

@@ -32,7 +32,7 @@ func NewUploadAchievementLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 // UploadAchievement now accepts file headers and handles uploading them to storage.
 func (l *UploadAchievementLogic) UploadAchievement(req *types.UploadAchievementReq, filesMap map[string][]*multipart.FileHeader) (resp *types.UploadAchievementResp, err error) {
-	uploadedFiles := make([]uint64, 0)
+	// uploadedFiles := make([]uint64, 0)
 	businessName := "achievement"
 
 	otherInfoPb, err := structpb.NewStruct(req.OtherInfo)
@@ -98,14 +98,16 @@ func (l *UploadAchievementLogic) UploadAchievement(req *types.UploadAchievementR
 				return nil, fmt.Errorf("文件上传到存储服务失败: %s (%v)", header.Filename, err)
 			}
 			l.Logger.Infof("Storage RPC FileUpload success for: %s, FileID: %d", header.Filename, storageResp.FileId)
-			uploadedFiles = append(uploadedFiles, storageResp.FileId)
+			// uploadedFiles = append(uploadedFiles, storageResp.FileId)
 		}
 	}
 	defer func() {
 		if err != nil {
-			l.deleteHasUploadedFiles(uploadedFiles)
+			// l.deleteHasUploadedFiles(uploadedFiles)
 			if uploadAchieveResp.Id != 0 {
-				// TODO: 删除成果表中的信息 l.svcCtx.achieve.DeleteAchieve()
+				l.svcCtx.Achieve.DeleteAchieve(l.ctx, &achieve.DeleteAchieveReq{
+					Id: uploadAchieveResp.Id,
+				})
 			}
 		}
 	}()
@@ -117,10 +119,10 @@ func (l *UploadAchievementLogic) UploadAchievement(req *types.UploadAchievementR
 	return resp, nil
 }
 
-func (l *UploadAchievementLogic) deleteHasUploadedFiles(hasUploadedFiles []uint64) {
-	for _, fileId := range hasUploadedFiles {
-		l.svcCtx.Storage.FileDelete(l.ctx, &storage_client.FileDeleteRequest{
-			FileId: fileId,
-		})
-	}
-}
+// func (l *UploadAchievementLogic) deleteHasUploadedFiles(hasUploadedFiles []uint64) {
+// 	for _, fileId := range hasUploadedFiles {
+// 		l.svcCtx.Storage.FileDelete(l.ctx, &storage_client.FileDeleteRequest{
+// 			FileId: fileId,
+// 		})
+// 	}
+// }

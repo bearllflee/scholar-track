@@ -39,6 +39,6 @@ func main() {
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 
 	failedDeletionTask := task.NewClearFailedDeletionsTask(ctx)
-	failedDeletionTask.Start(context.Background())
+	go failedDeletionTask.Start(context.Background())
 	s.Start()
 }

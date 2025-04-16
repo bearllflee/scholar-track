@@ -21,6 +21,7 @@ func NewClearFailedDeletionsTask(svcCtx *svc.ServiceContext) *ClearFailedDeletio
 }
 
 func (t *ClearFailedDeletionsTask) Start(ctx context.Context) {
+	logx.Info("ClearFailedDeletionsTask started")
 	ticker := time.NewTicker(time.Duration(t.svcCtx.Config.FailedDeletion.Interval) * time.Minute)
 	defer ticker.Stop()
 
