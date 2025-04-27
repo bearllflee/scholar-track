@@ -3,11 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
+
 	"github.com/bearllflee/scholar-track/rpc/system/internal/config"
-	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/initialize"
 	apiServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/apiservice"
 	casbinServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/casbin"
+	dictionaryServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/dictionaryservice"
 	menuServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/menuservice"
 	roleServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/role"
 	userServer "github.com/bearllflee/scholar-track/rpc/system/internal/server/user"
@@ -29,7 +30,7 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
-	initialize.Casbin(global.DB)
+	initialize.Casbin()
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 		system.RegisterCasbinServer(grpcServer, casbinServer.NewCasbinServer(ctx))
@@ -37,6 +38,7 @@ func main() {
 		system.RegisterRoleServer(grpcServer, roleServer.NewRoleServer(ctx))
 		system.RegisterApiServiceServer(grpcServer, apiServer.NewApiServiceServer(ctx))
 		system.RegisterMenuServiceServer(grpcServer, menuServer.NewMenuServiceServer(ctx))
+		system.RegisterDictionaryServiceServer(grpcServer, dictionaryServer.NewDictionaryServiceServer(ctx))
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)
 		}

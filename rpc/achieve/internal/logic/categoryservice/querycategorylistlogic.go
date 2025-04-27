@@ -24,7 +24,7 @@ func NewQueryCategoryListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *QueryCategoryListLogic) QueryCategoryList(in *achieve.QueryCategoryListReq) (*achieve.QueryCategoryListResp, error) {
-	err,total, categories := l.svcCtx.CategoryService.QueryCategoryList(l.ctx, in.Name, in.Type, in.Status, int(in.Page), int(in.PageSize))
+	err, total, categories := l.svcCtx.CategoryService.QueryCategoryList(l.ctx, in.Name, in.Type, in.Status, int(in.Page), int(in.PageSize))
 	if err != nil {
 		return nil, err
 	}

@@ -22,11 +22,11 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	global.DB = db
 	return &ServiceContext{
 		Config:                  c,
-		CasbinService:           &service.CasbinService{},
-		ApiService:              &service.ApiService{},
-		RoleService:             &service.RoleService{},
-		MenuService:             &service.MenuService{},
-		DictionaryService:       service.NewDictionaryService(db),
-		DictionaryDetailService: service.NewDictionaryDetailService(db),
+		CasbinService:           service.CasbinServiceApp,
+		ApiService:              service.ApiServiceApp,
+		RoleService:             service.RoleServiceApp,
+		MenuService:             service.MenuServiceApp,
+		DictionaryService:       service.DictionaryServiceApp,
+		DictionaryDetailService: service.DictionaryDetailServiceApp,
 	}
 }

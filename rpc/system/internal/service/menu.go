@@ -10,6 +10,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var MenuServiceApp = new(MenuService)
+
 type MenuService struct {
 }
 

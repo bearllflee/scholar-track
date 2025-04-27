@@ -3,8 +3,6 @@ package casbinlogic
 import (
 	"context"
 
-	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
-	"github.com/bearllflee/scholar-track/rpc/system/internal/initialize"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
 
@@ -26,10 +24,9 @@ func NewEnforceLogic(ctx context.Context, svcCtx *svc.ServiceContext) *EnforceLo
 }
 
 func (l *EnforceLogic) Enforce(in *system.EnforceReq) (*system.EnforceResp, error) {
-	e := initialize.Casbin(global.DB)
-	success, err := e.Enforce(in.Role, in.Path, in.Method)
+	ok, err := l.svcCtx.CasbinService.Enforce(in.Role, in.Path, in.Method)
 	if err != nil {
 		return nil, err
 	}
-	return &system.EnforceResp{Result: success}, nil
+	return &system.EnforceResp{Result: ok}, nil
 }

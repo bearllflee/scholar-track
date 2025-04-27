@@ -27,20 +27,19 @@ func NewCreateCategoryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cr
 
 func (l *CreateCategoryLogic) CreateCategory(in *achieve.CreateCategoryReq) (*achieve.CreateCategoryResp, error) {
 	// 检查名称是否存在
-	_, _, categories := l.svcCtx.CategoryService.QueryCategoryList(l.ctx, in.Name, "", 0, 1, 1)
+	_, _, categories := l.svcCtx.CategoryService.QueryCategoryList(l.ctx, in.Name, in.Type, 0, 1, 1)
 	if len(categories) > 0 {
 		return nil, cerror.ErrCategoryNameAlreadyExists
 	}
 	category, err := l.svcCtx.CategoryService.CreateCategory(l.ctx, &model.Category{
-		Name: in.Name,
-		Type: in.Type,
+		Name:        in.Name,
+		Type:        in.Type,
 		Description: in.Description,
-		Status: in.Status,
+		Status:      in.Status,
 	})
 	if err != nil {
 		return nil, err
 	}
-
 
 	return &achieve.CreateCategoryResp{
 		Id:        category.Id,

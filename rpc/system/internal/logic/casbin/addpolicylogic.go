@@ -2,10 +2,9 @@ package casbinlogic
 
 import (
 	"context"
-	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
+
 	"github.com/bearllflee/scholar-track/rpc/system/internal/svc"
 	"github.com/bearllflee/scholar-track/rpc/system/system"
-	gormadapter "github.com/casbin/gorm-adapter/v3"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -25,16 +24,11 @@ func NewAddPolicyLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddPoli
 }
 
 func (l *AddPolicyLogic) AddPolicy(in *system.AddPolicyReq) (*system.AddPolicyResp, error) {
-	var casbinRules []gormadapter.CasbinRule
+	var rules [][]string
 	for _, rule := range in.Rules {
-		casbinRules = append(casbinRules, gormadapter.CasbinRule{
-			Ptype: "p",
-			V0:    rule.Rules[0],
-			V1:    rule.Rules[1],
-			V2:    rule.Rules[2],
-		})
+		rules = append(rules, rule.Rules)
 	}
-	err := global.DB.Create(casbinRules).Error
+	err := l.svcCtx.CasbinService.AddPolicies(rules)
 	if err != nil {
 		return nil, err
 	}

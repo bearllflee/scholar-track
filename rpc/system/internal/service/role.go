@@ -9,6 +9,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var RoleServiceApp = new(RoleService)
+
 type RoleService struct {
 }
 

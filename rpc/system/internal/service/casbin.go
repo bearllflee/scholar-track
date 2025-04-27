@@ -13,6 +13,8 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
+var CasbinServiceApp = new(CasbinService)
+
 type CasbinService struct {
 }
 
@@ -27,6 +29,12 @@ func (casbinService *CasbinService) ClearCasbin(v int, p ...string) bool {
 	e := casbinService.Casbin()
 	success, _ := e.RemoveFilteredPolicy(v, p...)
 	return success
+}
+
+func (casbinService *CasbinService) AddPolicies(rules [][]string) error {
+	e := casbinService.Casbin()
+	_, err := e.AddPolicies(rules)
+	return err
 }
 
 func (casbinService *CasbinService) UpdateCasbin(roleId uint64, policyInfos []*role.PolicyInfo) error {
@@ -54,6 +62,12 @@ var (
 	syncedCachedEnforcer *casbin.SyncedCachedEnforcer
 	once                 sync.Once
 )
+
+func (casbinService *CasbinService) Enforce(sub, obj, act string) (ok bool, err error) {
+	e := casbinService.Casbin()
+	ok, err = e.Enforce(sub, obj, act)
+	return
+}
 
 func (casbinService *CasbinService) Casbin() *casbin.SyncedCachedEnforcer {
 	once.Do(func() {
@@ -92,4 +106,10 @@ func (casbinService *CasbinService) Casbin() *casbin.SyncedCachedEnforcer {
 		}
 	})
 	return syncedCachedEnforcer
+}
+
+func (casbinService *CasbinService) FreshCasbin() error {
+	e := casbinService.Casbin()
+	err := e.LoadPolicy()
+	return err
 }

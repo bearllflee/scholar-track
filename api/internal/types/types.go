@@ -27,6 +27,7 @@ type AddPolicyReq struct {
 
 type AddPropertyReq struct {
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
 	Status       int32  `json:"status"`
 	Type         string `json:"type"`
@@ -39,6 +40,7 @@ type AddPropertyReq struct {
 type AddPropertyResp struct {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
 	Status       int32  `json:"status"`
 	Type         string `json:"type"`
@@ -165,6 +167,13 @@ type CreateMenuReq struct {
 
 type CreateMenuResp struct {
 	Id uint64 `json:"id"`
+}
+
+type DeleteAchievementReq struct {
+	Id uint64 `path:"id"`
+}
+
+type DeleteAchievementResp struct {
 }
 
 type DeleteApiReq struct {
@@ -340,8 +349,9 @@ type PolicyInfo struct {
 type Property struct {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
-	Status       int32  `json:"status"`
+	Status       int32  `json:"status,optional"`
 	Type         string `json:"type"`
 	IsSearch     bool   `json:"isSearch"`
 	IsRequired   bool   `json:"isRequired"`
@@ -476,6 +486,7 @@ type QueryPropertyDetailReq struct {
 type QueryPropertyDetailResp struct {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
 	Status       int32  `json:"status"`
 	Type         string `json:"type"`
@@ -787,6 +798,7 @@ type UpdateMenuResp struct {
 type UpdatePropertyReq struct {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
 	Status       int32  `json:"status"`
 	Type         string `json:"type"`
@@ -799,6 +811,7 @@ type UpdatePropertyReq struct {
 type UpdatePropertyResp struct {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
 	Status       int32  `json:"status"`
 	Type         string `json:"type"`
@@ -838,13 +851,6 @@ type UploadAchievementReq struct {
 
 type UploadAchievementResp struct {
 	Id uint64 `json:"id"`
-}
-
-type DeleteAchievementReq struct {
-	Id uint64 `path:"id"`
-}
-
-type DeleteAchievementResp struct {
 }
 
 type UploadFileReq struct {

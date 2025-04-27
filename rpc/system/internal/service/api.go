@@ -9,6 +9,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var ApiServiceApp = new(ApiService)
+
 type ApiService struct{}
 
 func (s *ApiService) DeleteApi(id uint64) error {

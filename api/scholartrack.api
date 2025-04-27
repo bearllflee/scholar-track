@@ -525,8 +525,9 @@ service scholartrack-api {
 type Property {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
-	Status       int32  `json:"status"`
+	Status       int32  `json:"status,optional"`
 	Type         string `json:"type"`
 	IsSearch     bool   `json:"isSearch"`
 	IsRequired   bool   `json:"isRequired"`
@@ -558,6 +559,7 @@ type QueryPropertyResp {
 // 添加成就属性
 type AddPropertyReq {
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
 	Status       int32  `json:"status"`
 	Type         string `json:"type"`
@@ -570,6 +572,7 @@ type AddPropertyReq {
 type AddPropertyResp {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
 	Status       int32  `json:"status"`
 	Type         string `json:"type"`
@@ -586,6 +589,7 @@ type AddPropertyResp {
 type UpdatePropertyReq {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
 	Status       int32  `json:"status"`
 	Type         string `json:"type"`
@@ -598,6 +602,7 @@ type UpdatePropertyReq {
 type UpdatePropertyResp {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
 	Status       int32  `json:"status"`
 	Type         string `json:"type"`
@@ -625,6 +630,7 @@ type QueryPropertyDetailReq {
 type QueryPropertyDetailResp {
 	Id           uint64 `json:"id"`
 	Name         string `json:"name"`
+	Key          string `json:"key"`
 	Description  string `json:"description"`
 	Status       int32  `json:"status"`
 	Type         string `json:"type"`
@@ -663,13 +669,13 @@ type Menu {
 	UpdatedAt int64  `json:"updatedAt"`
 	DeletedAt int64  `json:"-"`
 	MenuLevel uint   `json:"-"`
-	ParentId  uint64 `json:"parentId"`  // 父菜单ID
-	Path      string `json:"path"`      // 路由path
-	Name      string `json:"name"`      // 路由name
-	Hidden    bool   `json:"hidden"`    // 是否在列表隐藏
+	ParentId  uint64 `json:"parentId"` // 父菜单ID
+	Path      string `json:"path"` // 路由path
+	Name      string `json:"name"` // 路由name
+	Hidden    bool   `json:"hidden"` // 是否在列表隐藏
 	Component string `json:"component"` // 对应前端文件路径
-	Sort      int    `json:"sort"`      // 排序标记
-	Meta      Meta   `json:"meta"`      // 附加属性
+	Sort      int    `json:"sort"` // 排序标记
+	Meta      Meta   `json:"meta"` // 附加属性
 	Children  []Menu `json:"children"`
 }
 
@@ -1059,6 +1065,10 @@ type (
 	UploadAchievementResp {
 		Id uint64 `json:"id"`
 	}
+	DeleteAchievementReq {
+		Id uint64 `path:"id"`
+	}
+	DeleteAchievementResp  {}
 )
 
 @server (
@@ -1068,3 +1078,4 @@ service scholartrack-api {
 	@handler UploadAchievementHandler
 	post /achievement (UploadAchievementReq) returns (UploadAchievementResp)
 }
+

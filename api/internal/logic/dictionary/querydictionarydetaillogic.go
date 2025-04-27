@@ -35,7 +35,7 @@ func (l *QueryDictionaryDetailLogic) QueryDictionaryDetail(req *types.QueryDicti
 	return &types.QueryDictionaryDetailResp{
 		Id:        rpcResp.Dictionary.Id,
 		Name:      rpcResp.Dictionary.Name,
-		Type: rpcResp.Dictionary.Type,
+		Type:      rpcResp.Dictionary.Type,
 		CreatedAt: rpcResp.Dictionary.CreatedAt,
 		UpdatedAt: rpcResp.Dictionary.UpdatedAt,
 	}, nil

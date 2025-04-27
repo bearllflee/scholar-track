@@ -1,28 +1,25 @@
 package service
 
 import (
-	"gorm.io/gorm"
+	"github.com/bearllflee/scholar-track/rpc/system/internal/global"
 	"github.com/bearllflee/scholar-track/rpc/system/internal/model"
 )
 
-type DictionaryDetailService struct {
-	db *gorm.DB
-}
+var DictionaryDetailServiceApp = new(DictionaryDetailService)
 
-func NewDictionaryDetailService(db *gorm.DB) *DictionaryDetailService {
-	return &DictionaryDetailService{db: db}
+type DictionaryDetailService struct {
 }
 
 func (s *DictionaryDetailService) CreateDictionaryDetail(dictionaryDetail *model.DictionaryDetail) error {
-	return s.db.Create(dictionaryDetail).Error
+	return global.DB.Create(dictionaryDetail).Error
 }
 
 func (s *DictionaryDetailService) DeleteDictionaryDetail(id uint64) error {
-	return s.db.Delete(&model.DictionaryDetail{}, id).Error
+	return global.DB.Delete(&model.DictionaryDetail{}, id).Error
 }
 
 func (s *DictionaryDetailService) UpdateDictionaryDetail(dictionaryDetail *model.DictionaryDetail) (*model.DictionaryDetail, error) {
-	err := s.db.Save(dictionaryDetail).Error
+	err := global.DB.Save(dictionaryDetail).Error
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +28,7 @@ func (s *DictionaryDetailService) UpdateDictionaryDetail(dictionaryDetail *model
 
 func (s *DictionaryDetailService) QueryDictionaryDetailDetail(id uint64) (*model.DictionaryDetail, error) {
 	var dictionaryDetail model.DictionaryDetail
-	err := s.db.First(&dictionaryDetail, id).Error
+	err := global.DB.First(&dictionaryDetail, id).Error
 	if err != nil {
 		return nil, err
 	}
@@ -40,7 +37,7 @@ func (s *DictionaryDetailService) QueryDictionaryDetailDetail(id uint64) (*model
 
 func (s *DictionaryDetailService) QueryAllDictionaryDetail() ([]*model.DictionaryDetail, error) {
 	var dictionaryDetails []*model.DictionaryDetail
-	err := s.db.Find(&dictionaryDetails).Error
+	err := global.DB.Find(&dictionaryDetails).Error
 	if err != nil {
 		return nil, err
 	}

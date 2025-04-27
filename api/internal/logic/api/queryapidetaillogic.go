@@ -32,15 +32,14 @@ func (l *QueryApiDetailLogic) QueryApiDetail(req *types.QueryApiDetailReq) (resp
 		return nil, err
 	}
 	resp = &types.QueryApiDetailResp{
-		Id:        rpcResp.Id,
-		Path:      rpcResp.Path,
-		Method:    rpcResp.Method,
-		ApiGroup:  rpcResp.ApiGroup,
+		Id:          rpcResp.Id,
+		Path:        rpcResp.Path,
+		Method:      rpcResp.Method,
+		ApiGroup:    rpcResp.ApiGroup,
 		Description: rpcResp.Description,
-		CreatedAt: rpcResp.CreatedAt,
-		UpdatedAt: rpcResp.UpdatedAt,
+		CreatedAt:   rpcResp.CreatedAt,
+		UpdatedAt:   rpcResp.UpdatedAt,
 	}
 
 	return
 }
-
