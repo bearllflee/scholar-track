@@ -116,6 +116,7 @@ func UploadAchievementHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			req.Uploader = claims.BaseClaims.ID
 		} else {
 			response.ErrWithMessage(r.Context(), w, "无法认证用户信息，请重新登录")
+			return
 		}
 
 		// Team (bool)

@@ -61,3 +61,7 @@ var (
 var (
 	ErrAchieveHasExists = status.Error(1501, "成果已存在，请检查成果编号")
 )
+
+var (
+	ErrGenerateSnowflakeIdFailed = status.Error(1601, "生成雪花id失败")
+)

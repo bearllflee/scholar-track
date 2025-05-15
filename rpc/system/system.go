@@ -31,6 +31,7 @@ func main() {
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
 	initialize.Casbin()
+	initialize.MustInitSnowflake(c.WorkerID)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 		system.RegisterCasbinServer(grpcServer, casbinServer.NewCasbinServer(ctx))

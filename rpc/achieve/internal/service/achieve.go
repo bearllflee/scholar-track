@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/bearllflee/scholar-track/pkg/cerror"
+	"github.com/bearllflee/scholar-track/rpc/achieve/internal/global"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/model"
 	"gorm.io/gorm"
 )
@@ -18,11 +19,17 @@ func NewAchieveService(db *gorm.DB) *AchieveService {
 
 func (s *AchieveService) UploadAchieve(ctx context.Context, achieve *model.AchieveBasic) (*model.AchieveBasic, error) {
 	var achieveBasic = &model.AchieveBasic{}
+
 	s.db.WithContext(ctx).Model(&model.AchieveBasic{}).Where("code = ?", achieve.Code).First(achieveBasic)
 	// 如果存在，则返回错误
 	if achieveBasic.Id != 0 {
 		return nil, cerror.ErrAchieveHasExists
 	}
+	id, err := global.Snowflake.NextID()
+	if err != nil {
+		return nil, cerror.ErrGenerateSnowflakeIdFailed
+	}
+	achieve.Id = uint64(id)
 	// 创建新记录
 	if err := s.db.WithContext(ctx).Create(achieve).Error; err != nil {
 		return nil, err

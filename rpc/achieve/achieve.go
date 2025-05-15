@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
+
 	"github.com/bearllflee/scholar-track/rpc/achieve/achieve"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/config"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/initialize"
@@ -10,7 +12,6 @@ import (
 	categoryservice "github.com/bearllflee/scholar-track/rpc/achieve/internal/server/categoryservice"
 	propertyservice "github.com/bearllflee/scholar-track/rpc/achieve/internal/server/propertyservice"
 	"github.com/bearllflee/scholar-track/rpc/achieve/internal/svc"
-	"log"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -27,6 +28,8 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
+
+	initialize.MustInitSnowflake(c.WorkerID)
 
 	sc, err := initialize.ShouldNewFileClient()
 	if err != nil {

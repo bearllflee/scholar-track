@@ -2,7 +2,6 @@ package cerror
 
 import "errors"
 
-
 func CheckIsDefinedUserError(err error) bool {
 	if errors.Is(err, ErrUserHasExists) || errors.Is(err, ErrUserNotFound) || errors.Is(err, ErrEmailHasExists) ||
 		errors.Is(err, ErrPhoneHasExists) || errors.Is(err, ErrPasswordWrong) || errors.Is(err, ErrUserDisabled) ||
@@ -54,6 +53,13 @@ func CheckIsDefinedFileError(err error) bool {
 func CheckIsDictionaryError(err error) bool {
 	if errors.Is(err, ErrDictionaryNotFound) || errors.Is(err, ErrDictionaryHasExists) ||
 		errors.Is(err, ErrDictionaryDetailNotFound) || errors.Is(err, ErrDictionaryDetailHasExists) {
+		return true
+	}
+	return false
+}
+
+func CheckIsAchieveError(err error) bool {
+	if errors.Is(err, ErrAchieveHasExists) || errors.Is(err, ErrAchieveHasExists) {
 		return true
 	}
 	return false
